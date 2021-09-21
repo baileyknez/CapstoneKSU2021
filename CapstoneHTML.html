@@ -12,5 +12,53 @@ crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
 
 </head>
+<div class="header">
+  <h1>Georgia School Grades</h1>
+</div>
+<div class="filter-bar">
+  <div class="search-input-filter">
+    <label class="header-label">Search</label>
+    <input name="search term" type="text" placeholder="Enter address to see schools" value>
+    <button name="submit-search">Search</button>
+  </div>
+  <div class="filter-districts">
+    <label class="header-label">Districts</label>
+    <select>
+      <option value>Search or click map for district Options</option>
+    </select>
+  </div>
+  <div class="filter-grade">
+    <label class="header-label">School Grade</label>
+    <span class="button-group" role="group">
+      <button aria-label="e">Elementary</button>
+      <button aria-label="m">Middle</button>
+      <button aria-label="h">High</button>
+    </span>
+  </div>
+  <div class="school-type">
+    <label class="header-label">Additional School Type</label>
+    <div class="school-type-container">
+      <input type="checkbox" value="charter">
+      <label>Charter</label>
+      <input type="checkbox" value="Private">
+      <label>Private</label>
+  </div>
+  </div>
+</div>
+ <div id="map"></div>
+ <script>
+  var map;
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: 33.753746, lng: -84.9001},
+      zoom: 8
+    });
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD__zNryK3aQH46g_4ArIrk4zYdhHr7pAo&callback=initMap"
+async defer></script>
+  
+  
+  </html>
 
 </html>
