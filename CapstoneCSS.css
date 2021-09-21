@@ -9,3 +9,52 @@
     min-height:100%;
     width:100%;
   }
+  h1{
+    font-family:"Helvetica";
+  }
+  button{
+    font-family:"Helvetica";
+    padding:7px 17px;
+    margin:0em;
+    text-indent:0px;
+    box-sizing: border-box;
+  }
+  button hover{
+    cursor: pointer;
+  }
+  input{
+    font-family:"Helvetica";
+    padding:7px 17px;
+  }
+  .header{
+    width:100%;
+    min-height: 7vh;
+    background-color: white;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .filter-bar{
+    width:100%;
+    min-height: 8vh;
+    background-color: lightblue;
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .school-type-container{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  .header-label{
+    font-family:"Helvetica";
+    display:block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+#map{
+ width:100%; 
+ min-height:85vh;
+}
