@@ -47,7 +47,7 @@ https://youtube.com/playlist?list=PL0eyrZgxdwhxNGMWROnaY35NLyEjTqcgB
 
 Javascript templating(Mustache.js)
 https://www.youtube.com/watch?v=X8wh6_rdqi0
--
+
 https://www.youtube.com/watch?v=mguNnJP5drw&t=504s
 
 JQuery Library(simplifies javascript)
@@ -58,7 +58,7 @@ https://youtube.com/playlist?list=PL0eyrZgxdwhwNC5ppZo_dYGVjerQY3xYU
 
 JSON Files
 https://www.youtube.com/watch?v=6I3qMe-jXDs
--
+
 https://www.youtube.com/watch?v=uxf0--uiX0I&t=210s
 
 APIs
