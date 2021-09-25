@@ -2,6 +2,7 @@
 2021 Capstone GA Grades Map Web Application
 --------------------------------------------------------------------------------------------------------------------
 Live site at: Live site at :https://baileyknez.azurewebsites.net/Capstone/CapstoneHTML.html
+
 Does not represent our current progress. What is currently in the GitHub is the latest version. 
 ------------------------------------------------------------------------------------------------------------------
 We HAVE to figure out the georgia schools JSON files before we can make any progress.
