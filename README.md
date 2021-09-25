@@ -45,6 +45,10 @@ Youtube Tutorials
 JavaScript Turtials
 https://youtube.com/playlist?list=PL0eyrZgxdwhxNGMWROnaY35NLyEjTqcgB
 
+Javascript templating(Mustache.js)
+https://www.youtube.com/watch?v=X8wh6_rdqi0
+https://www.youtube.com/watch?v=mguNnJP5drw&t=504s
+
 JQuery Library(simplifies javascript)
 https://youtube.com/playlist?list=PL0eyrZgxdwhy7byLHsVkuhtRV_IpoJU7n
 
