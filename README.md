@@ -6,7 +6,7 @@ Live site at: Live site at :https://baileyknez.azurewebsites.net/Capstone/Capsto
 Does not represent our current progress. What is currently in the GitHub is the latest version. 
 ------------------------------------------------------------------------------------------------------------------
 
-Choose one of these to work on and try to make some progess every week. Nobody here has a lot of experience with Javascript/Jquery and will be a learning experience for everyone. There is too much to do for everyone to only focus on one item. If you need help feel free to ask and there are a lot of great resources out there to help you learn. 
+We are currently in Phase 2. Please Complete two tasks or more tasks each. Nobody here has a lot of experience with Javascript/Jquery and will be a learning experience for everyone. There is too much to do for everyone to only focus on one item. If you need help feel free to ask and there are a lot of great resources out there to help you learn. 
 -
 Phase One(set up)
 1. Build out the UI design.
