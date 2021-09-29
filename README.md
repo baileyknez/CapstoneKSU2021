@@ -9,6 +9,7 @@ Does not represent our current progress. What is currently in the GitHub is the 
 Choose one of these to work on and try to make some progess every week. Nobody here has a lot of experience with Javascript/Jquery and will be a learning experience for everyone. There is too much to do for everyone to only focus on one item. If you need help feel free to ask and there are a lot of great resources out there to help you learn. 
 -
 Phase One(set up)
+
 1.Build out the UI design.
 2.Set up the Github.
 3.Build the HTML,CSS, and JS files.
@@ -28,6 +29,7 @@ Phase Two(Google Maps with schools)
 8. style the header/ logo to make it look professional. 
 
 Phase Three(School detail page)
+
 1.Hide everything when a URL is selected. 
 2.Query the schools information onto the HTML using JS mustache.
 3.Find cool ways to desplay the statical data.
@@ -35,6 +37,8 @@ Phase Three(School detail page)
 5. be able to go back to the map and search page.
 6. Style the page to make it look professional.
 7. be able to search a different school from this page and have the maps page pop up. 
+
+
 -
 General To do list
 1.	Schoolgrades API needs to be figured out. I keep getting CORS policy errors. If unable to be fixed we might have to make our own API or find another way to use the data through the files. I have made a JSON file with all of the data or we have a CVS file depending on whats easiest. we HAVE to figure this out before anything else can get done. 
