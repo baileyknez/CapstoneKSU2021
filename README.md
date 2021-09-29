@@ -5,12 +5,19 @@ Live site at: Live site at :https://baileyknez.azurewebsites.net/Capstone/Capsto
 
 Does not represent our current progress. What is currently in the GitHub is the latest version. 
 ------------------------------------------------------------------------------------------------------------------
-We HAVE to figure out the georgia schools JSON files before we can make any progress.
-
---------------------------------------------------------------------------------------------------------------------
 
 Choose one of these to work on and try to make some progess every week. Nobody here has a lot of experience with Javascript/Jquery and will be a learning experience for everyone. There is too much to do for everyone to only focus on one item. If you need help feel free to ask and there are a lot of great resources out there to help you learn. 
-
+----------------------------------------------------------------------------------------------------------------------------
+This phase To do list
+1. Georgia Grades data needs to be parsed.
+2. Districts need to be set in the options lists(we can do this dynamically)
+3. Search function needs to work.
+4. Markers need to be added and unadded to the map with data about the school name and HREF to more information about the school.
+5. A list of all the searched schools need to pop up next to the map, each with the same link to more information.
+6. The buttons for the school grade need to be set up. 
+7. When a new search happens all of the old data needs to be taken off the screen. 
+----------------------------------------------------------------------------------------------------------------------------
+General To do list
 1.	Schoolgrades API needs to be figured out. I keep getting CORS policy errors. If unable to be fixed we might have to make our own API or find another way to use the data through the files. I have made a JSON file with all of the data or we have a CVS file depending on whats easiest. we HAVE to figure this out before anything else can get done. 
 2.	School districts need to be taken and outlined on the map with googles API and Schoolgrades API.  I have Georgia outlined with the shape.geojson file. In order to add the outline the file MUST be geojson and follow the google API requirements. I have a file with 150 geojson files with all of the school districts but we would have to go through and add the google maps API requirements.
 3.	A function to put all of the schools on the map with markers and a list of those schools on the side needs to be made. This would use both APIs. I have made the base function to put markers on the map but it is useless without the School API. 
