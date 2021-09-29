@@ -9,14 +9,13 @@ Does not represent our current progress. What is currently in the GitHub is the 
 Choose one of these to work on and try to make some progess every week. Nobody here has a lot of experience with Javascript/Jquery and will be a learning experience for everyone. There is too much to do for everyone to only focus on one item. If you need help feel free to ask and there are a lot of great resources out there to help you learn. 
 -
 Phase One(set up)
-
-1.Build out the UI design.
-2.Set up the Github.
-3.Build the HTML,CSS, and JS files.
-4.set up live website.
-5.figure out google API/georgia grades API.
-6.outline the html, css, and js pages and set up website.
-7.outline georgia and set up GeoJson.
+1. Build out the UI design.
+2. Set up the Github.
+3. Build the HTML,CSS, and JS files.
+4. set up live website.
+5. figure out google API/georgia grades API.
+6. outline the html, css, and js pages and set up website.
+7. outline georgia and set up GeoJson.
 
 Phase Two(Google Maps with schools)
 1. Georgia Grades data needs to be parsed.
@@ -29,10 +28,9 @@ Phase Two(Google Maps with schools)
 8. style the header/ logo to make it look professional. 
 
 Phase Three(School detail page)
-
-1.Hide everything when a URL is selected. 
-2.Query the schools information onto the HTML using JS mustache.
-3.Find cool ways to desplay the statical data.
+1. Hide everything when a URL is selected. 
+2. Query the schools information onto the HTML using JS mustache.
+3. Find cool ways to desplay the statical data.
 4. show the data that was selected.
 5. be able to go back to the map and search page.
 6. Style the page to make it look professional.
