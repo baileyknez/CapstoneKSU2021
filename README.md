@@ -31,11 +31,11 @@ Phase Three(Milestone three)
 1. Hide everything when a URL is selected. 
 2. Query the schools information onto the HTML using JS mustache.
 3. Find cool ways to desplay the statical data.
-4. show the data that was selected.
+4. show the data that was selected with the HTML set up.
 5. be able to go back to the map and search page.
 6. Style the page to make it look professional.
 7. be able to search a different school from this page and have the maps page pop up. 
-8. Set up what the html will look like for all the data
+
 
 Final Phase
 1. Transfer everything to the live website
