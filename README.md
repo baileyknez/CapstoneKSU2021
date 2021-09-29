@@ -36,8 +36,14 @@ Phase Three(School detail page)
 6. Style the page to make it look professional.
 7. be able to search a different school from this page and have the maps page pop up. 
 
+Final Phase
+1. Transfer everything to the live website
+2. make sure everything functions properly on the live site
+3. Final stylings 
+4. Project presentation.
 
 -
+
 General To do list
 1.	Schoolgrades API needs to be figured out. I keep getting CORS policy errors. If unable to be fixed we might have to make our own API or find another way to use the data through the files. I have made a JSON file with all of the data or we have a CVS file depending on whats easiest. we HAVE to figure this out before anything else can get done. 
 2.	School districts need to be taken and outlined on the map with googles API and Schoolgrades API.  I have Georgia outlined with the shape.geojson file. In order to add the outline the file MUST be geojson and follow the google API requirements. I have a file with 150 geojson files with all of the school districts but we would have to go through and add the google maps API requirements.
