@@ -4,6 +4,9 @@
 Live site at: Live site at :https://baileyknez.azurewebsites.net/Capstone/CapstoneHTML.html
 
 Does not represent our current progress. What is currently in the GitHub is the latest version. 
+
+------------------------------------------------------------------------------------------------------------------
+To access the database please visit the teams
 ------------------------------------------------------------------------------------------------------------------
 
 We are currently in Phase 2. Please Complete two tasks or more tasks each. Nobody here has a lot of experience with Javascript/Jquery and will be a learning experience for everyone. There is too much to do for everyone to only focus on one item. If you need help feel free to ask and there are a lot of great resources out there to help you learn. 
