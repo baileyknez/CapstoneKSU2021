@@ -104,3 +104,6 @@ https://www.youtube.com/watch?v=uxf0--uiX0I&t=210s
 
 APIs
 https://www.youtube.com/watch?v=cuEtnrL9-H0
+
+Setting up an API from an SQL database
+https://www.youtube.com/watch?v=U6SlmoXWf3o&t=831s
