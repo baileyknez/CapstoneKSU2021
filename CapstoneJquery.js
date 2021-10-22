@@ -89,7 +89,8 @@ function districtPrivateSearch(){}
 function privateGradeSearch(){}
 //search with district & private/charter & grade level
 function districtPrivateGradeSearch(){}
+//This function inserts search results into the map and search result section 
+function processSearchResults(){}
 //This take the school selected and put all of the details onto the page.
 function schoolDetails(){}
-
 
