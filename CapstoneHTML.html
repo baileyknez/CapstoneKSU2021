@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -5,13 +6,12 @@
 <meta charset="UTF-8" />
 <link rel="shortcut icon" href="icon.ico" />
 <link rel="stylesheet" href="CapstoneCSS.css" type="text/css"/>
-<script
-src="https://code.jquery.com/jquery-3.5.1.js"
-integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 crossorigin="anonymous"></script>
+<script src="jquery-csv.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD__zNryK3aQH46g_4ArIrk4zYdhHr7pAo&callback=initMap"
-async defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD__zNryK3aQH46g_4ArIrk4zYdhHr7pAo"></script>
 <script src="CapstoneJquery.js"></script>
 </head>
 
@@ -29,6 +29,9 @@ async defer></script>
     <label class="header-label">Districts</label>
     <select>
       <option value>Search or Click Map for District Options</option>
+      <span id='#options'>
+
+      </span>
     </select>
   </div>
   <div class="filter-grade">
@@ -57,28 +60,27 @@ async defer></script>
 
 <div id="SchoolDescriptionPage">
   <div class="BackToMap"></div>
-  <div class="DetailedNavigation"></div>
+  <div id="DetailedNavigation"></div>
 <div class="School-header">
   <!-- name, Destrict, school ID, Phone Number, Street address, city, state, zip, Website-->
 </div>
-<div class="School-Desc"> 
+<div id="School-Desc"> 
 <!--Description, number of students, grades served, Grades, SSAS, Single Score-->
 </div>
-<div class="School-Diversity">
+<div id="School-Diversity">
 <!-- percent asain, native, black, hispanic, multi, white, Homeless, Disabilities, english learners-->
 </div>
-<div class="School-grades">
-<!--content mastery, progress, closing gaps, readiness, CCRPI, English/Beg/Dev/Prof/Dist, Math/Beg/Dev/Prof/Dist, science/Beg/Dev/Prof/Dist, Soc/Beg/Dev/Prof/Dist
-Third Grade Reading level, Fith grade reading level, for all Elementary middle and high school, college readiness-->
+<div id="School-grades">
+<!--content matery, progress, closing gaps, readiness, CCRPI, English/Beg/Dev/Prof/Dist, Math/Beg/Dev/Prof/Dist, science/Beg/Dev/Prof/Dist, Soc/Beg/Dev/Prof/Dist
+Third Grade Reading level, Fith grade reading level, for all Elementary middle and high school -->
 </div>
-<div class="school-college">
+<div id="school-college">
   <!-- College Readiness, AP classes, Four year graduation rate, college enrollment-->
 </div>
-<div class="School-Extra">
+<div id="School-Extra">
 <!-- Financial Efficiency, School Climate, Mobility, PPE-->
 </div>
 
 </div>
 </html>
-
 
