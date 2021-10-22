@@ -3,12 +3,20 @@
 
 //geolocation reference https://stackoverflow.com/questions/22603220/uncaught-invalidvalueerror-not-a-feature-or-featurecollection
 //Working with google refernce https://developers.google.com/maps/documentation/javascript/combining-data#loading-the-state-boundary-polygons
-var map;
+//use https://api.jquery.com/jquery.grep/ to search the object arrays https://stackoverflow.com/questions/6930350/easiest-way-to-search-a-javascript-object-list-with-jquery
+var map; //google maps
 var geocoder;
 var address="4440 fairfax drive cumming GA";
+var schoolArray;  //all of the school data 
+var districtArray;  //all of the district data
+var searchArray; //the array that we get from the search
+var searchTxt; //the var where the text that is being searched it placed
+var districtList; //an array of the district names
+
 $(document).ready(function(){
     initMap();
     codeAddress();
+    arrayToObjects();
 });
 //intializes google maps and the geocoder
 function initMap() {
@@ -38,12 +46,50 @@ function loadMapShapes() {
         map.data.loadGeoJson("shape.geojson");
 }
 
-//This was just a test to see if I could get anything from the georgia grades API
-$GetDistrictList = function(){
-    console.log("so far so good");
-    $.getJSON("https://data.georgia.gov/api/action/datastore/search.json?resource_id=fb961222-b9dc-48d5-936f-2ecf86882b7d&limit=5", function(response){        
-    console.log(response);
-    }).catch(function(error){
-        console.log('Request Failed', error)
-    });
+//retireves all of the school and district data and puts it in their var
+function arrayToObjects(){
+	$.ajax({
+	  type: "GET",  
+	  url: "school-19.csv",
+	  dataType: "text",       
+	  success: function(response)  
+	  {
+		schoolArray = $.csv.toObjects(response);
+		console.log(schoolArray);
+	  }   
+	});
+  $.ajax({
+	  type: "GET",  
+	  url: "district-19.csv",
+	  dataType: "text",       
+	  success: function(response)  
+	  {
+		districtArray = $.csv.toObjects(response);
+		console.log(districtArray);
+	  }   
+	});
 }
+//takes all of the districts names and adds them to the options
+function DistrictOptions(){
+
+}
+//basic search with no filters
+function Search(){}
+//search with district 
+function districtSearch(){}
+//search with grade level
+function gradeSearch(){}
+//search with private/charter
+function privateSearch(){}
+//search with district & grade level
+function districtGradeSearch(){}
+//search with district & private/charter
+function districtPrivateSearch(){}
+//search with private/charter & grade level
+function privateGradeSearch(){}
+//search with district & private/charter & grade level
+function districtPrivateGradeSearch(){}
+//This take the school selected and put all of the details onto the page.
+function schoolDetails(){}
+
+
