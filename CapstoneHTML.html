@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -22,24 +21,21 @@ crossorigin="anonymous"></script>
 <div class="filter-bar">
   <div class="search-input-filter">
     <label class="header-label">Search</label>
-    <input name="search term" type="text" placeholder="Enter address to see schools" value>
-    <button name="submit-search">Search</button>
+    <input name="search term" type="text" placeholder="Enter address to see schools" class='search-box'>
+    <button name="submit-search" class='searchbutton'>Search</button>
   </div>
   <div class="filter-districts">
     <label class="header-label">Districts</label>
-    <select>
-      <option value>Search or Click Map for District Options</option>
-      <span id='#options'>
-
-      </span>
+    <select class="selectOptions">
+      <option value='null'>Search or Click Map for District Options</option>
     </select>
   </div>
   <div class="filter-grade">
     <label class="header-label">School Grade</label>
     <span class="button-group" role="group">
-      <button aria-label="e">Elementary</button>
-      <button aria-label="m">Middle</button>
-      <button aria-label="h">High</button>
+      <button class="e">Elementary</button>
+      <button class="m">Middle</button>
+      <button class="h">High</button>
     </span>
   </div>
   <div class="school-type">
