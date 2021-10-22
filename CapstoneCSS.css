@@ -3,7 +3,7 @@
     padding:0;
   }
   html{
-    background-color: #0280c9;
+    background-color: #0093E9;
     background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
     background-repeat: no-repeat;
     min-height:100%;
@@ -37,7 +37,7 @@
   .filter-bar{
     width:100%;
     min-height: 8vh;
-    background-color: #ADD8E6;
+    background-color: lightblue;
     display:flex;
     justify-content: space-around;
     align-items: center;
@@ -55,6 +55,33 @@
     margin-bottom: 5px;
   }
 #map{
+ position:absolute;
  width:100%; 
  min-height:85vh;
+ z-index: 1;
+}
+#SchoolDescriptionPage{
+  display:none;
+  width:100%;
+  height:100%;
+}
+.BackToMap{
+  width:10vh;
+  
+}
+.SearchResultBar{
+  position:absolute;
+  width:25vw;
+  height: 60vh;
+  top:0;
+  background-color:white;
+  z-index:50;
+  margin-top: 30vh;
+  margin-left:1vh;
+}
+.resultContainer{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  overflow:scroll;
 }
