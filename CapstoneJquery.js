@@ -7,16 +7,72 @@
 var map; //google maps
 var geocoder;
 var address="4440 fairfax drive cumming GA";
-var schoolArray;  //all of the school data 
-var districtArray;  //all of the district data
-var searchArray; //the array that we get from the search
-var searchTxt; //the var where the text that is being searched it placed
-var districtList; //an array of the district names
+var schoolArray =[];//all of the school data 
+var districtArray =[];  //all of the district data
+var searchArray =[]; //the array that we get from a search
+var districtList =[]; //an array of the district names
+var markers = [];
+var schoolGradeVar = null;
+var discValue =null;
+var searchTxt = null;//the var where the text that is being searched it placed
 
+//This is when the page is completelt loaded and has all of our listening events
 $(document).ready(function(){
     initMap();
-    codeAddress();
-    arrayToObjects();
+    codeAddress(address);
+    schoolArray = arrayToObjects("school-19.csv");
+    districtArray=arrayToObjects("district-19.csv");
+    districtOptions();
+
+    $('.selectOptions').on('change', function() {
+      discValue=this.value;
+      Search();
+    });
+    $('.searchbutton').click(function(){
+      console.log('search');
+      searchTxt =$('.search-box').val();
+      if(searchTxt == ' '){
+        searchTxt=null;
+      }
+      Search();
+    });
+
+    $('.h').click(function(){
+      buttoncolor();
+      if (schoolGradeVar =='H'){
+        schoolGradeVar=null;
+        Search();
+      }
+      else{
+      $('.h').css('color','blue');
+      schoolGradeVar='H';
+      Search();
+      }
+    });
+    $('.m').click(function(){
+      buttoncolor();
+      if (schoolGradeVar =='M'){
+        schoolGradeVar=null;
+        Search();
+      }
+      else{
+      $('.m').css('color','blue');
+      schoolGradeVar='M';
+      Search();
+      }
+    });
+    $('.e').click(function(){
+      buttoncolor();
+      if (schoolGradeVar =='E'){
+        schoolGradeVar=null;
+        Search();
+      }
+      else{
+      $('.e').css('color','blue');
+      schoolGradeVar='E';
+      Search();
+      }
+    });
 });
 //intializes google maps and the geocoder
 function initMap() {
@@ -27,19 +83,41 @@ map = new google.maps.Map(document.getElementById('map'), {
     loadMapShapes();
 }
 //This function takes in an address and creates a marker on the map of it, Look into adding details to the makers. It should bring up the school when you click it
-function codeAddress() {
+function codeAddress(addy, name) {
     geocoder = new google.maps.Geocoder();
-    geocoder.geocode( { 'address': address}, function(results, status) {
+    geocoder.geocode( { 'address': addy}, function(results, status) {
       if (status == 'OK') {
         map.setCenter(results[0].geometry.location);
-        var marker = new google.maps.Marker({
-            map: map,
-            position: results[0].geometry.location
-        });
+        addMarker(results[0].geometry.location);
       } else {
-        alert('Geocode was not successful for the following reason: ' + status);
+        console.log('Geocode was not successful for the following reason: ' + status);
       }
     });
+}
+function addMarker(position, name) {
+  const marker = new google.maps.Marker({
+    position,
+    name,
+    map,
+  });
+
+  markers.push(marker);
+}
+
+function setMapOnAll(map) {
+  for (let i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
+function hideMarkers() {
+  setMapOnAll(null);
+}
+function showMarkers() {
+  setMapOnAll(map);
+}
+function deleteMarkers() {
+  hideMarkers();
+  markers = [];
 }
 // load US state outline polygons from a GeoJSON file
 function loadMapShapes() {
@@ -47,50 +125,71 @@ function loadMapShapes() {
 }
 
 //retireves all of the school and district data and puts it in their var
-function arrayToObjects(){
-	$.ajax({
-	  type: "GET",  
-	  url: "school-19.csv",
-	  dataType: "text",       
-	  success: function(response)  
-	  {
-		schoolArray = $.csv.toObjects(response);
-		console.log(schoolArray);
-	  }   
-	});
+function arrayToObjects(TheUrl){
+  var results = null;
   $.ajax({
 	  type: "GET",  
-	  url: "district-19.csv",
-	  dataType: "text",       
+	  url: TheUrl,
+	  dataType: "text", 
+    async: false,     
 	  success: function(response)  
 	  {
-		districtArray = $.csv.toObjects(response);
-		console.log(districtArray);
+		results = $.csv.toObjects(response);
+		console.log(results);
 	  }   
 	});
+  return results;
 }
 //takes all of the districts names and adds them to the options
-function DistrictOptions(){
-
+function districtOptions(){
+  for(var i=0; i < districtArray.length; i++){
+    $('.selectOptions').append('<option value='+districtArray[i].SystemId +'>'+ districtArray[i].SystemName +'</option>');
+  };
 }
 //basic search with no filters
-function Search(){}
-//search with district 
-function districtSearch(){}
-//search with grade level
-function gradeSearch(){}
-//search with private/charter
-function privateSearch(){}
-//search with district & grade level
-function districtGradeSearch(){}
-//search with district & private/charter
-function districtPrivateSearch(){}
-//search with private/charter & grade level
-function privateGradeSearch(){}
-//search with district & private/charter & grade level
-function districtPrivateGradeSearch(){}
-//This function inserts search results into the map and search result section 
-function processSearchResults(){}
-//This take the school selected and put all of the details onto the page.
-function schoolDetails(){}
+function Search(){
+  console.log(searchTxt+" "+schoolGradeVar+" "+discValue);
+  if(schoolGradeVar==null & searchTxt==null & discValue !=null){ 
+  searchArray= $.grep(schoolArray, function(search){
+    return  search.SystemId == discValue;
+  });
+} else if(schoolGradeVar==null & searchTxt != null & discValue== null){
+  searchArray= $.grep(schoolArray, function(search){
+    return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) > -1 ;
+  });
+}else if(schoolGradeVar !=null & searchTxt == null & discValue !=null){
+  searchArray= $.grep(schoolArray, function(search){
+    return  search.SystemId == discValue & search.Cluster == schoolGradeVar;
+  });
+}else if(schoolGradeVar !=null & searchTxt != null & discValue ==null){
+  searchArray= $.grep(schoolArray, function(search){
+    return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) >-1 & search.Cluster == schoolGradeVar;
+  });
+}else if(schoolGradeVar !=null & searchTxt != null & discValue !=null){
+  searchArray= $.grep(schoolArray, function(search){
+    return  search.SchoolName.toLowerCase().indexOf(""+searchTxt.toLowerCase()) >-1 & search.Cluster == schoolGradeVar & search.SystemId == discValue; 
+  });
+}else{
+  console.log('null');
+  return null;
+}
+  console.log(searchArray);
+  deleteMarkers();
+  for(var i=0; i < searchArray.length; i++){
+    var count=0
+    if(count = 10){
+    count=0;
+    
+    }
+    codeAddress(searchArray[i].Street +" "+ searchArray[i].City + " GA", searchArray[i].name);
+    count++;
+  };
+  showMarkers();
+}
 
+function schoolDetails(){}
+function buttoncolor(){
+  $('.h').css('color','black');
+  $('.m').css('color','black');
+  $('.e').css('color','black');
+}
