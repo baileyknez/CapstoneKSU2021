@@ -16,11 +16,11 @@ crossorigin="anonymous"></script>
 
 
 <script id="searchResultTemp" type="text/template">
-  {{#results}}
-  <div class="searchResultTab" id='{{sys_sch}}' tabindex='0'>
-    <h1>{{SchoolName}}</h1>
+ {{#arr}}
+  <div class="searchResultTab" id='{{sys_sch}}'>
+    <h3>{{SchoolName}}</h3>
   </div>
-{{/results}}
+  {{/arr}}
 </script>
 
 <div id="mapPage">
@@ -52,13 +52,11 @@ crossorigin="anonymous"></script>
  <div id="map"></div>
  <div class="SearchResultBar">
   <h1>Search Results</h1>
-   <div id="resultContainer">
+   <div class="resultContainer">
      
    </div>
  </div>
 </div>
-
-
 
 <div id="SchoolDescriptionPage">
   <div class="BackToMap"></div>
@@ -85,4 +83,3 @@ Third Grade Reading level, Fith grade reading level, for all Elementary middle a
 
 </div>
 </html>
-
