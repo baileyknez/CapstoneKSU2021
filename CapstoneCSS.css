@@ -91,3 +91,6 @@
 .searchResultTab{
   height: 5vh;
 }
+.searchDetail{
+  display:none;
+}
