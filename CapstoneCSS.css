@@ -82,8 +82,12 @@
 }
 .resultContainer{
   display:flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  flex-direction: column;
   overflow:scroll;
+  height:100%;
 }
-
+.searchResultTab{
+  height: 5vh;
+}
