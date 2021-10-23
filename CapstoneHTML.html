@@ -14,6 +14,15 @@ crossorigin="anonymous"></script>
 <script src="CapstoneJquery.js"></script>
 </head>
 
+
+<script id="searchResultTemp" type="text/template">
+  {{#results}}
+  <div class="searchResultTab" id='{{sys_sch}}' tabindex='0'>
+    <h1>{{SchoolName}}</h1>
+  </div>
+{{/results}}
+</script>
+
 <div id="mapPage">
 <div class="header">
   <h1>Georgia School Grades</h1>
@@ -33,6 +42,51 @@ crossorigin="anonymous"></script>
   <div class="filter-grade">
     <label class="header-label">School Grade</label>
     <span class="button-group" role="group">
+      <button class="e">Elementary</button>
+      <button class="m">Middle</button>
+      <button class="h">High</button>
+    </span>
+  </div>
+ 
+</div>
+ <div id="map"></div>
+ <div class="SearchResultBar">
+  <h1>Search Results</h1>
+   <div id="resultContainer">
+     
+   </div>
+ </div>
+</div>
+
+
+
+<div id="SchoolDescriptionPage">
+  <div class="BackToMap"></div>
+  <div id="DetailedNavigation"></div>
+<div class="School-header">
+  <!-- name, Destrict, school ID, Phone Number, Street address, city, state, zip, Website-->
+</div>
+<div id="School-Desc"> 
+<!--Description, number of students, grades served, Grades, SSAS, Single Score-->
+</div>
+<div id="School-Diversity">
+<!-- percent asain, native, black, hispanic, multi, white, Homeless, Disabilities, english learners-->
+</div>
+<div id="School-grades">
+<!--content matery, progress, closing gaps, readiness, CCRPI, English/Beg/Dev/Prof/Dist, Math/Beg/Dev/Prof/Dist, science/Beg/Dev/Prof/Dist, Soc/Beg/Dev/Prof/Dist
+Third Grade Reading level, Fith grade reading level, for all Elementary middle and high school -->
+</div>
+<div id="school-college">
+  <!-- College Readiness, AP classes, Four year graduation rate, college enrollment-->
+</div>
+<div id="School-Extra">
+<!-- Financial Efficiency, School Climate, Mobility, PPE-->
+</div>
+
+</div>
+</html>
+
+
       <button class="e">Elementary</button>
       <button class="m">Middle</button>
       <button class="h">High</button>
