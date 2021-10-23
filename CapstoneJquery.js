@@ -6,7 +6,6 @@
 //use https://api.jquery.com/jquery.grep/ to search the object arrays https://stackoverflow.com/questions/6930350/easiest-way-to-search-a-javascript-object-list-with-jquery
 var map; //google maps
 var geocoder;
-var address="4440 fairfax drive cumming GA";
 var schoolArray =[];//all of the school data 
 var districtArray =[];  //all of the district data
 var searchArray =[]; //the array that we get from a search
@@ -19,7 +18,6 @@ var searchTxt = null;//the var where the text that is being searched it placed
 //This is when the page is completelt loaded and has all of our listening events
 $(document).ready(function(){
     initMap();
-    codeAddress(address);
     schoolArray = arrayToObjects("school-19.csv");
     districtArray=arrayToObjects("district-19.csv");
     districtOptions();
@@ -31,7 +29,7 @@ $(document).ready(function(){
     $('.searchbutton').click(function(){
       console.log('search');
       searchTxt =$('.search-box').val();
-      if(searchTxt == ' '){
+      if(searchTxt == ''){
         searchTxt=null;
       }
       Search();
@@ -123,7 +121,15 @@ function deleteMarkers() {
 function loadMapShapes() {
         map.data.loadGeoJson("shape.geojson");
 }
-
+//turns an object into json
+function objectToJson(obj){
+  return JSON.stringify(obj);
+}
+function removeSearch(){
+  $("div[class*='searchResultTab']").each(function (x, pj) {
+    $(pj).remove();
+ });
+}
 //retireves all of the school and district data and puts it in their var
 function arrayToObjects(TheUrl){
   var results = null;
@@ -148,6 +154,8 @@ function districtOptions(){
 }
 //basic search with no filters
 function Search(){
+  removeSearch()
+  $(".SearchResultBar").show();
   console.log(searchTxt+" "+schoolGradeVar+" "+discValue);
   if(schoolGradeVar==null & searchTxt==null & discValue !=null){ 
   searchArray= $.grep(schoolArray, function(search){
@@ -167,21 +175,24 @@ function Search(){
   });
 }else if(schoolGradeVar !=null & searchTxt != null & discValue !=null){
   searchArray= $.grep(schoolArray, function(search){
-    return  search.SchoolName.toLowerCase().indexOf(""+searchTxt.toLowerCase()) >-1 & search.Cluster == schoolGradeVar & search.SystemId == discValue; 
+    return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) >-1 & search.Cluster == schoolGradeVar & search.SystemId == discValue; 
   });
 }else{
-  console.log('null');
   return null;
 }
   console.log(searchArray);
   deleteMarkers();
+
+   
+  
   for(var i=0; i < searchArray.length; i++){
-    var count=0
+    var count=0;
+    $("#resultContainer").append("<div class='searchResultTab' value="+searchArray[i].sys_sch+" tabindex='0'><p>"+searchArray[i].SchoolName+"</p></div>");
     if(count = 10){
     count=0;
     
     }
-    codeAddress(searchArray[i].Street +" "+ searchArray[i].City + " GA", searchArray[i].name);
+    codeAddress(searchArray[i].Street +" "+ searchArray[i].City + " GA", searchArray[i].SchoolName);
     count++;
   };
   showMarkers();
