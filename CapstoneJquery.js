@@ -182,12 +182,11 @@ function Search(){
 }
   console.log(searchArray);
   deleteMarkers();
-
-   
-  
+  var template =$('#searchResultTemp').html();
+  var text = Mustache.render(template, {arr:searchArray});
+  $('.resultContainer').append(text);
   for(var i=0; i < searchArray.length; i++){
     var count=0;
-    $("#resultContainer").append("<div class='searchResultTab' value="+searchArray[i].sys_sch+" tabindex='0'><p>"+searchArray[i].SchoolName+"</p></div>");
     if(count = 10){
     count=0;
     
