@@ -1,6 +1,6 @@
 // Google Maps API key AIzaSyD__zNryK3aQH46g_4ArIrk4zYdhHr7pAo 
 //https://schoolgrades.georgia.gov/api/action/datastore/search.json?resource_id=34a95003-f3fb-4dce-af6c-8f69b18617db&limit=5"
-
+//geocoder texas A&M api key 	705790d78c0d4312a11fa01ee384f7db
 //geolocation reference https://stackoverflow.com/questions/22603220/uncaught-invalidvalueerror-not-a-feature-or-featurecollection
 //Working with google refernce https://developers.google.com/maps/documentation/javascript/combining-data#loading-the-state-boundary-polygons
 //use https://api.jquery.com/jquery.grep/ to search the object arrays https://stackoverflow.com/questions/6930350/easiest-way-to-search-a-javascript-object-list-with-jquery
@@ -85,6 +85,7 @@ function codeAddress(addy, name) {
     geocoder = new google.maps.Geocoder();
     geocoder.geocode( { 'address': addy}, function(results, status) {
       if (status == 'OK') {
+        console.log(results[0].geometry.location);
         map.setCenter(results[0].geometry.location);
         addMarker(results[0].geometry.location);
       } else {
@@ -92,16 +93,37 @@ function codeAddress(addy, name) {
       }
     });
 }
+//This function does the same as the one above but uses TexasA&M API services instead of the Google API for Geocoding.
+//Surpases the 10 at a time error but is very slow and not a good solution.
+function geocodeTexas(street,city,zip){
+  $.ajax({
+	  type: "GET",  
+	  url: "https://geoservices.tamu.edu/Services/Geocode/WebService/GeocoderWebServiceHttpNonParsed_V04_01.aspx?streetAddress="+street+"&city="+city+"&state=ga&zip="+zip+"&apikey=705790d78c0d4312a11fa01ee384f7db&format=json&census=true&censusYear=2000|2010&notStore=false&version=4.01",
+	  dataType: "text", 
+    async: false,     
+	  success: function(response)  
+	  {
+    var obj = jQuery.parseJSON( response );
+    var one =obj.OutputGeocodes[0].OutputGeocode.Latitude;
+    var two =obj.OutputGeocodes[0].OutputGeocode.Longitude;             //lmao this right here took so much longer than it should have. HOURS of work. At least I learned something. 
+    var position={lat:  parseFloat(one), lng: parseFloat(two)};
+    var name =street+ " "+city+" "+zip;
+    console.log(position);
+    addMarker(position, name);
+	  }   
+	});
+};
+
+//These are all of the marker functions that we will need provided by the google API documentation 
 function addMarker(position, name) {
   const marker = new google.maps.Marker({
     position,
     name,
     map,
   });
-
+  map.setCenter(position);
   markers.push(marker);
 }
-
 function setMapOnAll(map) {
   for (let i = 0; i < markers.length; i++) {
     markers[i].setMap(map);
@@ -117,6 +139,7 @@ function deleteMarkers() {
   hideMarkers();
   markers = [];
 }
+
 // load US state outline polygons from a GeoJSON file
 function loadMapShapes() {
         map.data.loadGeoJson("shape.geojson");
@@ -125,12 +148,14 @@ function loadMapShapes() {
 function objectToJson(obj){
   return JSON.stringify(obj);
 }
+//This function loops through all of the searchResultTab divs and removes them from the HTML
 function removeSearch(){
   $("div[class*='searchResultTab']").each(function (x, pj) {
     $(pj).remove();
  });
 }
-//retireves all of the school and district data and puts it in their var
+
+//Takes any CSV files and stores the information as a JS object. 
 function arrayToObjects(TheUrl){
   var results = null;
   $.ajax({
@@ -146,13 +171,14 @@ function arrayToObjects(TheUrl){
 	});
   return results;
 }
+
 //takes all of the districts names and adds them to the options
 function districtOptions(){
   for(var i=0; i < districtArray.length; i++){
     $('.selectOptions').append('<option value='+districtArray[i].SystemId +'>'+ districtArray[i].SystemName +'</option>');
   };
 }
-//basic search with no filters
+//Search function with if statements for each filter combination. 
 function Search(){
   removeSearch()
   $(".SearchResultBar").show();
@@ -161,7 +187,7 @@ function Search(){
   searchArray= $.grep(schoolArray, function(search){
     return  search.SystemId == discValue;
   });
-} else if(schoolGradeVar==null & searchTxt != null & discValue== null){
+} else if(schoolGradeVar==null & searchTxt != null & discValue== null){       
   searchArray= $.grep(schoolArray, function(search){
     return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) > -1 ;
   });
@@ -185,19 +211,17 @@ function Search(){
   var template =$('#searchResultTemp').html();
   var text = Mustache.render(template, {arr:searchArray});
   $('.resultContainer').append(text);
+ 	   //This is two seperate attempts to try to fix the 10 at once error. The current solution works but is extremely slow. 
+	  //I want to create a seperate file with all of the long and lat of each school but I do not have time at the moment
   for(var i=0; i < searchArray.length; i++){
-    var count=0;
-    if(count = 10){
-    count=0;
-    
-    }
-    codeAddress(searchArray[i].Street +" "+ searchArray[i].City + " GA", searchArray[i].SchoolName);
-    count++;
+    geocodeTexas(searchArray[i].Street, searchArray[i].City,searchArray[i].Zip_Code);
+    //codeAddress(searchArray[i].Street +" "+ searchArray[i].City + " GA", searchArray[i].SchoolName);  
   };
   showMarkers();
 }
-
+//This is the function to take all of the school details and put them on a page. Still needs to be flushed out. 
 function schoolDetails(){}
+//This just changes the button color for the Grades Filter
 function buttoncolor(){
   $('.h').css('color','black');
   $('.m').css('color','black');
