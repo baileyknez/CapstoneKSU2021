@@ -18,14 +18,17 @@ button{
   margin:0em;
   text-indent:0px;
   box-sizing: border-box;
-}
-button hover{
   cursor: pointer;
 }
+
 input{
   font-family:"Helvetica";
   padding:7px 17px;
 }
+select{
+  cursor: pointer; 
+}
+
 .header{
   width:100%;
   min-height: 7vh;
