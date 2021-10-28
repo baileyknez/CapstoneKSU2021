@@ -41,6 +41,9 @@ $(document).ready(function(){
       var markerName = id.substring(1);
       findMarker(markerName);
     });
+    $('.SearchResultBar').on('click','.MoreInfo',function(){
+      alert(this.value);
+    });
 
     $('.h').click(function(){
       buttoncolor();
@@ -88,12 +91,12 @@ map = new google.maps.Map(document.getElementById('map'), {
     loadMapShapes();
 }
 //This function takes in an address and creates a marker on the map of it, Look into adding details to the makers. It should bring up the school when you click it
-function codeAddress(addy, name) {
+function codeAddress(addy, name, icon) {
     geocoder = new google.maps.Geocoder();
     geocoder.geocode( { 'address': addy}, function(results, status) {
       if (status == 'OK') {
         map.setCenter(results[0].geometry.location);
-        addMarker(results[0].geometry.location,name);
+        addMarker(results[0].geometry.location,name, icon);
       } else {
         console.log('Geocode was not successful for the following reason: ' + status);
       }
@@ -101,7 +104,7 @@ function codeAddress(addy, name) {
 }
 //This function does the same as the one above but uses TexasA&M API services instead of the Google API for Geocoding.
 //Surpases the 10 at a time error but is very slow and not a good solution.
-function geocodeTexas(street,city,zip, name){
+function geocodeTexas(street,city,zip, name, icon){
   $.ajax({
 	  type: "GET",  
 	  url: "https://geoservices.tamu.edu/Services/Geocode/WebService/GeocoderWebServiceHttpNonParsed_V04_01.aspx?streetAddress="+street+"&city="+city+"&state=ga&zip="+zip+"&apikey=705790d78c0d4312a11fa01ee384f7db&format=json&census=true&censusYear=2000|2010&notStore=false&version=4.01",
@@ -113,27 +116,30 @@ function geocodeTexas(street,city,zip, name){
     var one =obj.OutputGeocodes[0].OutputGeocode.Latitude;
     var two =obj.OutputGeocodes[0].OutputGeocode.Longitude;             //lmao this right here took so much longer than it should have. HOURS of work. At least I learned something. 
     var position={lat:  parseFloat(one), lng: parseFloat(two)};
-    addMarker(position, name);
+    addMarker(position, name, icon);
 	  }   
 	});
 };
 
 
 //These are all of the marker functions that we will need provided by the google API documentation 
-function addMarker(position, name) {
+function addMarker(position, name, icon) {
   const marker = new google.maps.Marker({
     position,
-    name,
+    title:name,
     map,
+    id:name
   });
-  
+  console.log(marker.uniqueSrc);
   map.setCenter(position);
   markers.push(marker);
   marker.addListener("click", () => {
     map.setZoom(15);
     map.setCenter(marker.getPosition());
+    
   });
 }
+
 function setMapOnAll(map) {
   for (let i = 0; i < markers.length; i++) {
     markers[i].setMap(map);
@@ -142,7 +148,7 @@ function setMapOnAll(map) {
 function hideMarkers() {
   setMapOnAll(null);
 }
-function showMarkers() {
+ function showMarkers() {
   setMapOnAll(map);
 }
 function deleteMarkers() {
@@ -152,14 +158,13 @@ function deleteMarkers() {
 function findMarker(name){
 var TheMark =[];
 console.log(name);
-console.log(markers[0].name);
+console.log();
 TheMark = $.grep(markers, function(search){
   return search.name == name;
 });
 console.log(TheMark);
 $(TheMark).trigger("click");
 }
-
 // load US state outline polygons from a GeoJSON file
 function loadMapShapes() {
         map.data.loadGeoJson("shape.geojson");
@@ -172,6 +177,11 @@ function objectToJson(obj){
 function removeSearch(){
   $("div[class*='searchResultTab']").each(function (x, pj) {
     $(pj).remove();
+ });
+}
+function HideSearchDetail(){
+  $("div[class*='searchResultDetail']").each(function (x, pj) {
+    $(pj).hide();
  });
 }
 
@@ -230,12 +240,19 @@ function Search(){
   deleteMarkers();
   var template =$('#searchResultTemp').html();
   var text = Mustache.render(template, {arr:searchArray});
-  $('.resultContainer').append(text);
+  $('.SearchResultBar').append(text);
  	   //This is two seperate attempts to try to fix the 10 at once error. The current solution works but is extremely slow. 
 	  //I want to create a seperate file with all of the long and lat of each school but I do not have time at the moment
   for(var i=0; i < searchArray.length; i++){
-    geocodeTexas(searchArray[i].Street, searchArray[i].City,searchArray[i].Zip_Code, searchArray[i].sys_sch);
-    //codeAddress(searchArray[i].Street +" "+ searchArray[i].City + " GA", searchArray[i].sys_sch);  
+    var icon = new google.maps.MarkerImage(
+      "data/ui/marker.png",
+    new google.maps.Size(64, 64),
+    new google.maps.Point(0,0),
+    new google.maps.Point(48, 32)
+    );
+    icon.url +="#"+searchArray[i].sys_sch;
+    //geocodeTexas(searchArray[i].Street, searchArray[i].City,searchArray[i].Zip_Code, searchArray[i].sys_sch, icon);
+    codeAddress(searchArray[i].Street +" "+ searchArray[i].City + " GA", searchArray[i].sys_sch, icon);  
   };
   
   showMarkers();
@@ -243,7 +260,7 @@ function Search(){
 
 
 //This is the function to take all of the school details and put them on a page. Still needs to be flushed out. 
-function schoolDetails(){}
+function schoolDetails(value){}
 //This just changes the button color for the Grades Filter
 function buttoncolor(){
   $('.h').css('color','black');
