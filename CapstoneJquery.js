@@ -34,7 +34,13 @@ $(document).ready(function(){
       }
       Search();
     });
-    
+    $('.SearchResultBar').on('click','.searchResultTab',function(){
+      var id = this.id;
+      HideSearchDetail();
+      $(id).show();
+      var markerName = id.substring(1);
+      findMarker(markerName);
+    });
 
     $('.h').click(function(){
       buttoncolor();
@@ -142,6 +148,16 @@ function showMarkers() {
 function deleteMarkers() {
   hideMarkers();
   markers = [];
+}
+function findMarker(name){
+var TheMark =[];
+console.log(name);
+console.log(markers[0].name);
+TheMark = $.grep(markers, function(search){
+  return search.name == name;
+});
+console.log(TheMark);
+$(TheMark).trigger("click");
 }
 
 // load US state outline polygons from a GeoJSON file
