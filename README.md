@@ -8,7 +8,7 @@ Does not represent our current progress. What is currently in the GitHub is the 
 ------------------------------------------------------------------------------------------------------------------
 
 
-We are currently in phase three
+We are currently in phase three. If you don't know what to do, attempt to style the page. I have been leaving all of that to you guys.
 -
 Phase One(Milestone one)
 1. Build out the UI design.
@@ -46,7 +46,13 @@ Final Phase
 4. Project presentation.
 
 -
-
+Styling
+The header needs to look professional with a new logo and name
+the filters need to come to the right side and do down the page as a column
+The search results need boxes around each one, spacing issues need to be fixed
+NEEDS TO LOOK PROFESSIONAL, not like a bunch of high schoolers made it like it does now.
+The school details need to be styled heavly. The page itself has not even been made yet. 
+-
 General To do list
 1.	Schoolgrades API needs to be figured out. I keep getting CORS policy errors. If unable to be fixed we might have to make our own API or find another way to use the data through the files. I have made a JSON file with all of the data or we have a CVS file depending on whats easiest. we HAVE to figure this out before anything else can get done. 
 2.	School districts need to be taken and outlined on the map with googles API and Schoolgrades API.  I have Georgia outlined with the shape.geojson file. In order to add the outline the file MUST be geojson and follow the google API requirements. I have a file with 150 geojson files with all of the school districts but we would have to go through and add the google maps API requirements.
