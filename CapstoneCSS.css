@@ -74,26 +74,26 @@ width:10vh;
 }
 .SearchResultBar{
 position:absolute;
-width:25vw;
+width:20vw;
 height: 60vh;
 top:0;
 background-color:white;
 z-index:50;
 margin-top: 30vh;
 margin-left:1vh;
-display:none;
-}
-.resultContainer{
 display:flex;
-justify-content: flex-start;
+justify-content: center;
 align-items: center;
 flex-direction: column;
 overflow:scroll;
-height:100%;
 }
+
 .searchResultTab{
-height: 5vh;
+display:flex;
+flex-direction: column;
+min-height: 5vh;
 }
-.searchDetail{
-display:none;
+
+.searchResultDetail{
+  display:none;
 }
