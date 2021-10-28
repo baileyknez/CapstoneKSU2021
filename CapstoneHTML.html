@@ -28,13 +28,36 @@ crossorigin="anonymous"></script>
     <p> Grades: {{Grades}}</p>
     <p> Rating: {{Rating}}</p>
     <p> Cluster: {{Cluster}}</p>
+    <p>For more information</p>
+    <button class='MoreInfo' value='{{sys_sch}}'>Click Here</button>
   </div>
   </div>
   {{/arr}}
 </script>
 <script id="SchoolDetails" type="text/template">
   {{#arr}}
-   
+  <div class="BackToMap"></div>
+  <div id="DetailedNavigation"></div>
+<div class="School-header">
+  <!-- name, Destrict, school ID, Phone Number, Street address, city, state, zip, Website-->
+</div>
+<div id="School-Desc"> 
+<!--Description, number of students, grades served, Grades, SSAS, Single Score-->
+</div>
+<div id="School-Diversity">
+<!-- percent asain, native, black, hispanic, multi, white, Homeless, Disabilities, english learners-->
+</div>
+<div id="School-grades">
+<!--content matery, progress, closing gaps, readiness, CCRPI, English/Beg/Dev/Prof/Dist, Math/Beg/Dev/Prof/Dist, science/Beg/Dev/Prof/Dist, Soc/Beg/Dev/Prof/Dist
+Third Grade Reading level, Fith grade reading level, for all Elementary middle and high school -->
+</div>
+<div id="school-college">
+  <!-- College Readiness, AP classes, Four year graduation rate, college enrollment-->
+</div>
+<div id="School-Extra">
+<!-- Financial Efficiency, School Climate, Mobility, PPE-->
+</div>
+
    {{/arr}}
  </script>
 <div id="mapPage">
@@ -71,27 +94,6 @@ crossorigin="anonymous"></script>
 </div>
 
 <div id="SchoolDescriptionPage">
-  <div class="BackToMap"></div>
-  <div id="DetailedNavigation"></div>
-<div class="School-header">
-  <!-- name, Destrict, school ID, Phone Number, Street address, city, state, zip, Website-->
-</div>
-<div id="School-Desc"> 
-<!--Description, number of students, grades served, Grades, SSAS, Single Score-->
-</div>
-<div id="School-Diversity">
-<!-- percent asain, native, black, hispanic, multi, white, Homeless, Disabilities, english learners-->
-</div>
-<div id="School-grades">
-<!--content matery, progress, closing gaps, readiness, CCRPI, English/Beg/Dev/Prof/Dist, Math/Beg/Dev/Prof/Dist, science/Beg/Dev/Prof/Dist, Soc/Beg/Dev/Prof/Dist
-Third Grade Reading level, Fith grade reading level, for all Elementary middle and high school -->
-</div>
-<div id="school-college">
-  <!-- College Readiness, AP classes, Four year graduation rate, college enrollment-->
-</div>
-<div id="School-Extra">
-<!-- Financial Efficiency, School Climate, Mobility, PPE-->
-</div>
-
+ 
 </div>
 </html>
