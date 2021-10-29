@@ -75,7 +75,7 @@ width:10vh;
 .SearchResultBar{
 position:absolute;
 width:20vw;
-height: 60vh;
+min-height: 60vh;
 top:0;
 background-color:white;
 z-index:50;
