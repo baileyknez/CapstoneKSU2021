@@ -43,9 +43,6 @@ $(document).ready(function(){
      showSelected(id);
      title = id.substring(1,id.length);
      $("div[title|="+title+"]").trigger("click");
-     console.log("clicked id: "+ id);
-     console.log("div title: "+title);
-     
     });
     $('.SearchResultBar').on('click','.MoreInfo',function(){
      schoolDetails(this.value);
@@ -121,7 +118,6 @@ function geocodeTexas(street,city,zip, name, Info){
     var one =obj.OutputGeocodes[0].OutputGeocode.Latitude;
     var two =obj.OutputGeocodes[0].OutputGeocode.Longitude;             //lmao this right here took so much longer than it should have. HOURS of work. At least I learned something. 
     var position={lat:  parseFloat(one), lng: parseFloat(two)};
-    console.log(position);
     addMarker(position, name, Info);
 	  }  
    
@@ -156,7 +152,6 @@ function addMarker(position, name, constent) {
     });
     showSelected("#"+name);
     document.getElementById("#"+name).scrollIntoView();
-    console.log("marker title: "+name);
   });
 }
 
