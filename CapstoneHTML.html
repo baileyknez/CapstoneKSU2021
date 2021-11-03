@@ -26,48 +26,38 @@ crossorigin="anonymous"></script>
     <p> District: {{SystemName}}</p>
     <p> Phone: {{Phone_Number}}</p>
     <p> Grades: {{Grades}}</p>
-    <p> Rating: {{Rating}}</p>
+    <p> Rating: {{Grade}}</p>
     <p> Cluster: {{Cluster}}</p>
-    <p>For more information</p>
-    <button class='MoreInfo' value='{{sys_sch}}'>Click Here</button>
   </div>
   </div>
   {{/arr}}
 </script>
+<script id="windowInfo" type="text/template">
+  {{#arr}}
+    <h1>{{SchoolName}}</h1>
+     <p> Address:{{Street}} {{City}} {{Zip_Code}} {{State}}</p>
+     <p> District: {{SystemName}}</p>
+     <p> Phone: {{Phone_Number}}</p>
+     <p> Grades: {{Grades}}</p>
+     <p> Rating: {{Grade}}</p>
+     <p> Cluster: {{Cluster}}</p>
+     <p>For more information</p>
+   {{/arr}}
+ </script>
 <script id="SchoolDetails" type="text/template">
   {{#arr}}
-  <div class="BackToMap"></div>
-  <div id="DetailedNavigation"></div>
+ <div class="SchoolInfoResult">
 <div class="School-header">
   <!-- name, Destrict, school ID, Phone Number, Street address, city, state, zip, Website-->
+
+  <h1>{{SchoolName}}</h1>
+  <h2>{{SystemName}}</h2>
 </div>
 <div id="School-Desc"> 
 <!--Description, number of students, grades served, Grades, SSAS, Single Score-->
 </div>
 <div id="School-Diversity">
-  <table>
-    <tr>
-        <th colspan="10">Diversity</th>
-    </tr>
-    <tr>
-        <td><b>African American</b><br/><br/>{{pct_black}}%</td>
-        <td><b>Asian</b><br/><br/>{{pct_asian}}%</td>
-        <td><b>Caucasian</b><br/><br/>{{pct_white}}%</td>
-        <td><b>Hispanic</b><br/><br/>{{pct_hispanic}}%</td>
-        <td><b>Native American</b><br/><br/>{{pct_native}}%</td>
-        <td><b>Mixed-Race</b><br/><br/>{{pct_multi}}%</td>
-    </tr>
-</table><br/><br/>
-<table>
-    <tr>
-        <th colspan="3">Demographic</th>
-    </tr>
-    <tr>
-        <td><b>Certified</b><br/><br/>{{pct_ed}}%</td>
-        <td><b>Disabilities</b><br/><br/>{{pct_swd}}%</td>
-        <td><b>ELL</b><br/><br/>{{pct_lep}}%</td>
-    </tr>
-</table>
+<!-- percent asain, native, black, hispanic, multi, white, Homeless, Disabilities, english learners-->
 </div>
 <div id="School-grades">
 <!--content matery, progress, closing gaps, readiness, CCRPI, English/Beg/Dev/Prof/Dist, Math/Beg/Dev/Prof/Dist, science/Beg/Dev/Prof/Dist, Soc/Beg/Dev/Prof/Dist
@@ -78,6 +68,7 @@ Third Grade Reading level, Fith grade reading level, for all Elementary middle a
 </div>
 <div id="School-Extra">
 <!-- Financial Efficiency, School Climate, Mobility, PPE-->
+</div>
 </div>
 
    {{/arr}}
@@ -111,11 +102,14 @@ Third Grade Reading level, Fith grade reading level, for all Elementary middle a
  <div id="map"></div>
  <div class="SearchResultBar">
   <h1>Search Results</h1>
- 
+ <div class="searchContainer"></div>
  </div>
 </div>
 
 <div id="SchoolDescriptionPage">
- 
+  <div class="BackToMap">
+    <p>Back to Map Page</p>
+  </div>
+  <div id="DetailedNavigation"></div>
 </div>
 </html>
