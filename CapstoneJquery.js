@@ -147,7 +147,7 @@ function addMarker(position, name, constent) {
   markers.push(marker);
   infoList.push(infowindow);
   marker.addListener("click", () => {
-    map.setZoom(10);
+    map.setZoom(9);
     map.setCenter(marker.getPosition());
     infowindow.open({
       anchor:marker,
@@ -229,31 +229,46 @@ function Search(){
   $(".SearchResultsTabs").show();
   removeSearch()
   $(".SearchResultBar").show();
-  console.log(searchTxt+" "+schoolGradeVar+" "+discValue);
+  if(discValue==1){
+    discValue=null;
+  }
   if(schoolGradeVar==null & searchTxt==null & discValue !=null){ 
   searchArray= $.grep(schoolArray, function(search){
     return  search.SystemId == discValue;
   });
+  renderSearch(searchArray);
+  console.log("one");
 } else if(schoolGradeVar==null & searchTxt != null & discValue== null){       
   searchArray= $.grep(schoolArray, function(search){
     return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) > -1 ;
   });
+  renderSearch(searchArray);
+  console.log('two');
 }else if(schoolGradeVar !=null & searchTxt == null & discValue !=null){
   searchArray= $.grep(schoolArray, function(search){
     return  search.SystemId == discValue & search.Cluster.indexOf(schoolGradeVar) >-1;
   });
+  renderSearch(searchArray);
+  console.log('three');
 }else if(schoolGradeVar !=null & searchTxt != null & discValue ==null){
   searchArray= $.grep(schoolArray, function(search){
     return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) >-1 & search.Cluster.indexOf(schoolGradeVar) >-1;
   });
+  renderSearch(searchArray);
+  console.log(searchArray);
 }else if(schoolGradeVar !=null & searchTxt != null & discValue !=null){
   searchArray= $.grep(schoolArray, function(search){
     return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) >-1 & search.Cluster.toLowerCase().indexOf(schoolGradeVar.toLowerCase()) >-1 & search.SystemId == discValue; 
   });
-}else{
-  return null;
+  renderSearch(searchArray);
+  console.log("four");
+}else { 
+  $(".SearchResultBar").hide();
+  deleteMarkers();
+  console.log("hide");
 }
-  console.log(searchArray);
+}
+function renderSearch(searchArray){
   deleteMarkers();
   var template =$('#searchResultTemp').html();
   var text = Mustache.render(template, {arr:searchArray});
@@ -272,7 +287,6 @@ function Search(){
   
   showMarkers();
 }
-
 
 //This is the function to take all of the school details and put them on a page. Still needs to be flushed out. 
 function schoolDetails(value){
@@ -437,4 +451,5 @@ function buttoncolor(){
   map.controls[google.maps.ControlPosition.TOP_RIGHT].push(toggleDOMButton);
   map.controls[google.maps.ControlPosition.TOP_RIGHT].push(toggleButton);
 }
+
 
