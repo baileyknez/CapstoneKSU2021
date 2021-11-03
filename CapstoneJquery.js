@@ -92,12 +92,12 @@ $(document).ready(function(){
 
 
 //This function takes in an address and creates a marker on the map of it, Look into adding details to the makers. It should bring up the school when you click it
-function codeAddress(addy, name, infowindow) {
+function codeAddress(addy, name, infowindow, icon) {
     geocoder = new google.maps.Geocoder();
     geocoder.geocode( { 'address': addy}, function(results, status) {
       if (status == 'OK') {
         map.setCenter(results[0].geometry.location);
-        addMarker(results[0].geometry.location,name, infowindow);
+        addMarker(results[0].geometry.location,name, infowindow, icon);
       } else {
         console.log('Geocode was not successful for the following reason: ' + status);
       }
@@ -105,7 +105,7 @@ function codeAddress(addy, name, infowindow) {
 }
 //This function does the same as the one above but uses TexasA&M API services instead of the Google API for Geocoding.
 //Surpases the 10 at a time error but is very slow and not a good solution.
-function geocodeTexas(street,city,zip, name, Info){
+function geocodeTexas(street,city,zip, name, Info, icon){
   $.ajax({
 	  type: "GET",  
 	  url: "https://geoservices.tamu.edu/Services/Geocode/WebService/GeocoderWebServiceHttpNonParsed_V04_01.aspx?streetAddress="+street+"&city="+city+"&state=ga&zip="+zip+"&apikey=705790d78c0d4312a11fa01ee384f7db&format=json&census=true&censusYear=2000|2010&notStore=false&version=4.01",
@@ -118,7 +118,7 @@ function geocodeTexas(street,city,zip, name, Info){
     var one =obj.OutputGeocodes[0].OutputGeocode.Latitude;
     var two =obj.OutputGeocodes[0].OutputGeocode.Longitude;             //lmao this right here took so much longer than it should have. HOURS of work. At least I learned something. 
     var position={lat:  parseFloat(one), lng: parseFloat(two)};
-    addMarker(position, name, Info);
+    addMarker(position, name, Info, icon);
 	  }  
    
 	});
@@ -129,7 +129,7 @@ function showSelected(id){
   $(id).show();
 };
 //These are all of the marker functions that we will need provided by the google API documentation 
-function addMarker(position, name, constent) {
+function addMarker(position, name, constent, URL) {
   
   const infowindow = new google.maps.InfoWindow({
     content: constent,
@@ -138,7 +138,9 @@ function addMarker(position, name, constent) {
     position,
     title:name,
     map,
+    icon: URL
   });
+  console.log(marker.icon);
   map.setCenter(position);
   markers.push(marker);
   infoList.push(infowindow);
@@ -276,8 +278,9 @@ function renderSearch(searchArray){
     var infowindow = Mustache.render(template, {arr:searchArray[i]});
     var but ="<a href='https://schoolgrades.georgia.gov/"+result+"'> <button class='MoreInfo'>click here</button></a>";
     infowindow += but;
+    var icon = searchArray[i].Cluster + searchArray[i].Grade +".icon";
     //geocodeTexas(searchArray[i].Street, searchArray[i].City,searchArray[i].Zip_Code, searchArray[i].sys_sch, infowindow);
-    codeAddress(searchArray[i].Street +" "+ searchArray[i].City + " GA", searchArray[i].sys_sch, infowindow);  
+    codeAddress(searchArray[i].Street +" "+ searchArray[i].City + " GA", searchArray[i].sys_sch, infowindow, icon);  
   };
   
   showMarkers();
@@ -446,5 +449,6 @@ function buttoncolor(){
   map.controls[google.maps.ControlPosition.TOP_RIGHT].push(toggleDOMButton);
   map.controls[google.maps.ControlPosition.TOP_RIGHT].push(toggleButton);
 }
+
 
 
