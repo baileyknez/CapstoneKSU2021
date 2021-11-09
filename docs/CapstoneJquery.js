@@ -18,7 +18,14 @@ var schoolGradeVar = null;
 var discValue =null;
 var searchTxt = null;//the var where the text that is being searched it placed
 var schoolSelect =[];
-
+const infowindow = new google.maps.InfoWindow();
+var delay;
+var nextaddress;
+var addresses =[]; 
+var sync =[];
+var infoArray =[];
+var iconArray = [];
+var latestposition;
 //This is when the page is completelt loaded and has all of our listening events
 $(document).ready(function(){
     initMap();
@@ -92,16 +99,37 @@ $(document).ready(function(){
 
 
 //This function takes in an address and creates a marker on the map of it, Look into adding details to the makers. It should bring up the school when you click it
-function codeAddress(addy, name, infowindow, icon) {
+function codeAddress(addy, name, infowindow, icon, next) {
     geocoder = new google.maps.Geocoder();
     geocoder.geocode( { 'address': addy}, function(results, status) {
-      if (status == 'OK') {
-        map.setCenter(results[0].geometry.location);
+      if (status+"" == "OK") {
         addMarker(results[0].geometry.location,name, infowindow, icon);
-      } else {
-        console.log('Geocode was not successful for the following reason: ' + status);
+      }else{ 
+        if (status+"" == 'OVER_QUERY_LIMIT') {
+          nextaddress--;
+          delay+=1;
+          var msg = 'address="' + addy + '" error=' +status+ '(delay='+delay+'ms)';
+          console.log(msg);
+        } else {
+          var msg = 'address="' + addy + '" error=' +status+ '(delay='+delay+'ms)';
+          console.log(msg);
+        }   
       }
+      next();
     });
+    
+}
+function theNext(){
+  if(nextaddress < addresses.length){
+  timer = setTimeout( function(){
+    codeAddress(addresses[nextaddress], sync[nextaddress] , infoArray[nextaddress],iconArray[nextaddress],theNext);
+  }, delay);
+  nextaddress++;
+  } 
+  else{
+  clearTimeout(timer);
+  map.setCenter(latestposition);
+  }
 }
 //This function does the same as the one above but uses TexasA&M API services instead of the Google API for Geocoding.
 //Surpases the 10 at a time error but is very slow and not a good solution.
@@ -130,31 +158,29 @@ function showSelected(id){
 };
 //These are all of the marker functions that we will need provided by the google API documentation 
 function addMarker(position, name, constent, URL) {
-  
-  const infowindow = new google.maps.InfoWindow({
-    content: constent,
-  });
-
   const marker = new google.maps.Marker({
     position,
     title:name,
+    animation: google.maps.Animation.DROP,
     map,
+    optimized: false,
     icon: URL
   });
-  console.log(marker.icon);
-  map.setCenter(position);
+  latestposition=marker.getPosition();
   markers.push(marker);
   infoList.push(infowindow);
   marker.addListener("click", () => {
-    map.setZoom(9);
+    map.setZoom(10);
     map.setCenter(marker.getPosition());
-    infowindow.open({
-      anchor:marker,
-      map,
-      shouldFocus:false,
-    });
+    infowindow.close();
+   
+    infowindow.setContent(constent);
+    infowindow.open(marker.getMap(), marker);
     showSelected("#"+name);
     document.getElementById("#"+name).scrollIntoView();
+  });
+  marker.addListener("mouseover", () => {
+    
   });
 }
 
@@ -268,24 +294,33 @@ function Search(){
 }
 function renderSearch(searchArray){
   deleteMarkers();
+  addresses=[];
+  delay = 100;
+  nextaddress=-1;
+  sync =[];
+  infoArray =[];
+  iconArray = [];
   var template =$('#searchResultTemp').html();
   var text = Mustache.render(template, {arr:searchArray});
   $('.searchContainer').append(text);
  	   //This is two seperate attempts to try to fix the 10 at once error. The current solution works but is extremely slow. 
 	  //I want to create a seperate file with all of the long and lat of each school but I do not have time at the moment
-  for(var i=0; i < searchArray.length; i++){
-    var result = searchArray[i].SchoolName.replace(/ /g, "-");
-    var template =$('#windowInfo').html();
-    var infowindow = Mustache.render(template, {arr:searchArray[i]});
-    var but ="<a href='https://schoolgrades.georgia.gov/"+result+"'> <button class='MoreInfo'>click here</button></a>";
-    infowindow += but;
-    var icon = searchArray[i].Cluster + searchArray[i].Grade +".png";
-    //geocodeTexas(searchArray[i].Street, searchArray[i].City,searchArray[i].Zip_Code, searchArray[i].sys_sch, infowindow);
-    codeAddress(searchArray[i].Street +" "+ searchArray[i].City + " GA", searchArray[i].sys_sch, infowindow, icon);  
-  };
-  
-  showMarkers();
+ for(var i=0; i < searchArray.length; i++){
+ var result = searchArray[i].SchoolName.replace(/ /g, "-");
+ var template =$('#windowInfo').html();
+ var infowindow = Mustache.render(template, {arr:searchArray[i]});
+ var but ="<a href='https://schoolgrades.georgia.gov/"+result+"'> <button class='MoreInfo'>click here</button></a>";
+ infowindow += but;
+ var icon = "MapIcon/"+searchArray[i].Cluster + searchArray[i].Grade +".png";
+ //geocodeTexas(searchArray[i].Street, searchArray[i].City,searchArray[i].Zip_Code, searchArray[i].sys_sch, infowindow);
+ addresses.push(searchArray[i].Street +" "+ searchArray[i].City + " GA");
+ sync.push(searchArray[i].sys_sch);
+ infoArray.push(infowindow);
+ iconArray.push(icon);
+ }
+ theNext();
 }
+
 
 //This is the function to take all of the school details and put them on a page. Still needs to be flushed out. 
 function schoolDetails(value){
@@ -320,7 +355,7 @@ function buttoncolor(){
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 7,
     center: { lat: 32.744164, lng: -83.498423 },
-    mapTypeId: "9ce7866f52bea9c7",
+    mapTypeId: "satellite",
   });
   var swBound = new google.maps.LatLng(30.2, -85.8);
   var neBound = new google.maps.LatLng(35.2, -80.6);
@@ -450,6 +485,4 @@ function buttoncolor(){
   map.controls[google.maps.ControlPosition.TOP_RIGHT].push(toggleDOMButton);
   map.controls[google.maps.ControlPosition.TOP_RIGHT].push(toggleButton);
 }
-
-
 
