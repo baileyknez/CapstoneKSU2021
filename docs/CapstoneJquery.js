@@ -279,7 +279,7 @@ function renderSearch(searchArray){
     var infowindow = Mustache.render(template, {arr:searchArray[i]});
     var but ="<a href='https://schoolgrades.georgia.gov/"+result+"'> <button class='MoreInfo'>click here</button></a>";
     infowindow += but;
-    var icon ="https://github.com/baileyknez/CapstoneKSU2021/blob/4c86f4da872a351cf9baa27268e7612895715a91/docs/MapIcons/"+ searchArray[i].Cluster + searchArray[i].Grade +".png";
+    var icon ="docs/MapIcons/"+ searchArray[i].Cluster + searchArray[i].Grade +".png";
     //geocodeTexas(searchArray[i].Street, searchArray[i].City,searchArray[i].Zip_Code, searchArray[i].sys_sch, infowindow);
     codeAddress(searchArray[i].Street +" "+ searchArray[i].City + " GA", searchArray[i].sys_sch, infowindow, icon);  
   };
