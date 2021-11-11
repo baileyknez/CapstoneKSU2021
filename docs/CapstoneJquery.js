@@ -26,6 +26,7 @@ var sync =[];
 var infoArray =[];
 var iconArray = [];
 var latestposition;
+var schoolRatingVar = null;
 //This is when the page is completelt loaded and has all of our listening events
 $(document).ready(function(){
     initMap();
@@ -95,6 +96,7 @@ $(document).ready(function(){
       Search();
       }
     });
+  
 });
 
 
@@ -170,7 +172,7 @@ function addMarker(position, name, constent, URL) {
   markers.push(marker);
   infoList.push(infowindow);
   marker.addListener("click", () => {
-    map.setZoom(10);
+    map.setZoom(12);
     map.setCenter(marker.getPosition());
     infowindow.close();
    
@@ -200,10 +202,6 @@ function deleteMarkers() {
   markers = [];
 }
 
-// load US state outline polygons from a GeoJSON file
-function loadMapShapes() {
-        map.data.loadGeoJson("shape.geojson");
-}
 //turns an object into json
 function objectToJson(obj){
   return JSON.stringify(obj);
@@ -311,13 +309,18 @@ function renderSearch(searchArray){
  var infowindow = Mustache.render(template, {arr:searchArray[i]});
  var but ="<a href='https://schoolgrades.georgia.gov/"+result+"'> <button class='MoreInfo'>click here</button></a>";
  infowindow += but;
- var icon = searchArray[i].Cluster + searchArray[i].Grade +".png";
+ var icon = "MapIcon/"+searchArray[i].Cluster + searchArray[i].Grade +".png";
  //geocodeTexas(searchArray[i].Street, searchArray[i].City,searchArray[i].Zip_Code, searchArray[i].sys_sch, infowindow);
  addresses.push(searchArray[i].Street +" "+ searchArray[i].City + " GA");
  sync.push(searchArray[i].sys_sch);
  infoArray.push(infowindow);
  iconArray.push(icon);
  }
+ geocoder = new google.maps.Geocoder();
+    geocoder.geocode( { 'address': addresses[addresses.length -1]}, function(results, status) {
+      map.setCenter(results[0].geometry.location);
+      map.setZoom(10);
+    });
  theNext();
 }
 
@@ -361,7 +364,7 @@ function buttoncolor(){
   var neBound = new google.maps.LatLng(35.2, -80.6);
   const bounds = new google.maps.LatLngBounds(swBound, neBound);
   // The photograph is courtesy of the U.S. Geological Survey.
-  let image = 'https://upload.wikimedia.org/wikipedia/commons/9/99/USA_Georgia_relief_location_map.svg'
+  let image = 'USA_Georgia_relief_location_map.png'
   /**
    * The custom USGSOverlay object contains the USGS image,
    * the bounds of the image, and a reference to the map.
@@ -485,4 +488,3 @@ function buttoncolor(){
   map.controls[google.maps.ControlPosition.TOP_RIGHT].push(toggleDOMButton);
   map.controls[google.maps.ControlPosition.TOP_RIGHT].push(toggleButton);
 }
-
