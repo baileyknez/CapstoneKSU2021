@@ -18,7 +18,9 @@ var schoolGradeVar = null;
 var discValue =null;
 var searchTxt = null;//the var where the text that is being searched it placed
 var schoolSelect =[];
-const infowindow = new google.maps.InfoWindow();
+const infowindow = new google.maps.InfoWindow({
+  maxWidth: 500,
+});
 var delay;
 var nextaddress;
 var addresses =[]; 
@@ -27,6 +29,7 @@ var infoArray =[];
 var iconArray = [];
 var latestposition;
 var schoolRatingVar = null;
+
 //This is when the page is completelt loaded and has all of our listening events
 $(document).ready(function(){
     initMap();
@@ -110,10 +113,10 @@ function codeAddress(addy, name, infowindow, icon, next) {
         if (status+"" == 'OVER_QUERY_LIMIT') {
           nextaddress--;
           delay+=1;
-          var msg = 'address="' + addy + '" error=' +status+ '(delay='+delay+'ms)';
+          var msg = 'address="' + addy + '" error=' +status+ '(delay='+delay+'ms) arrayNum:'+nextaddress;
           console.log(msg);
         } else {
-          var msg = 'address="' + addy + '" error=' +status+ '(delay='+delay+'ms)';
+          var msg = 'address="' + addy + '" error=' +status+ '(delay='+delay+'ms) arrayNum:' +nextaddress;
           console.log(msg);
         }   
       }
@@ -122,7 +125,7 @@ function codeAddress(addy, name, infowindow, icon, next) {
     
 }
 function theNext(){
-  if(nextaddress < addresses.length){
+  if(nextaddress < addresses.length-1 ){
   timer = setTimeout( function(){
     codeAddress(addresses[nextaddress], sync[nextaddress] , infoArray[nextaddress],iconArray[nextaddress],theNext);
   }, delay);
@@ -133,6 +136,7 @@ function theNext(){
   map.setCenter(latestposition);
   }
 }
+
 //This function does the same as the one above but uses TexasA&M API services instead of the Google API for Geocoding.
 //Surpases the 10 at a time error but is very slow and not a good solution.
 function geocodeTexas(street,city,zip, name, Info, icon){
@@ -150,7 +154,6 @@ function geocodeTexas(street,city,zip, name, Info, icon){
     var position={lat:  parseFloat(one), lng: parseFloat(two)};
     addMarker(position, name, Info, icon);
 	  }  
-   
 	});
 };
 
@@ -168,22 +171,20 @@ function addMarker(position, name, constent, URL) {
     optimized: false,
     icon: URL
   });
+  var markerZoom=12;
   latestposition=marker.getPosition();
   markers.push(marker);
   infoList.push(infowindow);
   marker.addListener("click", () => {
-    map.setZoom(12);
+    map.setZoom(markerZoom);
     map.setCenter(marker.getPosition());
     infowindow.close();
-   
     infowindow.setContent(constent);
     infowindow.open(marker.getMap(), marker);
     showSelected("#"+name);
     document.getElementById("#"+name).scrollIntoView();
   });
-  marker.addListener("mouseover", () => {
-    
-  });
+  
 }
 
 function setMapOnAll(map) {
@@ -248,6 +249,7 @@ function districtOptions(){
 }
 //Search function with if statements for each filter combination. 
 function Search(){
+  
   $(".SearchResultsTabs").show();
   removeSearch()
   $(".SearchResultBar").show();
@@ -316,6 +318,8 @@ function renderSearch(searchArray){
  infoArray.push(infowindow);
  iconArray.push(icon);
  }
+ console.log(addresses);
+ console.log(iconArray);
  geocoder = new google.maps.Geocoder();
     geocoder.geocode( { 'address': addresses[addresses.length -1]}, function(results, status) {
       map.setCenter(results[0].geometry.location);
@@ -477,7 +481,7 @@ function buttoncolor(){
 
   const toggleDOMButton = document.createElement("button");
 
-  toggleDOMButton.textContent = "Toggle DOM Attachment";
+  toggleDOMButton.textContent = "Map Of Georgia On/Off";
   toggleDOMButton.classList.add("custom-map-control-button");
   toggleButton.addEventListener("click", () => {
     overlay.toggle();
@@ -486,5 +490,4 @@ function buttoncolor(){
     overlay.toggleDOM(map);
   });
   map.controls[google.maps.ControlPosition.TOP_RIGHT].push(toggleDOMButton);
-  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(toggleButton);
 }
