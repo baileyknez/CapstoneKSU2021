@@ -418,7 +418,7 @@ function renderSearch(searchArray){
  var infowindow = Mustache.render(template, {arr:searchArray[i]});
  var but ="<a href='https://schoolgrades.georgia.gov/"+result+"'> <button class='MoreInfo'>click here</button></a>";
  infowindow += but;
- var icon = "MapIcon/"+searchArray[i].Cluster + searchArray[i].Grade +".png";
+ var icon = searchArray[i].Cluster + searchArray[i].Grade +".png";
  //geocodeTexas(searchArray[i].Street, searchArray[i].City,searchArray[i].Zip_Code, searchArray[i].sys_sch, infowindow);
  addresses.push(searchArray[i].Street +" "+ searchArray[i].City + " GA");
  sync.push(searchArray[i].sys_sch);
