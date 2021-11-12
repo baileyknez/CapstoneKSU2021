@@ -13,21 +13,16 @@ var searchArray =[]; //the array that we get from a search
 var districtList =[]; //an array of the district names
 var markers = [];
 var infoList =[];
-var schoolSelect =[];
 var schoolGradeVar = null;
 var discValue =null;
 var searchTxt = null;//the var where the text that is being searched it placed
-var schoolSelect =[];
 const infowindow = new google.maps.InfoWindow({
   maxWidth: 500,
 });
 var delay;
 var nextaddress;
 var addresses =[]; 
-var sync =[];
 var infoArray =[];
-var iconArray = [];
-var nameArray =[];
 var latestposition;
 var schoolRatingVar = null;
 var miscellaneousSearch =null;
@@ -126,18 +121,7 @@ function codeAddress(addy, sync, name,infowindow, icon, next) {
     });
     
 }
-function theNext(){
-  if(nextaddress < addresses.length-1 ){
-  timer = setTimeout( function(){
-    codeAddress(addresses[nextaddress], sync[nextaddress] , nameArray[nextaddress], infoArray[nextaddress],iconArray[nextaddress],theNext);
-  }, delay);
-  nextaddress++;
-  } 
-  else{
-  clearTimeout(timer);
-  map.setCenter(latestposition);
-  }
-}
+
 
 //This function does the same as the one above but uses TexasA&M API services instead of the Google API for Geocoding.
 //Surpases the 10 at a time error but is very slow and not a good solution.
@@ -159,10 +143,6 @@ function geocodeTexas(street,city,zip, name, Info, icon){
 	});
 };
 
-function showSelected(id){
-  HideSearchDetail();
-  $(id).show();
-};
 //These are all of the marker functions that we will need provided by the google API documentation 
 function addMarker(position, sync,name, constent, URL) {
   const marker = new google.maps.Marker({
@@ -197,7 +177,9 @@ function addMarker(position, sync,name, constent, URL) {
     infowindow.close();
     infowindow.setContent(constent);
     infowindow.open(marker.getMap(), marker);
-    showSelected("#"+sync);
+    HideSearchDetail();
+    $("#"+sync).show();
+    
     document.getElementById("#"+sync).scrollIntoView();
   });
   
@@ -418,17 +400,26 @@ function renderSearch(searchArray){
  var infowindow = Mustache.render(template, {arr:searchArray[i]});
  var but ="<a href='https://schoolgrades.georgia.gov/"+result+"'> <button class='MoreInfo'>click here</button></a>";
  infowindow += but;
- var icon = searchArray[i].Cluster + searchArray[i].Grade +".png";
+ var icon = "MapIcon/"+searchArray[i].Cluster + searchArray[i].Grade +".png";
  //geocodeTexas(searchArray[i].Street, searchArray[i].City,searchArray[i].Zip_Code, searchArray[i].sys_sch, infowindow);
  addresses.push(searchArray[i].Street +" "+ searchArray[i].City + " GA");
- sync.push(searchArray[i].sys_sch);
  infoArray.push(infowindow);
- iconArray.push(icon);
- nameArray.push(searchArray[i].SchoolName);
  }
  theNext();
 }
-
+function theNext(){
+  if(nextaddress < addresses.length-1 ){
+  timer = setTimeout( function(){
+    codeAddress(addresses[nextaddress], searchArray[nextaddress].sys_sch , searchArray[nextaddress].SchoolName,
+       infoArray[nextaddress],searchArray[nextaddress].Cluster + searchArray[nextaddress].Grade +".png",theNext);
+  }, delay);
+  nextaddress++;
+  } 
+  else{
+  clearTimeout(timer);
+  map.setCenter(latestposition);
+  }
+}
 function DiscZoom(){
   geocoder = new google.maps.Geocoder();
   geocoder.geocode( { 'address': addresses[addresses.length -1]}, function(results, status) {
@@ -443,21 +434,7 @@ function nonDiscZoom(){
   map.setZoom(7);
 }
 
-//This is the function to take all of the school details and put them on a page. Still needs to be flushed out. 
-function schoolDetails(value){
-  removeSchoolDetail();
-  $("#mapPage").hide();
-  $("#SchoolDescriptionPage").show();
-  console.log("Page select: "+value);
-  schoolSelect =[];
-  schoolSelect= $.grep(searchArray, function(search){
-    return  search.sys_sch == value;
-  });
-  console.log(schoolSelect);
-  var template =$('#SchoolDetails').html();
-  var text = Mustache.render(template, {arr:schoolSelect});
-  $('#SchoolDescriptionPage').append(text);
-}
+
 //This just changes the button color for the Grades Filter
 function buttoncolor(){
   $('.h').css('color','black');
