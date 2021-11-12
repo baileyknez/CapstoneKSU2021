@@ -36,6 +36,9 @@ $(document).ready(function(){
     $(".SearchResultBar").hide();
     $('.selectOptions').on('change', function() {
       discValue=this.value;
+      if(discValue==1){
+        discValue=null;
+      }
       Search();
     });
     $('.searchbutton').click(function(){
@@ -263,9 +266,7 @@ function Search(){
   $(".SearchResultsTabs").show();
   removeSearch()
   $(".SearchResultBar").show();
-  if(discValue==1){
-    discValue=null;
-  }
+ 
   if(schoolGradeVar==null & searchTxt==null & discValue !=null & schoolRatingVar == null & miscellaneousSearch ==null){ //discticts 1 d
   searchArray= $.grep(schoolArray, function(search){
     return  search.SystemId == discValue;
@@ -470,7 +471,7 @@ function theNext(){
   if(nextaddress < addresses.length-1 ){
   timer = setTimeout( function(){
     codeAddress(addresses[nextaddress], searchArray[nextaddress].sys_sch , searchArray[nextaddress].SchoolName,
-       infoArray[nextaddress],searchArray[nextaddress].Cluster + searchArray[nextaddress].Grade +".png",theNext);
+       infoArray[nextaddress],"MapIcon/"+searchArray[nextaddress].Cluster + searchArray[nextaddress].Grade +".png",theNext);
   }, delay);
   nextaddress++;
   } 
@@ -488,7 +489,7 @@ function decideSearchAction(){
     $(".SearchResultBar").hide();
     deleteMarkers();
     alert("There are no schools that match your search");
-    console.log(schoolGradeVar +" "+ searchTxt +" "+ discValue +" "+ schoolRatingVar +" "+  miscellaneousSearch);
+    console.log('error, uncaught logic:' + schoolGradeVar +" "+ searchTxt +" "+ discValue +" "+ schoolRatingVar +" "+  miscellaneousSearch);
   }else if(discValue != null){
   renderSearch(searchArray);
   DiscZoom();
@@ -660,3 +661,4 @@ function buttoncolor(){
   });
   map.controls[google.maps.ControlPosition.TOP_RIGHT].push(toggleDOMButton);
 }
+
