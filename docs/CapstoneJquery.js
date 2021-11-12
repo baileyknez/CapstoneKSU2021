@@ -259,6 +259,7 @@ function districtOptions(){
 // t= textsearch d=discticts m=misc r=rating g=grade 
 //t d m td tm dm tdm tg tr tgr dg dr dgr mg mr mgr tdg tdr tdgr tmg tmr tmgr dmg dmr dmgr tdmg tdmr tdmgr =28 different possible combinations
 function Search(){
+ 
   $(".SearchResultsTabs").show();
   removeSearch()
   $(".SearchResultBar").show();
@@ -269,143 +270,170 @@ function Search(){
   searchArray= $.grep(schoolArray, function(search){
     return  search.SystemId == discValue;
   });
+  console.log('d');
   decideSearchAction()
 }else if(schoolGradeVar ==null & searchTxt != null & discValue !=null & schoolRatingVar == null & miscellaneousSearch ==null){ //disc & text 2 dt 
   searchArray= $.grep(schoolArray, function(search){
-    return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) > -1 &search.SystemId == discValue ;
+    return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) > -1 & search.SystemId == discValue ;
   });
   decideSearchAction()
-
+  console.log('dt');
 }else if(schoolGradeVar ==null & searchTxt == null & discValue !=null & schoolRatingVar != null & miscellaneousSearch ==null){ // disc and rating 3 dr 
   searchArray= $.grep(schoolArray, function(search){
     return  search.SystemId == discValue & search.Grade == schoolRatingVar;
   });
+  console.log('dr ');
   decideSearchAction()
-}else if(schoolGradeVar =!null & searchTxt == null & discValue !=null & schoolRatingVar == null & miscellaneousSearch ==null){ // disc and grade 4 dg
+}else if(schoolGradeVar !=null & searchTxt == null & discValue !=null & schoolRatingVar == null & miscellaneousSearch ==null){ // disc and grade 4 dg
   searchArray= $.grep(schoolArray, function(search){
-    return  search.SystemId == discValue & search.Cluster.indexOf(schoolGradeVar) >-1 ;
+    return  search.SystemId == discValue & search.Cluster.indexOf(schoolGradeVar) > -1 ;
   });
+  console.log('dg');
   decideSearchAction()
 }else if(schoolGradeVar !=null & searchTxt == null & discValue !=null & schoolRatingVar != null & miscellaneousSearch ==null){ // disc, grade level, and rating 5 dgr
     searchArray= $.grep(schoolArray, function(search){
       return  search.SystemId == discValue & search.Cluster.indexOf(schoolGradeVar) >-1 & search.Grade == schoolRatingVar;
     });
+    console.log('dgr');
     decideSearchAction()
 }else if(schoolGradeVar==null & searchTxt == null & discValue== null & schoolRatingVar == null & miscellaneousSearch !=null){ // miscellaneous 6  m
     searchArray= $.grep(schoolArray, function(search){
       return  search.SchoolName.toLowerCase().indexOf(miscellaneousSearch.toLowerCase()) > -1 ;
     });
+    console.log('m');
     decideSearchAction()
 }else if(schoolGradeVar==null & searchTxt == null & discValue== null & schoolRatingVar == null & miscellaneousSearch !=null){ // misc grade 7 mg 
     searchArray= $.grep(schoolArray, function(search){
       return  search.SchoolName.toLowerCase().indexOf(miscellaneousSearch.toLowerCase()) > -1  & search.Grade == schoolRatingVar;
     });
+    console.log('mg ');
     decideSearchAction()
 }else if(schoolGradeVar==null & searchTxt == null & discValue== null & schoolRatingVar == null & miscellaneousSearch !=null){ // misc rate 8 mr 
     searchArray= $.grep(schoolArray, function(search){
       return  search.SchoolName.toLowerCase().indexOf(miscellaneousSearch.toLowerCase()) > -1  & search.Grade == schoolRatingVar ;
     });
+    console.log('mr');
     decideSearchAction()
   }else if(schoolGradeVar==null & searchTxt == null & discValue== null & schoolRatingVar == null & miscellaneousSearch !=null){ // misc rate grade 9 mrg
     searchArray= $.grep(schoolArray, function(search){
       return  search.SchoolName.toLowerCase().indexOf(miscellaneousSearch.toLowerCase()) > -1  & search.Grade == schoolRatingVar & search.Grade == schoolRatingVar ;
     });
+    console.log('mrg');
     decideSearchAction()
 }else if(schoolGradeVar ==null & searchTxt == null & discValue !=null & schoolRatingVar != null & miscellaneousSearch ==null){ // disc and misc 10 dm
     searchArray= $.grep(schoolArray, function(search){
       return  search.SystemId == discValue &  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) > -1 ;
     });
+    console.log('dm');
     decideSearchAction()
 }else if(schoolGradeVar ==null & searchTxt == null & discValue !=null & schoolRatingVar != null & miscellaneousSearch !=null){ // disc & misc and rating  11 dmr
   searchArray= $.grep(schoolArray, function(search){
    return  search.SystemId == discValue & search.Grade == schoolRatingVar & search.SchoolName.toLowerCase().indexOf(miscellaneousSearch.toLowerCase()) > -1;
  });
+ console.log('dmr');
  decideSearchAction()
 }else if(schoolGradeVar !=null & searchTxt == null & discValue !=null & schoolRatingVar == null & miscellaneousSearch !=null){ //  discs & misc  grade level 12  dmg
   searchArray= $.grep(schoolArray, function(search){
     return  search.SystemId == discValue & search.Cluster.indexOf(schoolGradeVar) >-1 &  search.SchoolName.toLowerCase().indexOf(miscellaneousSearch.toLowerCase()) > -1;
   });
+  console.log('dmg');
   decideSearchAction()
 }else if(schoolGradeVar !=null & searchTxt == null & discValue !=null & schoolRatingVar != null & miscellaneousSearch ==null){ // disc misc, grade level, rating 13 dmgr  
   searchArray= $.grep(schoolArray, function(search){
     return  search.SystemId == discValue & search.Cluster.indexOf(schoolGradeVar) >-1 & search.Grade == schoolRatingVar & search.SchoolName.toLowerCase().indexOf(miscellaneousSearch.toLowerCase()) >-1;
   });
+  console.log('dmgr ');
   decideSearchAction()
 } else if(schoolGradeVar==null & searchTxt != null & discValue== null & schoolRatingVar == null & miscellaneousSearch ==null){ //  text 14 t
   searchArray= $.grep(schoolArray, function(search){
     return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) > -1 ;
   });
+  console.log('t');
   decideSearchAction()
 }else if(schoolGradeVar !=null & searchTxt != null & discValue ==null & schoolRatingVar == null & miscellaneousSearch ==null){ // text and school level 15 tg
   searchArray= $.grep(schoolArray, function(search){
     return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) >-1 & search.Cluster.indexOf(schoolGradeVar) >-1;
   });
+  console.log('tg');
   decideSearchAction()
 }else if(schoolGradeVar ==null & searchTxt != null & discValue ==null & schoolRatingVar != null & miscellaneousSearch ==null){ // text and rating 16 tr
   searchArray= $.grep(schoolArray, function(search){
     return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) > -1  & search.Grade == schoolRatingVar;
   });
+  console.log('tr');
   decideSearchAction()
 }else if(schoolGradeVar !=null & searchTxt != null & discValue ==null & schoolRatingVar != null & miscellaneousSearch ==null){ // text rating grade level 17  tgr
   searchArray= $.grep(schoolArray, function(search){
     return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) >-1 & search.Cluster.indexOf(schoolGradeVar) >-1  & search.Grade == schoolRatingVar;
   });
+  console.log('tgr');
   decideSearchAction()
 }else if(schoolGradeVar ==null & searchTxt != null & discValue ==null & schoolRatingVar == null & miscellaneousSearch !=null){ // text  misc 18 tm
   searchArray= $.grep(schoolArray, function(search){
     return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) >-1   & search.SchoolName.toLowerCase().indexOf(miscellaneousSearch.toLowerCase()) >-1;
   });
+  console.log('tm');
   decideSearchAction()
 }else if(schoolGradeVar !=null & searchTxt != null & discValue ==null & schoolRatingVar == null & miscellaneousSearch !=null){ // text misc  school level 19 tmg
   searchArray= $.grep(schoolArray, function(search){
     return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) >-1 & search.Cluster.indexOf(schoolGradeVar) >-1  & search.SchoolName.toLowerCase().indexOf(miscellaneousSearch.toLowerCase()) >-1;
   });
+  console.log('tmg');
   decideSearchAction()
 }else if(schoolGradeVar ==null & searchTxt != null & discValue ==null & schoolRatingVar != null & miscellaneousSearch !=null){ // text misc rating  20 tmr
   searchArray= $.grep(schoolArray, function(search){
     return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) > -1  & search.Grade == schoolRatingVar  & search.SchoolName.toLowerCase().indexOf(miscellaneousSearch.toLowerCase()) >-1;
   });
+  console.log('tmr');
   decideSearchAction()
 
 }else if(schoolGradeVar !=null & searchTxt != null & discValue ==null & schoolRatingVar != null & miscellaneousSearch !=null){ // text misc rating grade level 21 tmgr
   searchArray= $.grep(schoolArray, function(search){
     return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) >-1 & search.Cluster.indexOf(schoolGradeVar) >-1  & search.Grade == schoolRatingVar & search.SchoolName.toLowerCase().indexOf(miscellaneousSearch.toLowerCase()) >-1;
   });
+  console.log('tmgr');
   decideSearchAction()
 }else if(schoolGradeVar !=null & searchTxt != null & discValue !=null & schoolRatingVar == null & miscellaneousSearch ==null){ // text district  grade level 22  tdg
   searchArray= $.grep(schoolArray, function(search){
     return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) >-1 & search.Cluster.toLowerCase().indexOf(schoolGradeVar.toLowerCase()) >-1 & search.SystemId == discValue; 
   });
+  console.log('tdg');
   decideSearchAction()
 }else if(schoolGradeVar ==null & searchTxt != null & discValue !=null & schoolRatingVar != null & miscellaneousSearch ==null){ // text district  rating 23 tdr
   searchArray= $.grep(schoolArray, function(search){
     return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) >-1 & search.Grade == schoolRatingVar & search.SystemId == discValue; 
   });
+  console.log('tdr');
   decideSearchAction()
 }else if(schoolGradeVar !=null & searchTxt != null & discValue !=null & schoolRatingVar != null & miscellaneousSearch ==null){ // text district& school level  & rating 24 tdrg
   searchArray= $.grep(schoolArray, function(search){
     return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) >-1 & search.Cluster.toLowerCase().indexOf(schoolGradeVar.toLowerCase()) >-1 & search.SystemId == discValue & search.Grade == schoolRatingVar; 
   });
+  console.log('tdrg');
   decideSearchAction()
 }else if(schoolGradeVar !=null & searchTxt != null & discValue !=null & schoolRatingVar == null & miscellaneousSearch ==null){ //text &  district & misc 25 tdm
   searchArray= $.grep(schoolArray, function(search){
     return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) >-1  & search.SystemId == discValue & search.SchoolName.toLowerCase().indexOf(miscellaneousSearch.toLowerCase()) >-1; 
   });
+  console.log('tdm');
   decideSearchAction()
 }else if(schoolGradeVar !=null & searchTxt != null & discValue !=null & schoolRatingVar == null & miscellaneousSearch ==null){ //text district misc & school level 26 tdmg
   searchArray= $.grep(schoolArray, function(search){
     return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) >-1 & search.Cluster.toLowerCase().indexOf(schoolGradeVar.toLowerCase()) >-1 & search.SystemId == discValue & search.SchoolName.toLowerCase().indexOf(miscellaneousSearch.toLowerCase()) >-1; 
   });
+  console.log('tdmg');
   decideSearchAction()
 }else if(schoolGradeVar !=null & searchTxt != null & discValue !=null & schoolRatingVar != null & miscellaneousSearch !=null){ // text misc district &   rating 27 tdmr
   searchArray= $.grep(schoolArray, function(search){
     return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) >-1 &  search.SystemId == discValue & search.Grade == schoolRatingVar & search.SchoolName.toLowerCase().indexOf(miscellaneousSearch.toLowerCase()) >-1; 
   });
+  console.log('tdmr');
   decideSearchAction()
 }else if(schoolGradeVar !=null & searchTxt != null & discValue !=null & schoolRatingVar != null & miscellaneousSearch !=null){ // text misc district & school level  rating 28 tdmgr
   searchArray= $.grep(schoolArray, function(search){
     return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) >-1 & search.Cluster.toLowerCase().indexOf(schoolGradeVar.toLowerCase()) >-1 & search.SystemId == discValue & search.Grade == schoolRatingVar & search.SchoolName.toLowerCase().indexOf(miscellaneousSearch.toLowerCase()) >-1; 
   });
+  console.log('tdmgr');
   decideSearchAction()
 }else if(searchTxt ==null & discValue == null & miscellaneousSearch ==null) { //we only allow a marker to pop up if either searchtxt, discValue, or misc are not null
   $(".SearchResultBar").hide();
@@ -427,15 +455,12 @@ function renderSearch(searchArray){
   var template =$('#searchResultTemp').html();
   var text = Mustache.render(template, {arr:searchArray});
   $('.searchContainer').append(text);
- 	   //This is two seperate attempts to try to fix the 10 at once error. The current solution works but is extremely slow. 
-	  //I want to create a seperate file with all of the long and lat of each school but I do not have time at the moment
  for(var i=0; i < searchArray.length; i++){
  var result = searchArray[i].SchoolName.replace(/ /g, "-");
  var template =$('#windowInfo').html();
  var infowindow = Mustache.render(template, {arr:searchArray[i]});
  var but ="<a href='https://schoolgrades.georgia.gov/"+result+"'> <button class='MoreInfo'>click here</button></a>";
  infowindow += but;
- //geocodeTexas(searchArray[i].Street, searchArray[i].City,searchArray[i].Zip_Code, searchArray[i].sys_sch, infowindow);
  addresses.push(searchArray[i].Street +" "+ searchArray[i].City + " GA");
  infoArray.push(infowindow);
  }
