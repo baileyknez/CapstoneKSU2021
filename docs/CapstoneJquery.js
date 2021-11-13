@@ -436,11 +436,20 @@ function Search(){
   });
   console.log('tdmgr');
   decideSearchAction()
-}else if(searchTxt ==null & discValue == null & miscellaneousSearch ==null) { //we only allow a marker to pop up if either searchtxt, discValue, or misc are not null
+}else if(schoolGradeVar ==null & searchTxt == null & discValue ==null & schoolRatingVar != null & miscellaneousSearch ==null) { 
   $(".SearchResultBar").hide();
   deleteMarkers();
-}
-else{
+}else if(schoolGradeVar !=null & searchTxt == null & discValue ==null & schoolRatingVar == null & miscellaneousSearch ==null) { 
+  $(".SearchResultBar").hide();
+  deleteMarkers();
+}else if(schoolGradeVar !=null & searchTxt == null & discValue ==null & schoolRatingVar != null & miscellaneousSearch ==null) { 
+  $(".SearchResultBar").hide();
+  deleteMarkers();
+
+}else if(schoolGradeVar ==null & searchTxt == null & discValue ==null & schoolRatingVar == null & miscellaneousSearch ==null) { //we only allow a marker to pop up if either searchtxt, discValue, or misc are not null
+  $(".SearchResultBar").hide();
+  deleteMarkers();
+}else{
   alert('error, uncaught logic:' + schoolGradeVar +" "+ searchTxt +" "+ discValue +" "+ schoolRatingVar +" "+  miscellaneousSearch);
 }
 }
