@@ -44,75 +44,12 @@ crossorigin="anonymous"></script>
      <p>For more information</p>
    {{/arr}}
  </script>
-<script id="SchoolDetails" type="text/template">
-  {{#arr}}
- <div class="SchoolInfoResult">
-<div class="School-header">
-  <!-- name, Destrict, school ID, Phone Number, Street address, city, state, zip, Website-->
 
-  <h1>{{SchoolName}}</h1>
-  <h2>{{SystemName}}</h2>
-</div>
-<div id="School-Desc"> 
-<!--Description, number of students, grades served, Grades, SSAS, Single Score-->
-</div>
-<div id="School-Diversity">
-<!-- percent asain, native, black, hispanic, multi, white, Homeless, Disabilities, english learners-->
-</div>
-<div id="School-grades">
-<!--content matery, progress, closing gaps, readiness, CCRPI, English/Beg/Dev/Prof/Dist, Math/Beg/Dev/Prof/Dist, science/Beg/Dev/Prof/Dist, Soc/Beg/Dev/Prof/Dist
-Third Grade Reading level, Fith grade reading level, for all Elementary middle and high school -->
-</div>
-<div id="school-college">
-  <!-- College Readiness, AP classes, Four year graduation rate, college enrollment-->
-</div>
-<div id="School-Extra">
-<!-- Financial Efficiency, School Climate, Mobility, PPE-->
-</div>
-</div>
-
-   {{/arr}}
- </script>
 <div id="mapPage">
 <div class="header">
   <h1>Georgia School Grades</h1>
 </div>
 <div class="filter-bar">
-  <div class="container">
-  <div class="row searchFilter" >
-     <div class="col-sm-12" >
-      <div class="input-group" >
-       <input id="table_filter" type="text" class="form-control" aria-label="Text input with segmented button dropdown" >
-       <div class="input-group-btn" >
-        <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ><span class="label-icon" >Category</span> <span class="caret" >&nbsp;</span></button>
-        <div class="dropdown-menu dropdown-menu-right" >
-           <ul class="category_filters" >
-            <li >
-             <input class="cat_type category-input" data-label="All" id="all" value="" name="radios" type="radio" ><label for="all" >All</label>
-            </li>
-            <li >
-             <input type="radio" name="radios" id="Magnet Schools" value="Magnet Schools" ><label class="category-label" for="Magnet Schools" >Magnet Schools</label>
-            </li>
-            <li >
-             <input type="radio" name="radios" id="Special Education Schools" value="Special Education Schools" ><label class="category-label" for="Special Education Schools" >Special Education Schools</label>
-            </li>
-            <li >
-             <input type="radio" name="radios" id="Virtual Schools" value="Virtual Schools" ><label class="category-label" for="Virtual Schools" >Virtual Schools</label>
-            </li>
-            <li >
-             <input type="radio" name="radios" id="Christian Schools" value="Christian Schools" ><label class="category-label" for="Christian Schools" >Christian Schools</label>
-            </li>
-            <li >
-             <input type="radio" name="radios" id="Baccalaureate Schools" value="Baccalaureate Schools" ><label class="category-label" for="Baccalaureate Schools" >Baccalaureate Schools</label>
-            </li>
-           </ul>
-        </div>
-        <button id="searchBtn" type="button" class="btn btn-secondary btn-search" ><span class="glyphicon glyphicon-search" >&nbsp;</span> <span class="label-icon" >Search</span></button>
-       </div>
-      </div>
-     </div>
-  </div>
-</div>
   <div class="search-input-filter">
     <label class="header-label">Search</label>
     <input name="search term" type="text" placeholder="Enter address to see schools" class='search-box'>
@@ -121,7 +58,7 @@ Third Grade Reading level, Fith grade reading level, for all Elementary middle a
   <div class="filter-districts">
     <label class="header-label">Districts</label>
     <select class="selectOptions">
-      <option value='null'>Search or Click Map for District Options</option>
+      <option value='1'>Search or Click Map for District Options</option>
     </select>
   </div>
   <div class="filter-grade">
@@ -132,7 +69,29 @@ Third Grade Reading level, Fith grade reading level, for all Elementary middle a
       <button class="h">High</button>
     </span>
   </div>
- 
+  <div class="filter-SchoolTypes">
+    <label class="header-label">School Types</label>
+    <select class="selectOptions">
+      <option value='1'>All Schools</option>
+      <option value='Magnet'>Magnet</option>
+    </select>
+  </div>
+  <div class="filter-rating">
+    <label class="header-label">School Rating</label>
+    <input type="radio" id="html"SchoolRating" value="HTML">
+    <label for="A">A</label><br>
+    <input type="radio" id="A" name="A" value="A">
+    <label for="B">B</label><br>
+    <input type="radio" id="B" name="B" value="B">
+    <label for="C">C</label><br>
+    <input type="radio" id="C" name="C" value="C">
+    <label for="D">D</label><br>
+    <input type="radio" id="D" name="D" value="D">
+    <label for="F">F</label><br>
+    <input type="radio" id="F" name="F" value="F">
+    <label for="NotRated">Not Rated</label><br>
+    <input type="radio" id="NotRated" name="NotRated" value="NotRated">
+  </div>
 </div>
  <div id="map"></div>
  <div class="SearchResultBar">
