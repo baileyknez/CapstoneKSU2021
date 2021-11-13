@@ -477,7 +477,6 @@ function theNext(){
   } 
   else{
   clearTimeout(timer);
-  map.setCenter(latestposition);
   }
   if( searchTxt == null & discValue ==null & miscellaneousSearch ==null){
     clearTimeout(timer);
