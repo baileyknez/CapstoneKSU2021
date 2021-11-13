@@ -496,7 +496,7 @@ function decideSearchAction(){
   if(searchArray.length==0){
     $(".SearchResultBar").hide();
     deleteMarkers();
-    alert("There are no schools that match your search");
+    
     console.log('error, uncaught logic:' + schoolGradeVar +" "+ searchTxt +" "+ discValue +" "+ schoolRatingVar +" "+  miscellaneousSearch);
   }else if(discValue != null){
   renderSearch(searchArray);
