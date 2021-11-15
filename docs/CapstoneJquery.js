@@ -6,7 +6,7 @@
 //use https://api.jquery.com/jquery.grep/ to search the object arrays https://stackoverflow.com/questions/6930350/easiest-way-to-search-a-javascript-object-list-with-jquery
 //https://upload.wikimedia.org/wikipedia/commons/9/99/USA_Georgia_relief_location_map.svg
 var map; //google maps
-var geocoder;
+var geocoder =new google.maps.Geocoder();
 var schoolArray =[];//all of the school data 
 var districtArray =[];  //all of the district data
 var searchArray =[]; //the array that we get from a search
@@ -27,6 +27,7 @@ var latestposition;
 var schoolRatingVar = null;
 var miscellaneousSearch =null;
 
+
 //This is when the page is completelt loaded and has all of our listening events
 $(document).ready(function(){
     initMap();
@@ -37,7 +38,7 @@ $(document).ready(function(){
     $('.selectOptions').on('change', function() {
       discValue=this.value;
       if(discValue==1){
-        discValue=null;
+       discValue=null;
       }
       Search();
     });
@@ -112,7 +113,7 @@ $(document).ready(function(){
 
 //This function takes in an address and creates a marker on the map of it, Look into adding details to the makers. It should bring up the school when you click it
 function codeAddress(addy, sync, name,infowindow, icon, next) {
-    geocoder = new google.maps.Geocoder();
+    
     geocoder.geocode( { 'address': addy}, function(results, status) {
       if (status+"" == "OK") {
         addMarker(results[0].geometry.location,sync,name, infowindow, icon);
@@ -254,12 +255,12 @@ function arrayToObjects(TheUrl){
 //takes all of the districts names and adds them to the options
 function districtOptions(){
   for(var i=0; i < districtArray.length; i++){
-    $('.selectOptions').append('<option value='+districtArray[i].SystemId +'>'+ districtArray[i].SystemName +'</option>');
+    $('.selectOptions').append('<option class="district" id='+districtArray[i].SystemId+' value='+districtArray[i].SystemId +'>'+ districtArray[i].SystemName +'</option>');
   };
   districtArray=[];
 }
 //Search function with if statements for each possible filter combination.
-// t= textsearch d=discticts m=misc r=rating g=grade 
+// t= textsearch d=discticts m=misc r=rating g=gradelevel
 //t d m td tm dm tdm tg tr tgr dg dr dgr mg mr mgr tdg tdr tdgr tmg tmr tmgr dmg dmr dmgr tdmg tdmr tdmgr =28 different possible combinations
 function Search(){
  
@@ -445,12 +446,11 @@ function Search(){
 }else if(schoolGradeVar !=null & searchTxt == null & discValue ==null & schoolRatingVar != null & miscellaneousSearch ==null) { 
   $(".SearchResultBar").hide();
   deleteMarkers();
-
 }else if(schoolGradeVar ==null & searchTxt == null & discValue ==null & schoolRatingVar == null & miscellaneousSearch ==null) { //we only allow a marker to pop up if either searchtxt, discValue, or misc are not null
   $(".SearchResultBar").hide();
   deleteMarkers();
 }else{
-  alert('error, uncaught logic:' + schoolGradeVar +" "+ searchTxt +" "+ discValue +" "+ schoolRatingVar +" "+  miscellaneousSearch);
+  console.log('error, uncaught logic:' + schoolGradeVar +" "+ searchTxt +" "+ discValue +" "+ schoolRatingVar +" "+  miscellaneousSearch);
 }
 }
 function renderSearch(searchArray){
@@ -458,10 +458,7 @@ function renderSearch(searchArray){
   addresses=[];
   delay = 100;
   nextaddress=-1;
-  sync =[];
   infoArray =[];
-  iconArray = [];
-  nameArray = [];
   var template =$('#searchResultTemp').html();
   var text = Mustache.render(template, {arr:searchArray});
   $('.searchContainer').append(text);
@@ -480,7 +477,7 @@ function theNext(){
   if(nextaddress < addresses.length-1 ){
   timer = setTimeout( function(){
     codeAddress(addresses[nextaddress], searchArray[nextaddress].sys_sch , searchArray[nextaddress].SchoolName,
-       infoArray[nextaddress],searchArray[nextaddress].Cluster + searchArray[nextaddress].Grade +".png",theNext);
+       infoArray[nextaddress],"MapIcon/"+searchArray[nextaddress].Cluster + searchArray[nextaddress].Grade +".png",theNext);
   }, delay);
   nextaddress++;
   } 
@@ -496,7 +493,7 @@ function decideSearchAction(){
   if(searchArray.length==0){
     $(".SearchResultBar").hide();
     deleteMarkers();
-    
+    alert("There are no schools that match your search");
     console.log('error, uncaught logic:' + schoolGradeVar +" "+ searchTxt +" "+ discValue +" "+ schoolRatingVar +" "+  miscellaneousSearch);
   }else if(discValue != null){
   renderSearch(searchArray);
@@ -535,13 +532,34 @@ function buttoncolor(){
  * The custom USGSOverlay object contains the USGS image,
  * the bounds of the image, and a reference to the map.
  */
-
+ 
  function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 7,
     center: { lat: 32.744164, lng: -83.498423 },
     mapTypeId: "satellite",
   });
+  map.addListener("click", (event) => {
+    console.log(event.latLng);
+    geocoder.geocode( { 'location': event.latLng}, function(results, status) {
+      console.log(results[0].address_components[3].long_name,status);
+      var int =results[0].address_components.length;
+      $("option[class*='district']").each(function (x, pj) {
+        for(var i=0; i < int ; i++){
+          var one = ""+$(pj).text();
+          var two = "" +results[0].address_components[i].long_name;
+         
+          if(one == two){
+            if(discValue != pj.value){
+              pj.selected=true;
+              $(pj).trigger("change");
+            }
+          }
+        }
+     });
+    });
+  });
+
   var swBound = new google.maps.LatLng(30.2, -85.8);
   var neBound = new google.maps.LatLng(35.2, -80.6);
   const bounds = new google.maps.LatLngBounds(swBound, neBound);
@@ -647,7 +665,6 @@ function buttoncolor(){
       }
     }
   }
-
   const overlay = new USGSOverlay(bounds, image);
 
   overlay.setMap(map);
@@ -669,4 +686,3 @@ function buttoncolor(){
   });
   map.controls[google.maps.ControlPosition.TOP_RIGHT].push(toggleDOMButton);
 }
-
