@@ -57,8 +57,8 @@ crossorigin="anonymous"></script>
   </div>
   <div class="filter-districts">
     <label class="header-label">Districts</label>
-    <select class="selectOptions">
-      <option value='1'>Search or Click Map for District Options</option>
+    <select class="selectOptions" id='selectCountry'>
+      <option class='district' value='1'>Search or Click Map for District Options</option>
     </select>
   </div>
   <div class="filter-grade">
@@ -71,26 +71,25 @@ crossorigin="anonymous"></script>
   </div>
   <div class="filter-SchoolTypes">
     <label class="header-label">School Types</label>
-    <select class="selectOptions">
+    <select class="SchoolTypeOptions">
       <option value='1'>All Schools</option>
       <option value='Magnet'>Magnet</option>
     </select>
   </div>
   <div class="filter-rating">
     <label class="header-label">School Rating</label>
-    <input type="radio" id="html"SchoolRating" value="HTML">
+    <input type="radio" class="rate" id="A" name="rating" value="A">
     <label for="A">A</label><br>
-    <input type="radio" id="A" name="A" value="A">
+    <input type="radio" class="rate" id="B" name="rating" value="B">
     <label for="B">B</label><br>
-    <input type="radio" id="B" name="B" value="B">
+    <input type="radio" class="rate" id="C" name="rating" value="C">
     <label for="C">C</label><br>
-    <input type="radio" id="C" name="C" value="C">
+    <input type="radio" class="rate" id="D" name="rating" value="D">
     <label for="D">D</label><br>
-    <input type="radio" id="D" name="D" value="D">
+    <input type="radio" class="rate" id="F" name="rating" value="F">
     <label for="F">F</label><br>
-    <input type="radio" id="F" name="F" value="F">
+    <input type="radio" class="rate" id="NotRated" name="rating" value="-">
     <label for="NotRated">Not Rated</label><br>
-    <input type="radio" id="NotRated" name="NotRated" value="NotRated">
   </div>
 </div>
  <div id="map"></div>
@@ -100,10 +99,5 @@ crossorigin="anonymous"></script>
  </div>
 </div>
 
-<div id="SchoolDescriptionPage">
-  <div class="BackToMap">
-    <p>Back to Map Page</p>
-  </div>
-  <div id="DetailedNavigation"></div>
-</div>
+
 </html>
