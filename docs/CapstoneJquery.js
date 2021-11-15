@@ -57,6 +57,11 @@ $(document).ready(function(){
         searchTxt=null;
       }
     });
+    $('.rate').on('change', function() {
+      schoolRatingVar=this.value;
+      console.log(schoolRatingVar);
+      Search();
+    });
     $('.searchContainer').on('click','.searchResultTab',function(){
       var id = this.id;
      showSelected(id);
@@ -263,7 +268,7 @@ function districtOptions(){
 // t= textsearch d=discticts m=misc r=rating g=gradelevel
 //t d m td tm dm tdm tg tr tgr dg dr dgr mg mr mgr tdg tdr tdgr tmg tmr tmgr dmg dmr dmgr tdmg tdmr tdmgr =28 different possible combinations
 function Search(){
- 
+  
   $(".SearchResultsTabs").show();
   removeSearch()
   $(".SearchResultBar").show();
