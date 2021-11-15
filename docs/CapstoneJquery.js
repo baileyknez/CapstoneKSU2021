@@ -26,7 +26,7 @@ var infoArray =[];
 var latestposition;
 var schoolRatingVar = null;
 var miscellaneousSearch =null;
-
+var schoolType =[];
 
 //This is when the page is completelt loaded and has all of our listening events
 $(document).ready(function(){
@@ -40,6 +40,41 @@ $(document).ready(function(){
       if(discValue==1){
        discValue=null;
       }
+      Search();
+    });
+    $('.SchoolTypeOptions').on('change', function() {
+      miscellaneousSearch=this.value;
+      
+      switch(parseInt(this.value)){
+        case 1:
+          miscellaneousSearch=null;
+          break;
+        case 2:
+          schoolType=["magnet"]
+          break;
+        case 3:
+          schoolType=["arts"]
+          break;
+        case 4:
+          schoolType=["tech","stem","S.T.E.M."]
+          break;
+        case 5:
+          schoolType=["Charter"]
+          break;
+        case 6:
+          schoolType=["Blind","Deaf", "Special", "Intervention"]
+          break;
+        case 7:
+          schoolType=["Online","Virtual"]
+          break;
+        case 8:
+          schoolType=["International", "Language"]
+          break;
+        case 9:
+          schoolType=["advance", "classical"]
+          break;
+      }
+
       Search();
     });
     $('.searchbutton').click(function(){
@@ -57,11 +92,7 @@ $(document).ready(function(){
         searchTxt=null;
       }
     });
-    $('.rate').on('change', function() {
-      schoolRatingVar=this.value;
-      console.log(schoolRatingVar);
-      Search();
-    });
+    
     $('.searchContainer').on('click','.searchResultTab',function(){
       var id = this.id;
      showSelected(id);
@@ -112,7 +143,67 @@ $(document).ready(function(){
       Search();
       }
     });
-  
+    $('#A').on('click', function() {
+      if(this.value == schoolRatingVar){
+      schoolRatingVar=null;
+      document.getElementById('A').checked = false;
+      Search(); 
+      }else{
+        schoolRatingVar=this.value;
+        Search();
+      }
+    });
+    $('#B').on('click', function() {
+      if(this.value == schoolRatingVar){
+      schoolRatingVar=null;
+      Search();
+      document.getElementById('B').checked = false; 
+      }else{
+        schoolRatingVar=this.value;
+        Search();
+      }
+    });
+    $('#C').on('click', function() {
+      if(this.value == schoolRatingVar){
+      schoolRatingVar=null;
+      document.getElementById('C').checked = false;
+      Search(); 
+      }else{
+        schoolRatingVar=this.value;
+        Search();
+      }
+      console.log(schoolRatingVar);
+    });
+    $('#D').on('click', function() {
+      if(this.value == schoolRatingVar){
+      schoolRatingVar=null;
+      document.getElementById('D').checked = false; 
+      Search();
+      }else{
+        schoolRatingVar=this.value;
+        Search();
+      }
+    });
+    $('#F').on('click', function() {
+      if(this.value == schoolRatingVar){
+      schoolRatingVar=null;
+      document.getElementById('F').checked = false; 
+      Search();
+      }else{
+        schoolRatingVar=this.value;
+        Search();
+      }
+    });
+    $('#NotRated').on('click', function() {
+      if(this.value == schoolRatingVar){
+      schoolRatingVar=null;
+      document.getElementById('NotRated').checked = false; 
+      Search();
+      }else{
+        schoolRatingVar=this.value;
+        Search();
+      }
+    });
 });
 
 
@@ -268,7 +359,7 @@ function districtOptions(){
 // t= textsearch d=discticts m=misc r=rating g=gradelevel
 //t d m td tm dm tdm tg tr tgr dg dr dgr mg mr mgr tdg tdr tdgr tmg tmr tmgr dmg dmr dmgr tdmg tdmr tdmgr =28 different possible combinations
 function Search(){
-  
+  searchArray=[];
   $(".SearchResultsTabs").show();
   removeSearch()
   $(".SearchResultBar").show();
@@ -304,51 +395,87 @@ function Search(){
     console.log('dgr');
     decideSearchAction()
 }else if(schoolGradeVar==null & searchTxt == null & discValue== null & schoolRatingVar == null & miscellaneousSearch !=null){ // miscellaneous 6  m
-    searchArray= $.grep(schoolArray, function(search){
-      return  search.SchoolName.toLowerCase().indexOf(miscellaneousSearch.toLowerCase()) > -1 ;
+  var addString=[];
+  for(var i= 0; i < schoolType.length; i++){
+    addString = $.grep(schoolArray, function(search){
+      
+      return search.SchoolName.toLowerCase().indexOf(schoolType[i].toLowerCase()) > -1 ;
     });
+    searchArray=searchArray.concat(addString);
+    }
+    console.log(searchArray)
     console.log('m');
     decideSearchAction()
-}else if(schoolGradeVar==null & searchTxt == null & discValue== null & schoolRatingVar == null & miscellaneousSearch !=null){ // misc grade 7 mg 
-    searchArray= $.grep(schoolArray, function(search){
-      return  search.SchoolName.toLowerCase().indexOf(miscellaneousSearch.toLowerCase()) > -1  & search.Grade == schoolRatingVar;
+}else if(schoolGradeVar!=null & searchTxt == null & discValue== null & schoolRatingVar == null & miscellaneousSearch !=null){ // misc grade 7 mg 
+  var addString=[];
+  for(var i=0; i < schoolType.length; i++){
+    addString= $.grep(schoolArray, function(search){
+      return  search.SchoolName.toLowerCase().indexOf(schoolType[i].toLowerCase()) > -1  &  search.Cluster.toLowerCase().indexOf(schoolGradeVar.toLowerCase()) > -1 ;
     });
+    searchArray = searchArray.concat(addString);
+    }
+    console.log();
     console.log('mg ');
     decideSearchAction()
-}else if(schoolGradeVar==null & searchTxt == null & discValue== null & schoolRatingVar == null & miscellaneousSearch !=null){ // misc rate 8 mr 
-    searchArray= $.grep(schoolArray, function(search){
-      return  search.SchoolName.toLowerCase().indexOf(miscellaneousSearch.toLowerCase()) > -1  & search.Grade == schoolRatingVar ;
+}else if(schoolGradeVar==null & searchTxt == null & discValue== null & schoolRatingVar != null & miscellaneousSearch !=null){ // misc rate 8 mr 
+  var addString=[];
+  for(var i=0; i < schoolType.length; i++){
+    addString= $.grep(schoolArray, function(search){
+      return  search.SchoolName.toLowerCase().indexOf(schoolType[i].toLowerCase()) > -1  & search.Grade == schoolRatingVar ;
     });
+    searchArray = searchArray.concat(addString);
+    }
     console.log('mr');
     decideSearchAction()
-  }else if(schoolGradeVar==null & searchTxt == null & discValue== null & schoolRatingVar == null & miscellaneousSearch !=null){ // misc rate grade 9 mrg
-    searchArray= $.grep(schoolArray, function(search){
-      return  search.SchoolName.toLowerCase().indexOf(miscellaneousSearch.toLowerCase()) > -1  & search.Grade == schoolRatingVar & search.Grade == schoolRatingVar ;
+  }else if(schoolGradeVar!=null & searchTxt == null & discValue== null & schoolRatingVar != null & miscellaneousSearch !=null){ // misc rate grade 9 mrg
+    var addString=[];
+  for(var i=0; i < schoolType.length; i++){
+    addString= $.grep(schoolArray, function(search){
+      return  search.SchoolName.toLowerCase().indexOf(schoolType[i].toLowerCase()) > -1  & search.Grade == schoolRatingVar  &  search.Cluster.indexOf(schoolGradeVar) > -1  ;
     });
+    searchArray = searchArray.concat(addString);
+    }
     console.log('mrg');
     decideSearchAction()
-}else if(schoolGradeVar ==null & searchTxt == null & discValue !=null & schoolRatingVar != null & miscellaneousSearch ==null){ // disc and misc 10 dm
-    searchArray= $.grep(schoolArray, function(search){
-      return  search.SystemId == discValue &  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) > -1 ;
+}else if(schoolGradeVar ==null & searchTxt == null & discValue !=null & schoolRatingVar == null & miscellaneousSearch !=null){ // disc and misc 10 dm
+  var addString=[];
+  for(var i=0; i < schoolType.length; i++){
+    addString= $.grep(schoolArray, function(search){
+      return  search.SystemId == discValue &  search.SchoolName.toLowerCase().indexOf(schoolType[i].toLowerCase()) > -1 ;
     });
+    searchArray = searchArray.concat(addString);
+    }
     console.log('dm');
     decideSearchAction()
 }else if(schoolGradeVar ==null & searchTxt == null & discValue !=null & schoolRatingVar != null & miscellaneousSearch !=null){ // disc & misc and rating  11 dmr
-  searchArray= $.grep(schoolArray, function(search){
-   return  search.SystemId == discValue & search.Grade == schoolRatingVar & search.SchoolName.toLowerCase().indexOf(miscellaneousSearch.toLowerCase()) > -1;
+  var addString=[];
+  for(var i=0; i < schoolType.length; i++){
+    addString= $.grep(schoolArray, function(search){
+   return  search.SystemId == discValue & search.Grade == schoolRatingVar & search.SchoolName.toLowerCase().indexOf(schoolType[i].toLowerCase()) > -1;
  });
+ searchArray = searchArray.concat(addString);
+}
+ 
  console.log('dmr');
  decideSearchAction()
 }else if(schoolGradeVar !=null & searchTxt == null & discValue !=null & schoolRatingVar == null & miscellaneousSearch !=null){ //  discs & misc  grade level 12  dmg
-  searchArray= $.grep(schoolArray, function(search){
-    return  search.SystemId == discValue & search.Cluster.indexOf(schoolGradeVar) >-1 &  search.SchoolName.toLowerCase().indexOf(miscellaneousSearch.toLowerCase()) > -1;
+  var addString=[];
+  for(var i=0; i < schoolType.length; i++){
+    addString= $.grep(schoolArray, function(search){
+    return  search.SystemId == discValue & search.Cluster.indexOf(schoolGradeVar) >-1 &  search.SchoolName.toLowerCase().indexOf(schoolType[i].toLowerCase()) > -1;
   });
+  searchArray = searchArray.concat(addString);
+  }
   console.log('dmg');
   decideSearchAction()
-}else if(schoolGradeVar !=null & searchTxt == null & discValue !=null & schoolRatingVar != null & miscellaneousSearch ==null){ // disc misc, grade level, rating 13 dmgr  
-  searchArray= $.grep(schoolArray, function(search){
-    return  search.SystemId == discValue & search.Cluster.indexOf(schoolGradeVar) >-1 & search.Grade == schoolRatingVar & search.SchoolName.toLowerCase().indexOf(miscellaneousSearch.toLowerCase()) >-1;
+}else if(schoolGradeVar !=null & searchTxt == null & discValue !=null & schoolRatingVar != null & miscellaneousSearch !=null){ // disc misc, grade level, rating 13 dmgr 
+  var addString=[];
+  for(var i=0; i < schoolType.length; i++){ 
+    addString= $.grep(schoolArray, function(search){
+    return  search.SystemId == discValue & search.Cluster.indexOf(schoolGradeVar) >-1 & search.Grade == schoolRatingVar & search.SchoolName.toLowerCase().indexOf(schoolType[i].toLowerCase()) >-1;
   });
+  searchArray = searchArray.concat(addString);
+  }
   console.log('dmgr ');
   decideSearchAction()
 } else if(schoolGradeVar==null & searchTxt != null & discValue== null & schoolRatingVar == null & miscellaneousSearch ==null){ //  text 14 t
@@ -376,28 +503,44 @@ function Search(){
   console.log('tgr');
   decideSearchAction()
 }else if(schoolGradeVar ==null & searchTxt != null & discValue ==null & schoolRatingVar == null & miscellaneousSearch !=null){ // text  misc 18 tm
-  searchArray= $.grep(schoolArray, function(search){
-    return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) >-1   & search.SchoolName.toLowerCase().indexOf(miscellaneousSearch.toLowerCase()) >-1;
+  var addString=[];
+  for(var i=0; i < schoolType.length; i++){
+    addString= $.grep(schoolArray, function(search){
+    return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) >-1 & search.SchoolName.toLowerCase().indexOf(schoolType[i].toLowerCase()) >-1;
   });
+  searchArray = searchArray.concat(addString);
+  }
   console.log('tm');
   decideSearchAction()
 }else if(schoolGradeVar !=null & searchTxt != null & discValue ==null & schoolRatingVar == null & miscellaneousSearch !=null){ // text misc  school level 19 tmg
-  searchArray= $.grep(schoolArray, function(search){
-    return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) >-1 & search.Cluster.indexOf(schoolGradeVar) >-1  & search.SchoolName.toLowerCase().indexOf(miscellaneousSearch.toLowerCase()) >-1;
+  var addString=[];
+  for(var i=0; i < schoolType.length; i++){
+    addString= $.grep(schoolArray, function(search){
+    return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) >-1 & search.Cluster.indexOf(schoolGradeVar) >-1  & search.SchoolName.toLowerCase().indexOf(schoolType[i].toLowerCase()) >-1;
   });
+  searchArray = searchArray.concat(addString);
+  }
   console.log('tmg');
   decideSearchAction()
 }else if(schoolGradeVar ==null & searchTxt != null & discValue ==null & schoolRatingVar != null & miscellaneousSearch !=null){ // text misc rating  20 tmr
-  searchArray= $.grep(schoolArray, function(search){
-    return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) > -1  & search.Grade == schoolRatingVar  & search.SchoolName.toLowerCase().indexOf(miscellaneousSearch.toLowerCase()) >-1;
+  var addString=[];
+  for(var i=0; i < schoolType.length; i++){
+    addString= $.grep(schoolArray, function(search){
+    return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) > -1  & search.Grade == schoolRatingVar  & search.SchoolName.toLowerCase().indexOf(schoolType[i].toLowerCase()) >-1;
   });
+  searchArray = searchArray.concat(addString);
+  }
   console.log('tmr');
   decideSearchAction()
 
 }else if(schoolGradeVar !=null & searchTxt != null & discValue ==null & schoolRatingVar != null & miscellaneousSearch !=null){ // text misc rating grade level 21 tmgr
-  searchArray= $.grep(schoolArray, function(search){
-    return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) >-1 & search.Cluster.indexOf(schoolGradeVar) >-1  & search.Grade == schoolRatingVar & search.SchoolName.toLowerCase().indexOf(miscellaneousSearch.toLowerCase()) >-1;
+  var addString=[];
+  for(var i=0; i < schoolType.length; i++){
+    addString= $.grep(schoolArray, function(search){
+    return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) >-1 & search.Cluster.indexOf(schoolGradeVar) >-1  & search.Grade == schoolRatingVar & search.SchoolName.toLowerCase().indexOf(schoolType[i].toLowerCase()) >-1;
   });
+  searchArray = searchArray.concat(addString);
+  }
   console.log('tmgr');
   decideSearchAction()
 }else if(schoolGradeVar !=null & searchTxt != null & discValue !=null & schoolRatingVar == null & miscellaneousSearch ==null){ // text district  grade level 22  tdg
@@ -418,28 +561,44 @@ function Search(){
   });
   console.log('tdrg');
   decideSearchAction()
-}else if(schoolGradeVar !=null & searchTxt != null & discValue !=null & schoolRatingVar == null & miscellaneousSearch ==null){ //text &  district & misc 25 tdm
-  searchArray= $.grep(schoolArray, function(search){
-    return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) >-1  & search.SystemId == discValue & search.SchoolName.toLowerCase().indexOf(miscellaneousSearch.toLowerCase()) >-1; 
+}else if(schoolGradeVar ==null & searchTxt != null & discValue !=null & schoolRatingVar == null & miscellaneousSearch !=null){ //text &  district & misc 25 tdm
+  var addString=[];
+  for(var i=0; i < schoolType.length; i++){
+    addString= $.grep(schoolArray, function(search){
+    return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) >-1  & search.SystemId == discValue & search.SchoolName.toLowerCase().indexOf(schoolType[i].toLowerCase()) >-1; 
   });
+  searchArray = searchArray.concat(addString);
+  }
   console.log('tdm');
   decideSearchAction()
-}else if(schoolGradeVar !=null & searchTxt != null & discValue !=null & schoolRatingVar == null & miscellaneousSearch ==null){ //text district misc & school level 26 tdmg
-  searchArray= $.grep(schoolArray, function(search){
-    return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) >-1 & search.Cluster.toLowerCase().indexOf(schoolGradeVar.toLowerCase()) >-1 & search.SystemId == discValue & search.SchoolName.toLowerCase().indexOf(miscellaneousSearch.toLowerCase()) >-1; 
+}else if(schoolGradeVar !=null & searchTxt != null & discValue !=null & schoolRatingVar == null & miscellaneousSearch !=null){ //text district misc & school level 26 tdmg
+  var addString=[];
+  for(var i=0; i < schoolType.length; i++){
+    addString= $.grep(schoolArray, function(search){
+    return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) >-1 & search.Cluster.toLowerCase().indexOf(schoolGradeVar.toLowerCase()) >-1 & search.SystemId == discValue & search.SchoolName.toLowerCase().indexOf(schoolType[i].toLowerCase()) >-1; 
   });
+  searchArray = searchArray.concat(addString);
+  }
   console.log('tdmg');
   decideSearchAction()
-}else if(schoolGradeVar !=null & searchTxt != null & discValue !=null & schoolRatingVar != null & miscellaneousSearch !=null){ // text misc district &   rating 27 tdmr
-  searchArray= $.grep(schoolArray, function(search){
-    return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) >-1 &  search.SystemId == discValue & search.Grade == schoolRatingVar & search.SchoolName.toLowerCase().indexOf(miscellaneousSearch.toLowerCase()) >-1; 
+}else if(schoolGradeVar ==null & searchTxt != null & discValue !=null & schoolRatingVar != null & miscellaneousSearch !=null){ // text misc district &   rating 27 tdmr
+  var addString=[];
+  for(var i=0; i < schoolType.length; i++){
+    addString= $.grep(schoolArray, function(search){
+    return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) >-1 &  search.SystemId == discValue & search.Grade == schoolRatingVar & search.SchoolName.toLowerCase().indexOf(schoolType[i].toLowerCase()) >-1; 
   });
+  searchArray = searchArray.concat(addString);
+  }
   console.log('tdmr');
   decideSearchAction()
 }else if(schoolGradeVar !=null & searchTxt != null & discValue !=null & schoolRatingVar != null & miscellaneousSearch !=null){ // text misc district & school level  rating 28 tdmgr
-  searchArray= $.grep(schoolArray, function(search){
-    return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) >-1 & search.Cluster.toLowerCase().indexOf(schoolGradeVar.toLowerCase()) >-1 & search.SystemId == discValue & search.Grade == schoolRatingVar & search.SchoolName.toLowerCase().indexOf(miscellaneousSearch.toLowerCase()) >-1; 
+  var addString=[];
+  for(var i=0; i < schoolType.length; i++){
+    addString= $.grep(schoolArray, function(search){
+    return  search.SchoolName.toLowerCase().indexOf(searchTxt.toLowerCase()) >-1 & search.Cluster.toLowerCase().indexOf(schoolGradeVar.toLowerCase()) >-1 & search.SystemId == discValue & search.Grade == schoolRatingVar & search.SchoolName.toLowerCase().indexOf(schoolType[i].toLowerCase()) >-1; 
   });
+  searchArray = searchArray.concat(addString);
+  }
   console.log('tdmgr');
   decideSearchAction()
 }else if(schoolGradeVar ==null & searchTxt == null & discValue ==null & schoolRatingVar != null & miscellaneousSearch ==null) { 
@@ -482,7 +641,7 @@ function theNext(){
   if(nextaddress < addresses.length-1 ){
   timer = setTimeout( function(){
     codeAddress(addresses[nextaddress], searchArray[nextaddress].sys_sch , searchArray[nextaddress].SchoolName,
-       infoArray[nextaddress],searchArray[nextaddress].Cluster + searchArray[nextaddress].Grade +".png",theNext);
+       infoArray[nextaddress],"MapIcon/"+searchArray[nextaddress].Cluster + searchArray[nextaddress].Grade +".png",theNext);
   }, delay);
   nextaddress++;
   } 
@@ -545,9 +704,7 @@ function buttoncolor(){
     mapTypeId: "satellite",
   });
   map.addListener("click", (event) => {
-    console.log(event.latLng);
     geocoder.geocode( { 'location': event.latLng}, function(results, status) {
-      console.log(results[0].address_components[3].long_name,status);
       var int =results[0].address_components.length;
       $("option[class*='district']").each(function (x, pj) {
         for(var i=0; i < int ; i++){
