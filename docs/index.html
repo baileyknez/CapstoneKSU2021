@@ -52,13 +52,13 @@ crossorigin="anonymous"></script>
 <div class="filter-bar">
   <div class="search-input-filter">
     <label class="header-label">Search</label>
-    <input name="search term" type="text" placeholder="Enter address to see schools" class='search-box'>
+    <input name="search term" type="text" onfocus="if(this.value=='A new value')" placeholder="Enter address to see schools" class='search-box'>
     <button name="submit-search" class='searchbutton'>Search</button>
   </div>
   <div class="filter-districts">
     <label class="header-label">Districts</label>
     <select class="selectOptions" id='selectCountry'>
-      <option class='district' value='1'>Search or Click Map for District Options</option>
+      <option class='district' id="discHome" value='1'>Search or Click Map for District Options</option>
     </select>
   </div>
   <div class="filter-grade">
@@ -72,15 +72,15 @@ crossorigin="anonymous"></script>
   <div class="filter-SchoolTypes">
     <label class="header-label">School Types</label>
     <select class="SchoolTypeOptions">
-      <option value='1'>All Schools</option>
-      <option value='2'>Magnet</option>
-      <option value='3'>Art Schools</option>
-      <option value='4'>STEM</option>
-      <option value='5'>Charter</option>
-      <option value='6'>Special Needs</option>
-      <option value='7'>Online</option>
-      <option value='8'>International/Language</option>
-      <option value='9'>Advance</option>
+      <option class="type" id="typeHome" value='1'>All Schools</option>
+      <option class="type" value='2'>Magnet</option>
+      <option class="type" value='3'>Art Schools</option>
+      <option class="type" value='4'>STEM</option>
+      <option class="type" value='5'>Charter</option>
+      <option class="type" value='6'>Special Needs</option>
+      <option class="type" value='7'>Online</option>
+      <option class="type" value='8'>International/Language</option>
+      <option class="type" value='9'>Advance</option>
 
     </select>
   </div>
@@ -98,6 +98,10 @@ crossorigin="anonymous"></script>
     <label for="F">F</label><br>
     <input type="radio" class="rate" id="NotRated" name="rating" value="-">
     <label for="NotRated">Not Rated</label><br>
+  </div>
+  <div class="ClearSearch">
+    <label class="header-label">Clear Search</label>
+    <button class="ClearButton">Reset</button>
   </div>
 </div>
  <div id="map"></div>
