@@ -635,6 +635,7 @@ function renderSearch(searchArray){
  addresses.push(searchArray[i].Street +" "+ searchArray[i].City + " GA");
  infoArray.push(infowindow);
  }
+ $("#total").html(addresses.length);
  theNext();
 }
 function theNext(){
@@ -644,6 +645,7 @@ function theNext(){
        infoArray[nextaddress],searchArray[nextaddress].Cluster + searchArray[nextaddress].Grade +".png",theNext);
   }, delay);
   nextaddress++;
+  $("#count").html(nextaddress+1);
   } 
   else{
   clearTimeout(timer);
