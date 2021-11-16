@@ -35,6 +35,26 @@ $(document).ready(function(){
     districtArray=arrayToObjects("district-19.csv");
     districtOptions();
     $(".SearchResultBar").hide();
+    $('.ClearButton').on('click', function(){
+      document.getElementById('A').checked = false;
+      document.getElementById('B').checked = false;
+      document.getElementById('C').checked = false;
+      document.getElementById('D').checked = false;
+      document.getElementById('F').checked = false;
+      document.getElementById('NotRated').checked = false;
+      document.getElementById('typeHome').selected = true;
+      document.getElementById('discHome').selected = true;
+      
+      schoolGradeVar = null;
+      discValue =null;
+      miscellaneousSearch =null;
+      schoolRatingVar = null;
+      searchTxt = null;
+      searchArray =[];
+      buttoncolor();
+      nonDiscZoom();
+      Search();
+    });
     $('.selectOptions').on('change', function() {
       discValue=this.value;
       if(discValue==1){
