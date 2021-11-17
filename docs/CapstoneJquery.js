@@ -30,8 +30,12 @@ var schoolType =[];
 
 //This is when the page is completelt loaded and has all of our listening events
 $(document).ready(function(){
-     let vh = window.innerHeight * 0.01;
+    let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
+    document.addEventListener("resize", function(){ 
+    vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+    });
     initMap();
     schoolArray = arrayToObjects("school-19.csv");
     districtArray=arrayToObjects("district-19.csv");
@@ -84,7 +88,7 @@ $(document).ready(function(){
           schoolType=["Charter"]
           break;
         case 6:
-          schoolType=["Blind","Deaf", "Special", "Intervention"]
+          schoolType=["Blind","Deaf", "Special", "Intervention","Alternative"]
           break;
         case 7:
           schoolType=["Online","Virtual"]
@@ -116,8 +120,10 @@ $(document).ready(function(){
     });
     
     $('.searchContainer').on('click','.searchResultTab',function(){
-      var id = this.id;
-     showSelected(id);
+    var id = this.id;
+     HideSearchDetail();
+     $(id).show();
+     
      title = id.substring(1,id.length);
      $("div[title|="+title+"]").trigger("click");
     });
@@ -271,10 +277,7 @@ function geocodeTexas(street,city,zip, name, Info, icon){
 	  }  
 	});
 };
-function showSelected(sync){
-  HideSearchDetail();
-    $(sync).show();
-}
+
 //These are all of the marker functions that we will need provided by the google API documentation 
 function addMarker(position, sync,name, constent, URL) {
   const marker = new google.maps.Marker({
@@ -343,11 +346,7 @@ function removeSearch(){
     $(pj).remove();
  });
 }
-function removeSchoolDetail(){
-  $("div[class*='SchoolInfoResult']").each(function (x, pj) {
-    $(pj).remove();
- });
-}
+
 function HideSearchDetail(){
   $("div[class*='searchResultDetail']").each(function (x, pj) {
     $(pj).hide();
@@ -369,17 +368,9 @@ function arrayToObjects(TheUrl){
 	});
   return results;
 }
-
-//takes all of the districts names and adds them to the options
-function districtOptions(){
-  for(var i=0; i < districtArray.length; i++){
-    $('.selectOptions').append('<option class="district" id='+districtArray[i].SystemId+' value='+districtArray[i].SystemId +'>'+ districtArray[i].SystemName +'</option>');
-  };
-  districtArray=[];
-}
 //Search function with if statements for each possible filter combination.
 // t= textsearch d=discticts m=misc r=rating g=gradelevel
-//t d m td tm dm tdm tg tr tgr dg dr dgr mg mr mgr tdg tdr tdgr tmg tmr tmgr dmg dmr dmgr tdmg tdmr tdmgr =28 different possible combinations
+//t d m td tm dm tdm tg tr tgr dg dr dgr mg mr mgr tdg tdr tdgr tmg tmr tmgr dmg dmr dmgr tdmg tdmr tdmgr =28 different possible combinations minus the ones without m d t because we do not allow search without them 
 function Search(){
   searchArray=[];
   $(".SearchResultsTabs").show();
@@ -629,7 +620,7 @@ function Search(){
 }else if(schoolGradeVar !=null & searchTxt == null & discValue ==null & schoolRatingVar == null & miscellaneousSearch ==null) { 
   $(".SearchResultBar").hide();
   deleteMarkers();
-}else if(schoolGradeVar !=null & searchTxt == null & discValue ==null & schoolRatingVar != null & miscellaneousSearch ==null) { 
+}else if(schoolGradeVar !=null & searchTxt == null & discValue ==null & schoolRatingVar != null & miscellaneousSearch ==null) { //just to catch without m t d
   $(".SearchResultBar").hide();
   deleteMarkers();
 }else if(schoolGradeVar ==null & searchTxt == null & discValue ==null & schoolRatingVar == null & miscellaneousSearch ==null) { //we only allow a marker to pop up if either searchtxt, discValue, or misc are not null
@@ -645,6 +636,17 @@ function renderSearch(searchArray){
   delay = 100;
   nextaddress=-1;
   infoArray =[];
+  var x = window.matchMedia("(min-width: 576px)");
+  console.log(window.innerWidth);
+  console.log(x)
+  if (window.innerWidth < 576) { // If media query matches
+    $('.filter-bar').css('max-height','73vh');
+    $('#map').css('height','73vh');
+    console.log("css");
+  } else{
+    $('.filter-bar').css('max-height','93vh');
+    $('#map').css('height','93vh');
+  }
   var template =$('#searchResultTemp').html();
   var text = Mustache.render(template, {arr:searchArray});
   $('.searchContainer').append(text);
@@ -664,7 +666,7 @@ function theNext(){
   if(nextaddress < addresses.length-1 ){
   timer = setTimeout( function(){
     codeAddress(addresses[nextaddress], searchArray[nextaddress].sys_sch , searchArray[nextaddress].SchoolName,
-       infoArray[nextaddress],searchArray[nextaddress].Cluster + searchArray[nextaddress].Grade +".png",theNext);
+       infoArray[nextaddress],"MapIcon/"+searchArray[nextaddress].Cluster + searchArray[nextaddress].Grade +".png",theNext);
   }, delay);
   nextaddress++;
   $("#count").html(nextaddress+1);
@@ -705,7 +707,13 @@ function nonDiscZoom(){
   map.setCenter({lat:  parseFloat(one), lng: parseFloat(two)});
   map.setZoom(7);
 }
-
+//takes all of the districts names and adds them to the options
+function districtOptions(){
+  for(var i=0; i < districtArray.length; i++){
+    $('.selectOptions').append('<option class="district" id='+districtArray[i].SystemId+' value='+districtArray[i].SystemId +'>'+ districtArray[i].SystemName +'</option>');
+  };
+  districtArray=[];
+}
 
 //This just changes the button color for the Grades Filter
 function buttoncolor(){
