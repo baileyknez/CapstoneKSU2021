@@ -193,7 +193,7 @@ select{
   clear:both;
 }
 #map{
-  position:relative;
+  position:absolute;
   width:80%;
   margin-top:auto;
   margin-right:auto; 
