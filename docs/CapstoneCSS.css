@@ -194,8 +194,7 @@ select{
   width:80%;
   top:0;
   margin-right:auto; 
-  height: 50.75rem;
-  min-height: 93%;
-  max-height: 93%;
+  height: 93vh;
+  height: calc(var(--vh, 1vh) * 93);
   z-index: 1;
   }
