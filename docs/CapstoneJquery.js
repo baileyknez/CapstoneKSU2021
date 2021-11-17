@@ -32,8 +32,6 @@ var schoolType =[];
 $(document).ready(function(){
      let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
-    document.addEventListener("resize", function(){ 
-    vh = window.innerHeight * 0.01;
     initMap();
     schoolArray = arrayToObjects("school-19.csv");
     districtArray=arrayToObjects("district-19.csv");
