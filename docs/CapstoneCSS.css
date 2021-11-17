@@ -159,7 +159,7 @@ select{
   width:20%;
   right:0;
   margin-top: auto;
-  min-height: 93%;
+  height: 93vh;
   max-height: 93%;
   background-color: lightblue;
   display:flex;
