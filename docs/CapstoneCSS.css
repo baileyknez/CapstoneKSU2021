@@ -28,7 +28,11 @@ input{
 select{
   cursor: pointer; 
 }
-@media(min-width:576px){
+label{
+  font-size: 1em;
+}
+@media(min-width:300px){
+  
   .SearchResultBar{
     position:absolute;
     width:80%;
@@ -140,8 +144,12 @@ select{
   background-color: lightblue;
   display:flex;
   justify-content: space-around;
-  align-items: center;
+  align-items:center ;
   flex-direction: column;
+}
+.button-group{
+  display:flex;
+  flex-direction: column-reverse;
 }
 .selectOptions{
   width:15vw;
