@@ -193,10 +193,11 @@ select{
   clear:both;
 }
 #map{
-  position:absolute;
+  position:relative;
   width:80%;
   top:0;
   margin-right:auto; 
   height: 93vh;
+  max-height: 93%;
   z-index: 1;
   }
