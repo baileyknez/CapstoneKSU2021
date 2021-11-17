@@ -33,7 +33,7 @@ input{
 }
 select{
   cursor: pointer; 
-  height: 2vh;
+  height: 2.5vh;
   font-size: 1em;
 }
 .rate{
@@ -193,11 +193,10 @@ select{
   clear:both;
 }
 #map{
-  position:absolute;
+  position:relative;
   width:80%;
-  top:0;
+  margin-top:auto;
   margin-right:auto; 
-  max-height:93%;
-  min-height:93vh;
+  height: 93vh;
   z-index: 1;
   }
