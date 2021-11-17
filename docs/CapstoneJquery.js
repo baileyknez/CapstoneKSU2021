@@ -30,14 +30,20 @@ var schoolType =[];
 
 //This is when the page is completelt loaded and has all of our listening events
 $(document).ready(function(){
-
-    let vh = window.innerHeight * 0.01;                             //took hours to figure out, like an entire day, for some reason the modile version just hates me
-    document.documentElement.style.setProperty('--vh', `${vh}px`); //this is so that they mobile map will fit the page and still working out the bugs
                                                                   
     initMap();
     schoolArray = arrayToObjects("school-19.csv");
     districtArray=arrayToObjects("district-19.csv");
     districtOptions();
+    let vh = window.innerHeight * 0.01;                             //took hours to figure out, like an entire day, for some reason the modile version just hates me
+    document.documentElement.style.setProperty('--vh', `${vh}px`); //this is so that they mobile map will fit the page and still working out the bugs
+
+    //detects when resize happens
+    $(window).resize(function(){
+      vh = window.innerHeight * 0.01;                            
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    });
+    //reset search
     $(".SearchResultBar").hide();
     $('.ClearButton').on('click', function(){
       document.getElementById('A').checked = false;
@@ -59,6 +65,7 @@ $(document).ready(function(){
       nonDiscZoom();
       Search();
     });
+    //select disc
     $('.selectOptions').on('change', function() {
       discValue=this.value;
       if(discValue==1){
@@ -66,6 +73,7 @@ $(document).ready(function(){
       }
       Search();
     });
+    //how we select school type
     $('.SchoolTypeOptions').on('change', function() {
       miscellaneousSearch=this.value;
       
@@ -101,14 +109,15 @@ $(document).ready(function(){
 
       Search();
     });
+    //how we search text or name of school... should we search districts?
     $('.searchbutton').click(function(){
-      
       searchTxt =$('.search-box').val();
       if(searchTxt == ''){
         searchTxt=null;
       }
       Search();
     });
+    //detects when text change
     $(document).on("change", "input:text", function (e) {
       searchTxt = this.value;
       
@@ -116,7 +125,7 @@ $(document).ready(function(){
         searchTxt=null;
       }
     });
-    
+    //when you click on a search result and it goes to the marker
     $('.searchContainer').on('click','.searchResultTab',function(){
     var id = this.id;
      HideSearchDetail();
@@ -125,14 +134,8 @@ $(document).ready(function(){
      title = id.substring(1,id.length);
      $("div[title|="+title+"]").trigger("click");
     });
-    $('.SearchResultBar').on('click','.MoreInfo',function(){
-     schoolDetails(this.value);
-    });
-    $('.BackToMap').click(function(){
-      $('#mapPage').show();
-      $('.SchoolDescriptionPage').hide();
-    });
-
+    
+    //School grade filter options
     $('.h').click(function(){
       buttoncolor();
       if (schoolGradeVar =='H'){
@@ -169,6 +172,7 @@ $(document).ready(function(){
       Search();
       }
     });
+    //school rating filter options
     $('#A').on('click', function() {
       if(this.value == schoolRatingVar){
       schoolRatingVar=null;
@@ -298,6 +302,8 @@ function addMarker(position, sync,name, constent, URL) {
   latestposition=marker.getPosition();
   markers.push(marker);
   infoList.push(infowindow);
+  //this is our listener that selects which search result matches the marker that was just clicked 
+  //and then zoom in on it, centers the map, and scrolls to the item in our search results
   marker.addListener("click", () => {
     var setZoom=12;
     var getZoom=map.getZoom();
@@ -628,6 +634,8 @@ function Search(){
   console.log('error, uncaught logic:' + schoolGradeVar +" "+ searchTxt +" "+ discValue +" "+ schoolRatingVar +" "+  miscellaneousSearch);
 }
 }
+
+//this makes the search results page and processes the search result information and then sends it out 
 function renderSearch(searchArray){
   deleteMarkers();
   addresses=[];
@@ -642,22 +650,24 @@ function renderSearch(searchArray){
   var text = Mustache.render(template, {arr:searchArray});
   $('.searchContainer').append(text);
  for(var i=0; i < searchArray.length; i++){
- var result = searchArray[i].SchoolName.replace(/ /g, "-");
+ var result = searchArray[i].SchoolName.replace(/ /g, "-");        //loops through the search array to get the URL, template, and everything else
  var template =$('#windowInfo').html();
  var infowindow = Mustache.render(template, {arr:searchArray[i]});
  var but ="<a href='https://schoolgrades.georgia.gov/"+result+"'> <button class='MoreInfo'>click here</button></a>";
  infowindow += but;
- addresses.push(searchArray[i].Street +" "+ searchArray[i].City + " GA");
+ addresses.push(searchArray[i].Street +" "+ searchArray[i].City + " GA"); //sends each address to an array of addresses to make it easier to search for the next step 
  infoArray.push(infowindow);
  }
  $("#total").html(addresses.length);
- theNext();
+ theNext();//scary
 }
+
+//this uses recursion and a timeout function to code all of the addresses and get around the 10 a second rule that google geocoding has
 function theNext(){
   if(nextaddress < addresses.length-1 ){
   timer = setTimeout( function(){
     codeAddress(addresses[nextaddress], searchArray[nextaddress].sys_sch , searchArray[nextaddress].SchoolName,
-       infoArray[nextaddress],searchArray[nextaddress].Cluster + searchArray[nextaddress].Grade +".png",theNext);
+       infoArray[nextaddress],"MapIcon/"+searchArray[nextaddress].Cluster + searchArray[nextaddress].Grade +".png",theNext);
   }, delay);
   nextaddress++;
   $("#count").html(nextaddress+1);
@@ -670,6 +680,7 @@ function theNext(){
     deleteMarkers();
   }
 }
+//this function decides what to do based on if your search has any results and how to control the zoom function 
 function decideSearchAction(){
   if(searchArray.length==0){
     $(".SearchResultBar").hide();
@@ -685,6 +696,7 @@ function decideSearchAction(){
     nonDiscZoom();
   }
 }
+//zooms in on the disctrict being searched
 function DiscZoom(){
   geocoder = new google.maps.Geocoder();
   geocoder.geocode( { 'address': addresses[addresses.length -1]}, function(results, status) {
@@ -692,6 +704,7 @@ function DiscZoom(){
     map.setZoom(10);
   });
 }
+//shows the whole map
 function nonDiscZoom(){
   var one =32.744164;
   var two =-83.498423;
@@ -726,6 +739,7 @@ function buttoncolor(){
     center: { lat: 32.744164, lng: -83.498423 },
     mapTypeId: "satellite",
   });
+  //this is our listener that listens when you click on the map and then searches whatever county it is in
   map.addListener("click", (event) => {
     geocoder.geocode( { 'location': event.latLng}, function(results, status) {
       var int =results[0].address_components.length;
