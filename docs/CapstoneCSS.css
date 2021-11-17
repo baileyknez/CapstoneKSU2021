@@ -28,7 +28,7 @@ input{
 select{
   cursor: pointer; 
 }
-@media(min-width:300px){
+@media(min-width:576px){
   .SearchResultBar{
     position:absolute;
     width:80%;
@@ -75,6 +75,7 @@ select{
       display:none;
       clear:both;
     }
+    
 }
 @media (min-width: 1050px) {
   .SearchResultBar{
@@ -117,9 +118,12 @@ select{
       clear:both;
     }
     
+    
 }
 .header{
-  width:100%;
+  position:Relative;
+  
+  min-width:100%;
   min-height: 7vh;
   background-color: white;
   display:flex;
@@ -132,6 +136,7 @@ select{
   right:0;
   bottom:0;
   min-height: 93vh;
+  max-height: 93vh;
   background-color: lightblue;
   display:flex;
   justify-content: space-around;
@@ -154,12 +159,7 @@ select{
   font-weight: bold;
   margin-bottom: 5px;
 }
-#map{
-position:relative;
-width:80%; 
-height:93vh;
-z-index: 1;
-}
+
 #SchoolDescriptionPage{
 display:none;
 width:100%;
@@ -170,3 +170,9 @@ height:100%;
   display:none;
   clear:both;
 }
+#map{
+  position:relative;
+  width:80%; 
+  height:93vh;
+  z-index: 1;
+  }
