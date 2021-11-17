@@ -2,14 +2,9 @@
   margin:0;
   padding:0;
 }
-html{
-  background-color: #0093E9;
-  background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
-  background-repeat: no-repeat;
-  max-height:100vh;
-  min-height:100vh;
+html,body{
+  height:100%;
   width:100%;
- overflow: -moz-hidden-unscrollable;
 }
 h1{
   font-family:"Helvetica";
