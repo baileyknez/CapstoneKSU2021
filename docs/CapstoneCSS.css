@@ -33,7 +33,7 @@ input{
 }
 select{
   cursor: pointer; 
-  height: 2.5vh;
+  height: 2vh;
   font-size: 1em;
 }
 .rate{
