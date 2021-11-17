@@ -8,7 +8,7 @@ html{
   background-repeat: no-repeat;
   min-height:100%;
   width:100%;
- 
+ overflow: -moz-hidden-unscrollable;
 }
 h1{
   font-family:"Helvetica";
