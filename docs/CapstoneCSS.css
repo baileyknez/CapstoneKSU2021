@@ -51,11 +51,10 @@ select{
     width:80%;
     min-height: 20vh;
     max-height:20vh;
-    bottom:0;
     margin-top: auto;
+    bottom:0;
     background-color:white;
     z-index:50;
-  
     margin-left:0;
     display:flex;
     justify-content: flex-start;
@@ -144,6 +143,7 @@ select{
 }
 .header{
   position:Relative;
+  top:0;
   min-width:100%;
   min-height: 7vh;
   background-color: white;
@@ -156,7 +156,7 @@ select{
   width:20%;
   right:0;
   margin-top: auto;
-  height: 93vh;
+  min-height: 93%;
   max-height: 93%;
   background-color: lightblue;
   display:flex;
@@ -195,6 +195,7 @@ select{
   top:0;
   margin-right:auto; 
   height: 93vh;
+  min-height: 93%;
   max-height: 93%;
   z-index: 1;
   }
