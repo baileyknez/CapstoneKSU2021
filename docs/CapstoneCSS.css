@@ -41,11 +41,18 @@ select{
   border-radius: 50%;
 }
 @media(min-width:300px){
- 
+ p{
+   font-size:1.5em;
+ }
   label{
     font-size: 1.5em;
   }
- 
+  h1{
+    font-size:2em;
+  }
+  h3{
+    font-size: 2em;
+  }
   .SearchResultBar{
     position:absolute;
     width:80%;
@@ -98,7 +105,15 @@ select{
   label{
     font-size: 1em;
   }
- 
+  h1{
+    font-size:1.5em;
+  }
+  h3{
+    font-size: 1em;
+  }
+  p{
+    font-size:1em;
+  }
   .SearchResultBar{
     position:absolute;
     width:25vw;
