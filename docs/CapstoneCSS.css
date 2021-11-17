@@ -138,7 +138,7 @@ label{
   position:absolute;
   width:20%;
   right:0;
-  bottom:0;
+  margin-top: auto;
   min-height: 93vh;
   max-height: 93vh;
   background-color: lightblue;
