@@ -195,7 +195,7 @@ select{
 #map{
   position:absolute;
   width:80%;
-  margin-top:auto;
+  top:0;
   margin-right:auto; 
   height: 93vh;
   z-index: 1;
