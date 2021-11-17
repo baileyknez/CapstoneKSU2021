@@ -30,8 +30,10 @@ var schoolType =[];
 
 //This is when the page is completelt loaded and has all of our listening events
 $(document).ready(function(){
-    let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+    let vh = window.innerHeight * 0.01;                             //took hours to figure out, like an entire day, for some reason the modile version just hates me
+    document.documentElement.style.setProperty('--vh', `${vh}px`); //this is so that they mobile map will fit the page and still working out the bugs
+                                                                  
     initMap();
     schoolArray = arrayToObjects("school-19.csv");
     districtArray=arrayToObjects("district-19.csv");
@@ -662,7 +664,7 @@ function theNext(){
   if(nextaddress < addresses.length-1 ){
   timer = setTimeout( function(){
     codeAddress(addresses[nextaddress], searchArray[nextaddress].sys_sch , searchArray[nextaddress].SchoolName,
-       infoArray[nextaddress],searchArray[nextaddress].Cluster + searchArray[nextaddress].Grade +".png",theNext);
+       infoArray[nextaddress],"MapIcon/"+searchArray[nextaddress].Cluster + searchArray[nextaddress].Grade +".png",theNext);
   }, delay);
   nextaddress++;
   $("#count").html(nextaddress+1);
