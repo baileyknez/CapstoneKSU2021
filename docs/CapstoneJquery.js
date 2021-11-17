@@ -637,14 +637,7 @@ function renderSearch(searchArray){
   var x = window.matchMedia("(min-width: 576px)");
   console.log(window.innerWidth);
   console.log(x)
-  if (window.innerWidth < 576) { // If media query matches
-    $('.filter-bar').css('max-height','73vh');
-    $('#map').css('height','73vh');
-    console.log("css");
-  } else{
-    $('.filter-bar').css('max-height','93vh');
-    $('#map').css('height','93vh');
-  }
+ 
   var template =$('#searchResultTemp').html();
   var text = Mustache.render(template, {arr:searchArray});
   $('.searchContainer').append(text);
