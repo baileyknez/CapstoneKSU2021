@@ -88,7 +88,7 @@ $(document).ready(function(){
           schoolType=["arts"]
           break;
         case 4:
-          schoolType=["tech","stem","S.T.E.M."]
+          schoolType=stemSchools;
           break;
         case 5:
           schoolType=["Charter"]
@@ -649,14 +649,14 @@ function renderSearch(searchArray){
   var template =$('#searchResultTemp').html();
   var text = Mustache.render(template, {arr:searchArray});
   $('.searchContainer').append(text);
- for(var i=0; i < searchArray.length; i++){    
+ for(var i=0; i < searchArray.length; i++){     //loops through the search array to get the URL, template, and everything else
 
  var result = searchArray[i].SchoolName.replace(/\b(The|the|of|Of|for|For|at|At|A)\b/g, " "); //uses regex to get rid of the/of/for/punctuation/and replace any spaces with -
  result=result.replace(/^\W+/g, "");          //this makes sure that the names do not begin with a blank space
  result=result.replace(/\d*\.\d*/g, "");      //this deletes periods for names like S.T.E.M or D.R.
  result=result.replace(/\d*\/\d*/g, ""); 
  result=result.replace(/\W+/g, " ");          //this makes sure that there are no double spaces or other punctuation 
- result = result.replace(/ /g, "-");        //loops through the search array to get the URL, template, and everything else
+ result = result.replace(/ /g, "-");        //replaces all spaces with - in order to make a valid link
  var but ="<a href='https://schoolgrades.georgia.gov/"+result+"'> <button class='MoreInfo'>click here</button></a>";
 
  var template =$('#windowInfo').html();
