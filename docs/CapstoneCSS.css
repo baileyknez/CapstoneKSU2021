@@ -161,7 +161,7 @@ select{
   }
         .SearchResultBar{
            position: fixed;
-      width: 29vw;
+      width: 25vw;
       min-height: 45vh;
       max-height:85vh;
       top: 30px;
