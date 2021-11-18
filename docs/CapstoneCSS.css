@@ -121,7 +121,7 @@ select{
 .searchResultDetail {
   display:none;
   font-family: Tahoma, Geneva, sans-serif;
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 0.2px;
   word-spacing: 1px;
   color: #000000;
@@ -211,7 +211,7 @@ select{
       display:none;
       clear:both; 
    font-family: Tahoma, Geneva, sans-serif;
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 0.2px;
   word-spacing: 1px;
   color: #000000;
