@@ -19,11 +19,11 @@ var searchTxt = null;//the var where the text that is being searched it placed
 const infowindow = new google.maps.InfoWindow({
   maxWidth: 500,
 });
-var delay;
-var nextaddress;
-var addresses =[]; 
-var infoArray =[];
-var latestposition;
+var delay; //decides how long to wwait in the next function
+var nextaddress; //decides which address to attempt to mark in the next function and allows to puch back to an address
+var addresses =[]; //list of addresses to add markers to 
+var infoArray =[]; //this is the list of templates 
+var latestposition; //
 var schoolRatingVar = null;
 var miscellaneousSearch =null;
 var schoolType =[];
@@ -649,12 +649,20 @@ function renderSearch(searchArray){
   var template =$('#searchResultTemp').html();
   var text = Mustache.render(template, {arr:searchArray});
   $('.searchContainer').append(text);
- for(var i=0; i < searchArray.length; i++){
- var result = searchArray[i].SchoolName.replace(/ /g, "-");        //loops through the search array to get the URL, template, and everything else
+ for(var i=0; i < searchArray.length; i++){    
+
+ var result = searchArray[i].SchoolName.replace(/\b(The|the|of|Of|for|For|at|At|A)\b/g, " "); //uses regex to get rid of the/of/for/punctuation/and replace any spaces with -
+ result=result.replace(/^\W+/g, "");          //this makes sure that the names do not begin with a blank space
+ result=result.replace(/\d*\.\d*/g, "");      //this deletes periods for names like S.T.E.M or D.R.
+ result=result.replace(/\d*\/\d*/g, ""); 
+ result=result.replace(/\W+/g, " ");          //this makes sure that there are no double spaces or other punctuation 
+ result = result.replace(/ /g, "-");        //loops through the search array to get the URL, template, and everything else
+ var but ="<a href='https://schoolgrades.georgia.gov/"+result+"'> <button class='MoreInfo'>click here</button></a>";
+
  var template =$('#windowInfo').html();
  var infowindow = Mustache.render(template, {arr:searchArray[i]});
- var but ="<a href='https://schoolgrades.georgia.gov/"+result+"'> <button class='MoreInfo'>click here</button></a>";
  infowindow += but;
+
  addresses.push(searchArray[i].Street +" "+ searchArray[i].City + " GA"); //sends each address to an array of addresses to make it easier to search for the next step 
  infoArray.push(infowindow);
  }
