@@ -85,7 +85,7 @@ select{
   align-items: center;
 }
 .filter-bar{
-  position:absolute;
+  position:relative;
   width:20%;
   right:0;
   margin-top: auto;
@@ -160,9 +160,9 @@ select{
     font-size: 2em;
   }
  .SearchResultBar{
-    position:absolute;
+    position:relative;
     width:80%;
-    min-height: 20vh;
+    min-height: 10vh;
     max-height:20vh;
     margin-top: auto;
     bottom:0;
