@@ -159,23 +159,23 @@ select{
   h3{
     font-size: 2em;
   }
-        .SearchResultBar{
-           position: fixed;
-      width: 25vw;
-      min-height: 45vh;
-      max-height:85vh;
-      top: 30px;
-      left: 10px;
-      padding: 10px;
-      background:linear-gradient(89deg, rgba(255,255,255,0.9671218829328606) 0%, rgba(242,242,242,0.9475140397956058) 18%, rgba(212,195,195,0.8774860285911239) 48%, rgba(240,240,240,0.9363095580028886) 85%, rgba(255,255,255,0.9587185215883228) 100%);
-      z-index:990;
-      margin-top: 20vh;
-      margin-left:0vh;
-      display:flexbox;
-      justify-content: flex-start;
-      align-items: center;
-      flex-direction: column;
-      overflow:hidden;
+ .SearchResultBar{
+    position:absolute;
+    width:80%;
+    min-height: 20vh;
+    max-height:20vh;
+    margin-top: auto;
+    bottom:0;
+    padding: 10px;
+    background:linear-gradient(89deg, rgba(255,255,255,0.9671218829328606) 0%, rgba(242,242,242,0.9475140397956058) 18%, rgba(212,195,195,0.8774860285911239) 48%, rgba(240,240,240,0.9363095580028886) 85%, rgba(255,255,255,0.9587185215883228) 100%);
+    z-index:990;
+    margin-top: 20vh;
+    margin-left:0vh;
+    display:flexbox;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    overflow:hidden;
     }
   
   
