@@ -11,11 +11,13 @@ var schoolArray =[];//all of the school data
 var districtArray =[];  //all of the district data
 var searchArray =[]; //the array that we get from a search
 var districtList =[]; //an array of the district names
+var getLocation =[];
 var markers = [];
 var infoList =[];
 var schoolGradeVar = null;
 var discValue =null;
 var searchTxt = null;//the var where the text that is being searched it placed
+var sync=[];
 const infowindow = new google.maps.InfoWindow({
   maxWidth: 500,
 });
@@ -27,17 +29,19 @@ var latestposition; //
 var schoolRatingVar = null;
 var miscellaneousSearch =null;
 var schoolType =[];
-
+var timer;
 //This is when the page is completelt loaded and has all of our listening events
 $(document).ready(function(){
                                                                   
     initMap();
     schoolArray = arrayToObjects("school-19.csv");
     districtArray=arrayToObjects("district-19.csv");
+    getLocation =arrayToObjects("getSchool.csv");
     districtOptions();
-    let vh = window.innerHeight * 0.01;                             //took hours to figure out, like an entire day, for some reason the modile version just hates me
-    document.documentElement.style.setProperty('--vh', `${vh}px`); //this is so that they mobile map will fit the page and still working out the bugs
-
+    
+   
+ 
+    
     //detects when resize happens
     $(window).resize(function(){
       vh = window.innerHeight * 0.01;                            
@@ -234,15 +238,20 @@ $(document).ready(function(){
         Search();
       }
     });
+    for(var i=0;i<schoolArray.length;i++){
+      sync.push(schoolArray[i].sys_sch);
+    }
+    
 });
 
 
 //This function takes in an address and creates a marker on the map of it, Look into adding details to the makers. It should bring up the school when you click it
-function codeAddress(addy, sync, name,infowindow, icon, next) {
+function codeAddress(addy) {
     
     geocoder.geocode( { 'address': addy}, function(results, status) {
       if (status+"" == "OK") {
-        addMarker(results[0].geometry.location,sync,name, infowindow, icon);
+        console.log(results[0].geometry.location);
+        return(results[0].geometry.location);
       }else{ 
         if (status+"" == 'OVER_QUERY_LIMIT') {
           nextaddress--;
@@ -254,7 +263,6 @@ function codeAddress(addy, sync, name,infowindow, icon, next) {
           console.log(msg);
         }   
       }
-      next();
     });
     
 }
@@ -281,7 +289,7 @@ function geocodeTexas(street,city,zip, name, Info, icon){
 };
 
 //These are all of the marker functions that we will need provided by the google API documentation 
-function addMarker(position, sync,name, constent, URL) {
+function addMarker(position, sync,name, constent, URL, next) {
   const marker = new google.maps.Marker({
     position,
     title:sync,
@@ -321,7 +329,7 @@ function addMarker(position, sync,name, constent, URL) {
     
     document.getElementById("#"+sync).scrollIntoView();
   });
-  
+  next();
 }
 
 function setMapOnAll(map) {
@@ -356,6 +364,7 @@ function HideSearchDetail(){
     $(pj).hide();
  });
 }
+
 
 //Takes any CSV files and stores the information as a JS object. 
 function arrayToObjects(TheUrl){
@@ -431,7 +440,6 @@ function Search(){
     });
     searchArray = searchArray.concat(addString);
     }
-    console.log();
     console.log('mg ');
     decideSearchAction()
 }else if(schoolGradeVar==null & searchTxt == null & discValue== null & schoolRatingVar != null & miscellaneousSearch !=null){ // misc rate 8 mr 
@@ -639,16 +647,19 @@ function Search(){
 function renderSearch(searchArray){
   deleteMarkers();
   addresses=[];
-  delay = 100;
   nextaddress=-1;
   infoArray =[];
-  var x = window.matchMedia("(min-width: 576px)");
-  console.log(window.innerWidth);
-  console.log(x)
  
+  
+  var bool=false;
   var template =$('#searchResultTemp').html();
   var text = Mustache.render(template, {arr:searchArray});
   $('.searchContainer').append(text);
+  if(searchArray.length > 50){
+    delay=25;
+  }else{
+    delay=50;
+  }
  for(var i=0; i < searchArray.length; i++){     //loops through the search array to get the URL, template, and everything else
 
  var result = searchArray[i].SchoolName.replace(/\b(The|the|of|Of|for|For|at|At|A)\b/g, " "); //uses regex to get rid of the/of/for/punctuation/and replace any spaces with -
@@ -662,11 +673,24 @@ function renderSearch(searchArray){
  var template =$('#windowInfo').html();
  var infowindow = Mustache.render(template, {arr:searchArray[i]});
  infowindow += but;
-
- addresses.push(searchArray[i].Street +" "+ searchArray[i].City + " GA"); //sends each address to an array of addresses to make it easier to search for the next step 
+ 
+ for(var x=0; x < getLocation.length; x++){
+   if(searchArray[i].sys_sch==getLocation[x]._key){
+    addresses.push({ lat: parseFloat(getLocation[x].lat), lng: parseFloat(getLocation[x].lng)});
+    bool=true;
+   }
+   }
+   if(bool==false){
+     console.log(searchArray[i].sys_sch);
+     var addy= searchArray[i].Street +" "+ searchArray[i].City + " GA";
+     geocoder.geocode( { 'address': addy }, function(results, status) {
+     console.log(results[0].geometry.location);
+     addresses.push(results[0].geometry.location);
+     });
+   }
  infoArray.push(infowindow);
  }
- $("#total").html(addresses.length);
+ $("#total").html(addresses.length)
  theNext();//scary
 }
 
@@ -674,8 +698,8 @@ function renderSearch(searchArray){
 function theNext(){
   if(nextaddress < addresses.length-1 ){
   timer = setTimeout( function(){
-    codeAddress(addresses[nextaddress], searchArray[nextaddress].sys_sch , searchArray[nextaddress].SchoolName,
-       infoArray[nextaddress],searchArray[nextaddress].Cluster + searchArray[nextaddress].Grade +".png",theNext);
+    addMarker(addresses[nextaddress], searchArray[nextaddress].sys_sch , searchArray[nextaddress].SchoolName,
+       infoArray[nextaddress],"MapIcon/"+searchArray[nextaddress].Cluster + searchArray[nextaddress].Grade +".png",theNext);
   }, delay);
   nextaddress++;
   $("#count").html(nextaddress+1);
@@ -704,13 +728,11 @@ function decideSearchAction(){
     nonDiscZoom();
   }
 }
+
 //zooms in on the disctrict being searched
 function DiscZoom(){
-  geocoder = new google.maps.Geocoder();
-  geocoder.geocode( { 'address': addresses[addresses.length -1]}, function(results, status) {
-    map.setCenter(results[0].geometry.location);
+    map.setCenter(addresses[addresses.length-1]);
     map.setZoom(10);
-  });
 }
 //shows the whole map
 function nonDiscZoom(){
