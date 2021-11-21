@@ -106,7 +106,7 @@ select:hover{
   right:0;
   margin-top: auto;
   min-height: 93%;
-  max-height: 93%;
+  max-height: 100%;
   background-color:#C8D9B8;
   display:flex;
   justify-content: space-around;
@@ -173,7 +173,7 @@ button:hover.button.button-group{
   }
 
 
-@media(min-width:10vw){
+@media(min-width:300px){
  p{
    font-size:1.5em;
  }
