@@ -50,12 +50,24 @@ button{
   width:14vw;
   font-size: 1em;
   border-radius: 4%;
-  background-color: lightcyan;
+  background-color:white ;
+}
+button:hover{
+  background-color:#D0E9F2;
+}
+button:active{
+  background-color:#659BA8;
 }
 input{
   font-family:"Helvetica";
   padding:7px 17px;
   border-radius: 4%;
+}
+input[type='radio']:after {
+  background-color:#659BA8;
+}
+input[type='radio']:checked:after {
+  background-color:#659BA8;
 }
 select{
   cursor: pointer; 
@@ -63,7 +75,10 @@ select{
   width:15vw;
   font-size: 1em;
   border-radius: 4%;
-  background-color: lightcyan;
+  background-color: white;
+}
+select:hover{
+  background-color:#D0E9F2;
 }
 
 .rate{
@@ -71,7 +86,7 @@ select{
   left: 0;
   height: 1.25em;
   width: 1.25em;
-  background-color: #eee;
+  background-color: white;
   border-radius: 50%;
 }
 .header{
@@ -79,15 +94,11 @@ select{
   top:0;
   min-width:100%;
   min-height: 7vh;
-  background-color: white;
+  background-color: #D0E9F2;
   display:flex;
   justify-content: center;
   align-items: center;
-  background: rgb(255,255,255);
-  background: -moz-linear-gradient(165deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.9) 100%);
-  background: -webkit-linear-gradient(165deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.9) 100%);
-  background: linear-gradient(165deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.9) 100%);
-  box-shadow: 5px 5px 10px rgba(0,0,0, .25) ;
+  box-shadow: 0px 10px 0px  rgba(1,2,0, .25) ;
 }
 .filter-bar{
   position:absolute;
@@ -96,7 +107,7 @@ select{
   margin-top: auto;
   min-height: 93%;
   max-height: 93%;
-  background:linear-gradient(89deg, rgba(219,195,195,0.9475140397956058) 6%, rgba(231,221,221,1) 16%, rgba(222,201,201,1) 29%, rgba(238,236,236,1) 47%, rgba(232,219,219,1) 60%, rgba(227,208,208,0.9587185215883228) 86%, rgba(238,236,236,1) 95%);
+  background-color:#C8D9B8;
   display:flex;
   justify-content: space-around;
   align-items:center ;
@@ -107,8 +118,15 @@ select{
   display:flex;
   flex-direction: column-reverse;
 }
+button:hover.button.button-group{
+  background-color:#D0E9F2 ;
+}
+
 .selectOptions{
   width:15vw;
+}
+.searchResultTab:hover{
+  cursor:pointer;
 }
 
 .school-type-container{
@@ -147,12 +165,11 @@ select{
   top:0;
   margin-right:auto; 
   height: 93vh;
-  height: calc(var(--vh, 1vh) * 93);
   z-index: 1;
   }
 
 
-@media(min-width:300px){
+@media(min-width:10vw){
  p{
    font-size:1.5em;
  }
@@ -168,7 +185,7 @@ select{
  .SearchResultBar{
     position:absolute;
     width:80%;
-    min-height: 10vh;
+    min-height: 20vh;
     max-height:20vh;
     margin-top: auto;
     bottom:0;
@@ -184,7 +201,7 @@ select{
     flex-direction: column;
     overflow:hidden;
     border-radius: 1.5%;
-    box-shadow: 0.5vh 0.5vh 1vh rgba(0,0,0, .25);
+    box-shadow:none;
     }
   
   
@@ -269,6 +286,7 @@ select{
     align-items: center;
     flex-direction: column;
     overflow:hidden;
+    box-shadow: 0.5vh 0.5vh 1vh rgba(0,0,0, .25);
     }
     .searchContainer{
       width:100%;
@@ -298,4 +316,5 @@ select{
     
     
 }
+
 
