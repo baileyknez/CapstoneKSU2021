@@ -112,7 +112,7 @@ select:hover{
   justify-content: space-around;
   align-items:center ;
   flex-direction: column;
-  box-shadow: 0.5vh 0.5vh 1vh rgba(0,0,0, .25);
+  
 }
 .button-group{
   display:flex;
@@ -159,13 +159,17 @@ button:hover.button.button-group{
   padding-left: 40px;
   clear:both;
 }
-#map{
+#container-fluid{
   position:relative;
   width:80%;
   top:0;
   margin-right:auto; 
   height: 93vh;
   z-index: 1;
+}
+#map{
+  height:100%;
+  width:100%;
   }
 
 
@@ -316,5 +320,6 @@ button:hover.button.button-group{
     
     
 }
+
 
 
