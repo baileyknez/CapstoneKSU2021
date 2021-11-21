@@ -3,7 +3,7 @@
   <head>
 <title>Capstone</title>
 <meta charset="UTF-8" />
-<link rel="shortcut icon" href="GGSLogo.png" />
+<link rel="shortcut icon" href="icon.ico" />
 <link rel="stylesheet" href="CapstoneCSS.css" type="text/css"/>
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 crossorigin="anonymous"></script>
@@ -23,14 +23,12 @@ crossorigin="anonymous"></script>
       <h3>{{SchoolName}}</h3>
     </div>
   <div class="searchResultDetail" id='{{sys_sch}}'>
-  <br>
     <p> Address:{{Street}} {{City}} {{Zip_Code}} {{State}}</p>
     <p> District: {{SystemName}}</p>
     <p> Phone: {{Phone_Number}}</p>
     <p> Grades: {{Grades}}</p>
     <p> Rating: {{Grade}}</p>
     <p> Cluster: {{Cluster}}</p>
-    <br>
   </div>
   </div>
   {{/arr}}
@@ -38,14 +36,12 @@ crossorigin="anonymous"></script>
 <script id="windowInfo" type="text/template">
   {{#arr}}
     <h1>{{SchoolName}}</h1>
-    <br>
      <p> Address:{{Street}} {{City}} {{Zip_Code}} {{State}}</p>
      <p> District: {{SystemName}}</p>
      <p> Phone: {{Phone_Number}}</p>
      <p> Grades: {{Grades}}</p>
      <p> Rating: {{Grade}}</p>
-     <p> Cluster: {{Cluster}}</p><br>
-     
+     <p> Cluster: {{Cluster}}</p>
      <p>For more information</p>
    {{/arr}}
  </script>
@@ -53,11 +49,12 @@ crossorigin="anonymous"></script>
 <div id="mapPage">
 <div class="header">
   <h1>Georgia School Grades</h1>
+  <p><span class="mapInfo"></span></p>
 </div>
 <div class="filter-bar">
   <div class="search-input-filter">
     <label class="header-label">Search</label>
-    <input name="search term" type="text" onfocus="if(this.value=='A new value')" placeholder="Enter address to see schools" class='search-box'>
+    <input name="search term" type="text"  placeholder="Enter address to see schools" class='search-box'>
     <button name="submit-search" class='searchbutton'>Search</button>
   </div>
   <div class="filter-districts">
@@ -89,32 +86,31 @@ crossorigin="anonymous"></script>
 
     </select>
   </div>
-  <div class="filter-rating" align = "left">
+  <div class="filter-rating">
     <label class="header-label">School Rating</label>
-   <align = "left"> 
     <input type="radio" class="rate" id="A" name="rating" value="A">
-    <label for="A">A</label><br>
+    <label class="containerRadio" for="A">A</label><br>
     <input type="radio" class="rate" id="B" name="rating" value="B">
-    <label for="B">B</label><br>
+    <label  for="B">B</label><br>
     <input type="radio" class="rate" id="C" name="rating" value="C">
-    <label for="C">C</label><br>
+    <label  for="C">C</label><br>
     <input type="radio" class="rate" id="D" name="rating" value="D">
-    <label for="D">D</label><br>
+    <label  for="D">D</label><br>
     <input type="radio" class="rate" id="F" name="rating" value="F">
-    <label for="F">F</label><br>
+    <label  for="F">F</label><br>
     <input type="radio" class="rate" id="NotRated" name="rating" value="-">
-    </align>
-    <label for="NotRated">Not Rated</label><br>
-     
+    <label   for="NotRated">Not Rated</label><br>
   </div>
   <div class="ClearSearch">
     <label class="header-label">Clear Search</label>
     <button class="ClearButton">Reset</button>
   </div>
 </div>
+<div id="container-fluid">
  <div id="map"></div>
+ </div>
  <div class="SearchResultBar">
-   <center>  <h1>Search Results</h1> </center>
+  <h1>Search Results</h1>
   <p><span id="count"></span>/<span id="total"></span></p>
  <div class="searchContainer"></div>
  </div>
