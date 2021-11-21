@@ -30,6 +30,7 @@ var schoolRatingVar = null;
 var miscellaneousSearch =null;
 var schoolType =[];
 var timer;
+var SearchResultToggle;
 //This is when the page is completelt loaded and has all of our listening events
 $(document).ready(function(){
                                                                   
@@ -39,16 +40,13 @@ $(document).ready(function(){
     getLocation =arrayToObjects("getSchool.csv");
     districtOptions();
     
-   
- 
-    
     //detects when resize happens
     $(window).resize(function(){
-      vh = window.innerHeight * 0.01;                            
-      document.documentElement.style.setProperty('--vh', `${vh}px`);
+      resize();
     });
     //reset search
     $(".SearchResultBar").hide();
+    SearchResultToggle=false;
     $('.ClearButton').on('click', function(){
       document.getElementById('A').checked = false;
       document.getElementById('B').checked = false;
@@ -58,7 +56,8 @@ $(document).ready(function(){
       document.getElementById('NotRated').checked = false;
       document.getElementById('typeHome').selected = true;
       document.getElementById('discHome').selected = true;
-      
+      SearchResultToggle=false;
+      resize();
       schoolGradeVar = null;
       discValue =null;
       miscellaneousSearch =null;
@@ -67,7 +66,9 @@ $(document).ready(function(){
       searchArray =[];
       buttoncolor();
       nonDiscZoom();
-      Search();
+      $(".SearchResultBar").hide();
+      SearchResultToggle=false;
+      deleteMarkers();
     });
     //select disc
     $('.selectOptions').on('change', function() {
@@ -147,7 +148,7 @@ $(document).ready(function(){
         Search();
       }
       else{
-      $('.h').css('color','blue');
+      $('.h').css('background-color','#659BA8');
       schoolGradeVar='H';
       Search();
       }
@@ -159,7 +160,7 @@ $(document).ready(function(){
         Search();
       }
       else{
-      $('.m').css('color','blue');
+      $('.m').css('background-color','#659BA8');;
       schoolGradeVar='M';
       Search();
       }
@@ -171,7 +172,7 @@ $(document).ready(function(){
         Search();
       }
       else{
-      $('.e').css('color','blue');
+      $('.e').css('background-color','#659BA8');;
       schoolGradeVar='E';
       Search();
       }
@@ -243,51 +244,15 @@ $(document).ready(function(){
     }
     
 });
-
-
-//This function takes in an address and creates a marker on the map of it, Look into adding details to the makers. It should bring up the school when you click it
-function codeAddress(addy) {
-    
-    geocoder.geocode( { 'address': addy}, function(results, status) {
-      if (status+"" == "OK") {
-        console.log(results[0].geometry.location);
-        return(results[0].geometry.location);
-      }else{ 
-        if (status+"" == 'OVER_QUERY_LIMIT') {
-          nextaddress--;
-          delay+=1;
-          var msg = 'address="' + addy + '" error=' +status+ '(delay='+delay+'ms) arrayNum:'+nextaddress;
-          console.log(msg);
-        } else {
-          var msg = 'address="' + addy + '" error=' +status+ '(delay='+delay+'ms) arrayNum:' +nextaddress;
-          console.log(msg);
-        }   
-      }
-    });
-    
+function resize(){
+  console.log(window.innerWidth +"  "+window.innerHeight +" "+ SearchResultToggle);
+  if(window.innerWidth<1050 & SearchResultToggle){
+    $("#container-fluid").css("height","73vh");
+  } 
+  else{
+    $("#container-fluid").css("height","93vh");
+  }                          
 }
-
-
-//This function does the same as the one above but uses TexasA&M API services instead of the Google API for Geocoding.
-//Surpases the 10 at a time error but is very slow and not a good solution.
-function geocodeTexas(street,city,zip, name, Info, icon){
-  $.ajax({
-	  type: "GET",  
-	  url: "https://geoservices.tamu.edu/Services/Geocode/WebService/GeocoderWebServiceHttpNonParsed_V04_01.aspx?streetAddress="+street+"&city="+city+"&state=ga&zip="+zip+"&apikey=705790d78c0d4312a11fa01ee384f7db&format=json&census=true&censusYear=2000|2010&notStore=false&version=4.01",
-	  dataType: "text", 
-    async: false,     
-	  success: function(response)  
-	  {
-     
-    var obj = jQuery.parseJSON( response );
-    var one =obj.OutputGeocodes[0].OutputGeocode.Latitude;
-    var two =obj.OutputGeocodes[0].OutputGeocode.Longitude;             //lmao this right here took so much longer than it should have. HOURS of work. At least I learned something. 
-    var position={lat:  parseFloat(one), lng: parseFloat(two)};
-    addMarker(position, name, Info, icon);
-	  }  
-	});
-};
-
 //These are all of the marker functions that we will need provided by the google API documentation 
 function addMarker(position, sync,name, constent, URL, next) {
   const marker = new google.maps.Marker({
@@ -389,6 +354,8 @@ function Search(){
   $(".SearchResultsTabs").show();
   removeSearch()
   $(".SearchResultBar").show();
+  SearchResultToggle=true;
+  resize();
  
   if(schoolGradeVar==null & searchTxt==null & discValue !=null & schoolRatingVar == null & miscellaneousSearch ==null){ //discticts 1 d
   searchArray= $.grep(schoolArray, function(search){
@@ -628,15 +595,19 @@ function Search(){
   decideSearchAction()
 }else if(schoolGradeVar ==null & searchTxt == null & discValue ==null & schoolRatingVar != null & miscellaneousSearch ==null) { 
   $(".SearchResultBar").hide();
+  SearchResultToggle=false;
   deleteMarkers();
 }else if(schoolGradeVar !=null & searchTxt == null & discValue ==null & schoolRatingVar == null & miscellaneousSearch ==null) { 
   $(".SearchResultBar").hide();
+  SearchResultToggle=false;
   deleteMarkers();
 }else if(schoolGradeVar !=null & searchTxt == null & discValue ==null & schoolRatingVar != null & miscellaneousSearch ==null) { //just to catch without m t d
   $(".SearchResultBar").hide();
+  SearchResultToggle=false;
   deleteMarkers();
 }else if(schoolGradeVar ==null & searchTxt == null & discValue ==null & schoolRatingVar == null & miscellaneousSearch ==null) { //we only allow a marker to pop up if either searchtxt, discValue, or misc are not null
   $(".SearchResultBar").hide();
+  SearchResultToggle=false;
   deleteMarkers();
 }else{
   console.log('error, uncaught logic:' + schoolGradeVar +" "+ searchTxt +" "+ discValue +" "+ schoolRatingVar +" "+  miscellaneousSearch);
@@ -655,8 +626,12 @@ function renderSearch(searchArray){
   var template =$('#searchResultTemp').html();
   var text = Mustache.render(template, {arr:searchArray});
   $('.searchContainer').append(text);
-  if(searchArray.length > 50){
-    delay=25;
+  if(searchArray.length > 200){
+    delay=0;
+    console.log(delay);
+  } else if(searchArray.length > 50){
+    delay=20;
+    console.log(delay);
   }else{
     delay=50;
   }
@@ -699,7 +674,7 @@ function theNext(){
   if(nextaddress < addresses.length-1 ){
   timer = setTimeout( function(){
     addMarker(addresses[nextaddress], searchArray[nextaddress].sys_sch , searchArray[nextaddress].SchoolName,
-       infoArray[nextaddress],searchArray[nextaddress].Cluster + searchArray[nextaddress].Grade +".png",theNext);
+       infoArray[nextaddress],"MapIcon/"+searchArray[nextaddress].Cluster + searchArray[nextaddress].Grade +".png",theNext);
   }, delay);
   nextaddress++;
   $("#count").html(nextaddress+1);
@@ -714,11 +689,16 @@ function theNext(){
 }
 //this function decides what to do based on if your search has any results and how to control the zoom function 
 function decideSearchAction(){
-  if(searchArray.length==0){
+  if(searchArray.length> 1000){
     $(".SearchResultBar").hide();
+    SearchResultToggle=false;
+    deleteMarkers();
+    alert("Search Results Too Large");
+  }else if(searchArray.length==0){
+    $(".SearchResultBar").hide();
+    SearchResultToggle=false;
     deleteMarkers();
     alert("There are no schools that match your search");
-    console.log('error, uncaught logic:' + schoolGradeVar +" "+ searchTxt +" "+ discValue +" "+ schoolRatingVar +" "+  miscellaneousSearch);
   }else if(discValue != null){
   renderSearch(searchArray);
   DiscZoom();
@@ -751,9 +731,9 @@ function districtOptions(){
 
 //This just changes the button color for the Grades Filter
 function buttoncolor(){
-  $('.h').css('color','black');
-  $('.m').css('color','black');
-  $('.e').css('color','black');
+  $('.h').css('background-color','white');
+  $('.m').css('background-color','white');
+  $('.e').css('background-color','white');
 }
 
 
