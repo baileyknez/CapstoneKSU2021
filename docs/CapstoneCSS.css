@@ -15,11 +15,7 @@ display:flex;
 flex-direction: column;
 align-items: center;
 }
-.search-box{
-  font-size: 1em;
-  width:15vw;
-  border-radius: 4%;
-}
+
 .filter-districts{
   display:flex;
   flex-direction: column;
@@ -40,19 +36,7 @@ align-items: center;
   flex-direction: column;
   align-items: center;
 }
-button{
-  font-family:"Helvetica";
-  padding:7px 17px;
-  margin:.25em;
-  text-indent:0px;
-  box-sizing: border-box;
-  cursor: pointer;
-  min-height: 3vh;
-  width:14vw;
-  font-size: 1em;
-  border-radius: 4%;
-  background-color:white ;
-}
+
 button:hover{
   background-color:#D0E9F2;
 }
@@ -70,14 +54,7 @@ input[type='radio']:after {
 input[type='radio']:checked:after {
   background-color:#659BA8;
 }
-select{
-  cursor: pointer; 
-  height: 2.5vh;
-  width:15vw;
-  font-size: 1em;
-  border-radius: 4%;
-  background-color: white;
-}
+
 select:hover{
   background-color:#D0E9F2;
 }
@@ -110,9 +87,7 @@ button:hover.button.button-group{
   background-color:#D0E9F2 ;
 }
 
-.selectOptions{
-  width:15vw;
-}
+
 .searchResultTab:hover{
   cursor:pointer;
 }
@@ -163,32 +138,55 @@ button:hover.button.button-group{
 
 @media(min-width:300px){
  p{
-   font-size:1.5em;
+   font-size:1em;
  }
   label{
-    font-size: 1.5em;
+    font-size: .7em;
   }
   h1{
-    font-size:2em;
+    font-size:1em;
   }
   h3{
-    font-size: 2em;
+    font-size: 1em;
   }
-  
+  select{
+    cursor: pointer; 
+    height: 2.5vh;
+    width:18vw;
+    font-size: .7em;
+    border-radius: 4%;
+    background-color: white;
+  }
+  button{
+    font-family:"Helvetica";
+    padding:7px 17px;
+    margin:.25em;
+    text-indent:0px;
+    box-sizing: border-box;
+    cursor: pointer;
+    min-height: 3vh;
+    width:auto;
+    font-size: .7em;
+    border-radius: 4%;
+    background-color:white ;
+  }
+  .selectOptions{
+    width:18vw;
+  }
   .filter-bar{
-    position:absolute;
-    width:20%;
-    right:0;
-    margin-top: auto;
-    min-height: 93%;
-    max-height: 100%;
-    background-color:#C8D9B8;
-    display:flex;
-    justify-content: space-around;
-    align-items:center ;
-    flex-direction: column;
-    
-  }
+  position:absolute;
+  width:20%;
+  right:0;
+  margin-top: auto;
+  min-height: 93%;
+  max-height: 100%;
+  background-color:#C8D9B8;
+  display:flex;
+  justify-content: space-around;
+  align-items:center ;
+  flex-direction: column;
+  
+}
  .SearchResultBar{
     position:absolute;
     width:80%;
@@ -255,9 +253,22 @@ button:hover.button.button-group{
       padding-right: 60px;
      padding-left: 40px;
     }
+    .search-box{
+      font-size: .7em;
+      width:10vw;
+      border-radius: 4%;
+    }
     
 }
 @media (min-width: 1050px) {
+  select{
+    cursor: pointer; 
+    height: 2.5vh;
+    width:15vw;
+    font-size: 1em;
+    border-radius: 4%;
+    background-color: white;
+  }
   label{
     font-size: 1em;
   }
@@ -269,6 +280,22 @@ button:hover.button.button-group{
   }
   p{
     font-size:1em;
+  }
+  button{
+    font-family:"Helvetica";
+    padding:7px 17px;
+    margin:.25em;
+    text-indent:0px;
+    box-sizing: border-box;
+    cursor: pointer;
+    min-height: 3vh;
+    width:auto;
+    font-size: .7em;
+    border-radius: 4%;
+    background-color:white ;
+  }
+  .selectOptions{
+    width:15vw;
   }
   .SearchResultBar{
     position: absolute;
@@ -320,7 +347,11 @@ button:hover.button.button-group{
       justify-content: center;
       clear:both;
     }
-    
+    .search-box{
+      font-size: 1em;
+      width:15vw;
+      border-radius: 4%;
+    }
     
 }
 
