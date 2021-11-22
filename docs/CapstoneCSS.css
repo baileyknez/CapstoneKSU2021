@@ -174,7 +174,8 @@ button:hover.button.button-group{
   h3{
     font-size: 2em;
   }
-  #filterContainer{
+  
+  .filter-bar{
     position:absolute;
     width:20%;
     right:0;
@@ -186,10 +187,6 @@ button:hover.button.button-group{
     justify-content: space-around;
     align-items:center ;
     flex-direction: column;
-  }
-  .filter-bar{
-    width:100%;
-    height: 100%;
     
   }
  .SearchResultBar{
@@ -326,8 +323,5 @@ button:hover.button.button-group{
     
     
 }
-
-
-
 
 
