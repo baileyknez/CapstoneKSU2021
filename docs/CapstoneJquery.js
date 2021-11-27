@@ -144,7 +144,7 @@ $(document).ready(function(){
     });
     
     //School grade filter options
-    $('.h').click(function(){
+    $('#h').click(function(){
       buttoncolor();
       if (schoolGradeVar =='H'){
         document.getElementById('h').checked = false; 
@@ -152,12 +152,11 @@ $(document).ready(function(){
         Search();
       }
       else{
-      $('.h').css('background-color','#659BA8');
       schoolGradeVar='H';
       Search();
       }
     });
-    $('.m').click(function(){
+    $('#m').click(function(){
       buttoncolor();
       if (schoolGradeVar =='M'){
         document.getElementById('m').checked = false; 
@@ -165,12 +164,11 @@ $(document).ready(function(){
         Search();
       }
       else{
-      $('.m').css('background-color','#659BA8');;
       schoolGradeVar='M';
       Search();
       }
     });
-    $('.e').click(function(){
+    $('#e').click(function(){
       buttoncolor();
       if (schoolGradeVar =='E'){
         document.getElementById('e').checked = false; 
@@ -178,7 +176,6 @@ $(document).ready(function(){
         Search();
       }
       else{
-      $('.e').css('background-color','#659BA8');;
       schoolGradeVar='E';
       Search();
       }
@@ -905,4 +902,3 @@ function buttoncolor(){
   });
   map.controls[google.maps.ControlPosition.TOP_RIGHT].push(toggleDOMButton);
 }
-
