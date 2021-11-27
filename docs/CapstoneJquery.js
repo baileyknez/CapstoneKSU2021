@@ -53,6 +53,9 @@ $(document).ready(function(){
       document.getElementById('C').checked = false;
       document.getElementById('D').checked = false;
       document.getElementById('F').checked = false;
+      document.getElementById('h').checked = false;
+      document.getElementById('m').checked = false;
+      document.getElementById('e').checked = false;
       document.getElementById('NotRated').checked = false;
       document.getElementById('typeHome').selected = true;
       document.getElementById('discHome').selected = true;
@@ -144,6 +147,7 @@ $(document).ready(function(){
     $('.h').click(function(){
       buttoncolor();
       if (schoolGradeVar =='H'){
+        document.getElementById('h').checked = false; 
         schoolGradeVar=null;
         Search();
       }
@@ -156,6 +160,7 @@ $(document).ready(function(){
     $('.m').click(function(){
       buttoncolor();
       if (schoolGradeVar =='M'){
+        document.getElementById('m').checked = false; 
         schoolGradeVar=null;
         Search();
       }
@@ -168,6 +173,7 @@ $(document).ready(function(){
     $('.e').click(function(){
       buttoncolor();
       if (schoolGradeVar =='E'){
+        document.getElementById('e').checked = false; 
         schoolGradeVar=null;
         Search();
       }
@@ -595,18 +601,22 @@ function Search(){
   decideSearchAction()
 }else if(schoolGradeVar ==null & searchTxt == null & discValue ==null & schoolRatingVar != null & miscellaneousSearch ==null) { 
   $(".SearchResultBar").hide();
+  resize();
   SearchResultToggle=false;
   deleteMarkers();
 }else if(schoolGradeVar !=null & searchTxt == null & discValue ==null & schoolRatingVar == null & miscellaneousSearch ==null) { 
   $(".SearchResultBar").hide();
+  resize();
   SearchResultToggle=false;
   deleteMarkers();
 }else if(schoolGradeVar !=null & searchTxt == null & discValue ==null & schoolRatingVar != null & miscellaneousSearch ==null) { //just to catch without m t d
   $(".SearchResultBar").hide();
+  resize();
   SearchResultToggle=false;
   deleteMarkers();
 }else if(schoolGradeVar ==null & searchTxt == null & discValue ==null & schoolRatingVar == null & miscellaneousSearch ==null) { //we only allow a marker to pop up if either searchtxt, discValue, or misc are not null
   $(".SearchResultBar").hide();
+  resize();
   SearchResultToggle=false;
   deleteMarkers();
 }else{
@@ -895,3 +905,4 @@ function buttoncolor(){
   });
   map.controls[google.maps.ControlPosition.TOP_RIGHT].push(toggleDOMButton);
 }
+
