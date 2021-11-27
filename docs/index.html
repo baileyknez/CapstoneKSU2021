@@ -48,11 +48,13 @@ crossorigin="anonymous"></script>
    {{/arr}}
  </script>
 
-<div id="mapPage">
+
 <div class="header">
   <h1>Georgia School Grades</h1>
   <p><span class="mapInfo"></span></p>
 </div>
+
+<div id="filterContainer">
 <div class="filter-bar">
   <div class="search-input-filter">
     <label class="header-label">Search</label>
@@ -67,11 +69,12 @@ crossorigin="anonymous"></script>
   </div>
   <div class="filter-grade">
     <label class="header-label">School Grade</label>
-    <span class="button-group" role="group">
-      <button class="e">Elementary</button>
-      <button class="m">Middle</button>
-      <button class="h">High</button>
-    </span>
+    <label  for="h">High</label><br>
+    <input type="radio" class="h" id="h" value="h" name="grade">
+    <label  for="m">Middle</label><br>
+    <input type="radio" class="m" id="m" value="m" name="grade">
+    <label  for="e">Elementary</label><br>
+    <input type="radio" class="e" id="e" value="e" name="grade">
   </div>
   <div class="filter-SchoolTypes">
     <label class="header-label">School Types</label>
@@ -108,6 +111,8 @@ crossorigin="anonymous"></script>
     <button class="ClearButton">Reset</button>
   </div>
 </div>
+</div>
+
 <div id="container-fluid">
  <div id="map"></div>
  </div>
@@ -116,7 +121,7 @@ crossorigin="anonymous"></script>
   <p><span id="count"></span>/<span id="total"></span></p>
  <div class="searchContainer"></div>
  </div>
-</div>
+
 
 
 </html>
