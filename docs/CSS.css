@@ -21,6 +21,11 @@ body {
     }
 }
 
+.container {
+height: 200px;
+position: relative;
+}
+
 .middle {
 background-color:white;
 opacity: 0.2;
