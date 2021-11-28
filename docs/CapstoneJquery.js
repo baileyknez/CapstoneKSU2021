@@ -142,7 +142,31 @@ $(document).ready(function(){
      title = id.substring(1,id.length);
      $("div[title|="+title+"]").trigger("click");
     });
-    
+
+    $('.searchContainer').on('mouseover','.searchResultTab',function(){
+      var id = this.id;
+       
+       title = id.substring(1,id.length);
+       for(var i=0; i< markers.length; i++){
+       if(title == markers[i].title){
+         console.log(markers[i].title);
+         markers[i].setAnimation(google.maps.Animation.BOUNCE);
+       }
+       }
+      
+      });
+      $('.searchContainer').on('mouseout','.searchResultTab',function(){
+        var id = this.id;
+         
+         title = id.substring(1,id.length);
+         for(var i=0; i< markers.length; i++){
+         if(title == markers[i].title){
+           console.log(markers[i].title);
+           markers[i].setAnimation(null);
+         }
+         }
+        
+        });
     //School grade filter options
     $('#h').click(function(){
       buttoncolor();
@@ -273,11 +297,13 @@ function addMarker(position, sync,name, constent, URL, next) {
   
   latestposition=marker.getPosition();
   markers.push(marker);
+  console.log(markers)
   infoList.push(infowindow);
 
   marker.addListener("mouseover", () => {
   marker.setLabel(name);
   marker.setAnimation(google.maps.Animation.BOUNCE);
+  
   });
   marker.addListener("mouseout", () => {
    marker.setLabel(null);
