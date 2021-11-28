@@ -24,4 +24,9 @@ body {
 .middle {
 background-color:white;
 opacity: 0.2;
+margin: 0;
+position: absolute;
+top: 50%;
+-ms-transform: translateY(-50%);
+transform: translateY(-50%);
 }
