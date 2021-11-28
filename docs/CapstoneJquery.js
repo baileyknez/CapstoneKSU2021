@@ -268,16 +268,21 @@ function addMarker(position, sync,name, constent, URL, next) {
       labelOrigin: new google.maps.Point(11, 50),
       url: URL,
     },
-    label:{
-      color: 'black',
-      fontWeight: 'bold',
-      text: name,
-    }
+   
   });
   
   latestposition=marker.getPosition();
   markers.push(marker);
   infoList.push(infowindow);
+
+  marker.addListener("mouseover", () => {
+  marker.setLabel(name);
+  marker.setAnimation(google.maps.Animation.BOUNCE);
+  });
+  marker.addListener("mouseout", () => {
+   marker.setLabel(null);
+   marker.setAnimation(null);
+    });
   //this is our listener that selects which search result matches the marker that was just clicked 
   //and then zoom in on it, centers the map, and scrolls to the item in our search results
   marker.addListener("click", () => {
@@ -358,7 +363,6 @@ function Search(){
   removeSearch()
   $(".SearchResultBar").show();
   SearchResultToggle=true;
-  resize();
  
   if(schoolGradeVar==null & searchTxt==null & discValue !=null & schoolRatingVar == null & miscellaneousSearch ==null){ //discticts 1 d
   searchArray= $.grep(schoolArray, function(search){
@@ -598,26 +602,30 @@ function Search(){
   decideSearchAction()
 }else if(schoolGradeVar ==null & searchTxt == null & discValue ==null & schoolRatingVar != null & miscellaneousSearch ==null) { 
   $(".SearchResultBar").hide();
-  resize();
   SearchResultToggle=false;
   deleteMarkers();
+  resize();
 }else if(schoolGradeVar !=null & searchTxt == null & discValue ==null & schoolRatingVar == null & miscellaneousSearch ==null) { 
   $(".SearchResultBar").hide();
-  resize();
   SearchResultToggle=false;
   deleteMarkers();
+  resize();
 }else if(schoolGradeVar !=null & searchTxt == null & discValue ==null & schoolRatingVar != null & miscellaneousSearch ==null) { //just to catch without m t d
   $(".SearchResultBar").hide();
-  resize();
   SearchResultToggle=false;
   deleteMarkers();
+  resize();
 }else if(schoolGradeVar ==null & searchTxt == null & discValue ==null & schoolRatingVar == null & miscellaneousSearch ==null) { //we only allow a marker to pop up if either searchtxt, discValue, or misc are not null
   $(".SearchResultBar").hide();
-  resize();
   SearchResultToggle=false;
   deleteMarkers();
+  resize();
 }else{
   console.log('error, uncaught logic:' + schoolGradeVar +" "+ searchTxt +" "+ discValue +" "+ schoolRatingVar +" "+  miscellaneousSearch);
+  $(".SearchResultBar").hide();
+  SearchResultToggle=false;
+  deleteMarkers();
+  resize();
 }
 }
 
@@ -700,19 +708,23 @@ function decideSearchAction(){
     $(".SearchResultBar").hide();
     SearchResultToggle=false;
     deleteMarkers();
+    resize();
     alert("Search Results Too Large");
   }else if(searchArray.length==0){
     $(".SearchResultBar").hide();
     SearchResultToggle=false;
     deleteMarkers();
+    resize();
     alert("There are no schools that match your search");
   }else if(discValue != null){
   renderSearch(searchArray);
   DiscZoom();
+  resize();
   }
   else{
     renderSearch(searchArray);
     nonDiscZoom();
+    resize();
   }
 }
 
