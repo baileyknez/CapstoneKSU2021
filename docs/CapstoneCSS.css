@@ -197,8 +197,6 @@ button:hover.button.button-group{
     width:100%;
     min-height: 20vh;
     max-height:20vh;
-    margin-top: auto;
-    bottom:0;
     background: rgb(255,255,255);
     background: -moz-linear-gradient(165deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.9) 100%);
     background: -webkit-linear-gradient(165deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.9) 100%);
