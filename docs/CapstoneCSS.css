@@ -153,6 +153,7 @@ button:hover.button.button-group{
    font-size:1em;
  }
   label{
+    margin:0;
     font-size: .7em;
   }
   h1{
@@ -269,6 +270,7 @@ button:hover.button.button-group{
 @media (min-width: 1050px) {
   select{
     cursor: pointer; 
+    color:black;
     height: 2.5vh;
     width:15vw;
     font-size: 1em;
@@ -289,6 +291,7 @@ button:hover.button.button-group{
   }
   button{
     font-family:"Helvetica";
+    color:black;
     padding:7px 17px;
     margin:.25em;
     text-indent:0px;
@@ -368,4 +371,5 @@ button:hover.button.button-group{
       width:100%;
     }
 }
+
 
