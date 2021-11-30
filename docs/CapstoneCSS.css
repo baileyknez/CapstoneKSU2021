@@ -196,7 +196,7 @@ button:hover.button.button-group{
 
  .SearchResultBar{
     position:absolute;
-    width:80%;
+    width:100%;
     min-height: 20vh;
     max-height:20vh;
     margin-top: auto;
