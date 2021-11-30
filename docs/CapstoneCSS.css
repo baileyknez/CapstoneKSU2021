@@ -15,7 +15,11 @@ display:flex;
 flex-direction: column;
 align-items: center;
 }
-
+.contain{
+  display:flex;
+  height: 90vh;
+  width:100%;
+}
 .filter-districts{
   display:flex;
   flex-direction: column;
@@ -66,8 +70,8 @@ select:hover{
 .header{
   position:Relative;
   top:0;
-  min-width:100%;
-  min-height: 7vh;
+  width:100%;
+  height:10vh;
   background-color: #D0E9F2;
   display:flex;
   justify-content: center;
@@ -123,7 +127,7 @@ button:hover.button.button-group{
   width:80%;
   top:0;
   margin-right:auto; 
-  height: 93vh;
+  max-height: 90vh;
   z-index: 1;
 }
 #map{
@@ -131,7 +135,18 @@ button:hover.button.button-group{
   width:100%;
   }
 
-
+  .filter-bar{
+    position:absolute;
+    width:20%;
+    height:90vh;
+    right:0;
+    margin-top: auto;
+    background-color:#C8D9B8;
+    display:flex;
+    justify-content: space-around;
+    align-items:center ;
+    flex-direction: column;
+  }
 @media(min-width:300px){
  p{
    font-size:1em;
@@ -169,20 +184,7 @@ button:hover.button.button-group{
   .selectOptions{
     width:18vw;
   }
-  .filter-bar{
-  position:absolute;
-  width:20%;
-  right:0;
-  margin-top: auto;
-  min-height: 93%;
-  max-height: 100%;
-  background-color:#C8D9B8;
-  display:flex;
-  justify-content: space-around;
-  align-items:center ;
-  flex-direction: column;
-  
-}
+
  .SearchResultBar{
     position:absolute;
     width:80%;
@@ -350,5 +352,8 @@ button:hover.button.button-group{
     }
     
 }
+
+
+
 
 
