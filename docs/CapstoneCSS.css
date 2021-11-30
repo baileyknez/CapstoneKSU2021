@@ -43,6 +43,7 @@ input{
   font-family:"Helvetica";
   padding:7px 17px;
   border-radius: 4%;
+  color:black;
 }
 input[type='radio']:after {
   background-color:#659BA8;
@@ -164,6 +165,7 @@ button:hover.button.button-group{
     font-size: 1em;
   }
   select{
+    color:black;
     cursor: pointer; 
     height: 2.5vh;
     width:18vw;
@@ -271,7 +273,7 @@ button:hover.button.button-group{
 @media (min-width: 1050px) {
   select{
     cursor: pointer; 
-    
+    color:black;
     height: 2.5vh;
     width:15vw;
     font-size: 1em;
