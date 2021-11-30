@@ -5,9 +5,7 @@
 <meta charset="UTF-8" />
 <meta content="width=device-width" name="viewport" />
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0" />
- 
-    <link rel="shortcut icon" href="crest.png">
-    
+<link rel="shortcut icon" href="icon.ico" />
 <link rel="stylesheet" href="CapstoneCSS.css" type="text/css"/>
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 crossorigin="anonymous"></script>
@@ -18,8 +16,8 @@ crossorigin="anonymous"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD__zNryK3aQH46g_4ArIrk4zYdhHr7pAo"></script>
 <script src="CapstoneJquery.js"></script>
 </head>
-  
-  
+
+
 <script id="searchResultTemp" type="text/template">
  {{#arr}}
   <div class="searchResultTab" id='#{{sys_sch}}'>
@@ -52,17 +50,15 @@ crossorigin="anonymous"></script>
 
 
 <div class="header">
-
-  <img src="leftwing.png" alt="blue wing"><h1>Georgia</h1><a href="https://baileyknez.github.io/CapstoneKSU2021/"><img src="crest.png" alt="logo"> </a> <h1>Schools</h1> <img src="rightwing.png" alt=" blue wing">
- 
-    <p><span class="mapInfo"></span></p>
+ <img src="leftwing.png" alt="blue wing"><h1>Georgia</h1><img src="crest.png" alt="logo"> <h1>Schools</h1> <img src="rightwing.png" alt=" blue wing">
+  <p><span class="mapInfo"></span></p>
 </div>
-
+<div class="contain">
 <div id="filterContainer">
 <div class="filter-bar">
   <div class="search-input-filter">
     <label class="header-label">Search</label>
-    <input name="search term" type="text"  placeholder="Enter address to see schools" class='search-box'>
+    <input name="search term" type="text"  placeholder="Enter name to see schools" class='search-box'>
     <button name="submit-search" class='searchbutton'>Search</button>
   </div>
   <div class="filter-districts">
@@ -128,5 +124,5 @@ crossorigin="anonymous"></script>
  </div>
 
 
-
+</div>
 </html>
