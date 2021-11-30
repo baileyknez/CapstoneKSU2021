@@ -151,6 +151,9 @@ button:hover.button.button-group{
     align-items:center ;
     flex-direction: column;
   }
+  .container-results{
+    display: flex;
+  }
 @media(min-width:300px){
  p{
    font-size:1em;
@@ -259,6 +262,10 @@ button:hover.button.button-group{
       font-size: .7em;
       width:10vw;
       border-radius: 4%;
+    }
+    .container-results{
+      display: flex;
+      flex-direction: column;
     }
     
 }
