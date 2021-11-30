@@ -177,6 +177,7 @@ button:hover.button.button-group{
     font-family:"Helvetica";
     padding:7px 17px;
     margin:.25em;
+    color:black;
     text-indent:0px;
     box-sizing: border-box;
     cursor: pointer;
