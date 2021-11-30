@@ -274,10 +274,12 @@ $(document).ready(function(){
 function resize(){
   console.log(window.innerWidth +"  "+window.innerHeight +" "+ SearchResultToggle);
   if(window.innerWidth<1050 & SearchResultToggle){
-    $("#container-fluid").css("height","73vh");
+    $("#container-fluid").css("height","70vh");
+    $(".filter-bar").css("height","70vh");
   } 
   else{
-    $("#container-fluid").css("height","93vh");
+    $("#container-fluid").css("height","90vh");
+    $(".filter-bar").css("height","90vh");
   }                          
 }
 //These are all of the marker functions that we will need provided by the google API documentation 
@@ -715,7 +717,7 @@ function theNext(){
   if(nextaddress < addresses.length-1 ){
   timer = setTimeout( function(){
     addMarker(addresses[nextaddress], searchArray[nextaddress].sys_sch , searchArray[nextaddress].SchoolName,
-       infoArray[nextaddress],searchArray[nextaddress].Cluster + searchArray[nextaddress].Grade +".png",theNext);
+       infoArray[nextaddress],"MapIcon/"+searchArray[nextaddress].Cluster + searchArray[nextaddress].Grade +".png",theNext);
   }, delay);
   nextaddress++;
   $("#count").html(nextaddress+1);
