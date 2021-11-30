@@ -58,6 +58,8 @@ select:hover{
 .rate{
   top: 0;
   left: 0;
+  padding:0;
+  margin:0;
   height: 1.25em;
   width: 1.25em;
   background-color: white;
@@ -153,7 +155,6 @@ button:hover.button.button-group{
    font-size:1em;
  }
   label{
-    margin:0;
     font-size: .7em;
   }
   h1{
@@ -270,7 +271,7 @@ button:hover.button.button-group{
 @media (min-width: 1050px) {
   select{
     cursor: pointer; 
-    color:black;
+    
     height: 2.5vh;
     width:15vw;
     font-size: 1em;
@@ -278,6 +279,8 @@ button:hover.button.button-group{
     background-color: white;
   }
   label{
+    margin:0;
+    padding:0;
     font-size: 1em;
   }
   h1{
