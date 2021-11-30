@@ -933,7 +933,7 @@ function buttoncolor(){
 
   const toggleDOMButton = document.createElement("button");
 
-  toggleDOMButton.textContent = "Map Of Georgia On/Off";
+  toggleDOMButton.textContent = "Map On/Off";
   toggleDOMButton.classList.add("custom-map-control-button");
   toggleButton.addEventListener("click", () => {
     overlay.toggle();
