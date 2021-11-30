@@ -35,6 +35,7 @@ var SearchResultToggle;
 $(document).ready(function(){
                                                                   
     initMap();
+    resize();
     schoolArray = arrayToObjects("school-19.csv");
     districtArray=arrayToObjects("district-19.csv");
     getLocation =arrayToObjects("getSchool.csv");
