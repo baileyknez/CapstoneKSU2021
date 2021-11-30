@@ -15,11 +15,7 @@ display:flex;
 flex-direction: column;
 align-items: center;
 }
-.contain{
-  display:flex;
-  height: 90vh;
-  width:100%;
-}
+
 .filter-districts{
   display:flex;
   flex-direction: column;
@@ -151,9 +147,7 @@ button:hover.button.button-group{
     align-items:center ;
     flex-direction: column;
   }
-  .container-results{
-    display: flex;
-  }
+  
 @media(min-width:300px){
  p{
    font-size:1em;
@@ -231,6 +225,7 @@ button:hover.button.button-group{
     border-style:outset;
     border-width:1px;
     clear:both;
+    
     }
     .searchResultName{
       display:flex;
@@ -247,14 +242,14 @@ button:hover.button.button-group{
        letter-spacing: 0.2px;
        word-spacing: 1px;
        color: #000000;
-      font-weight: 700;
-      text-decoration: none solid rgb(68, 68, 68);
-      font-style: none;
+       font-weight: 700;
+       text-decoration: none solid rgb(68, 68, 68);
+       font-style: none;
        font-variant: normal;
-      text-transform: uppercase;
-      text-align: left;
-      padding-right: 60px;
-     padding-left: 40px;
+       text-transform: uppercase;
+       text-align: left;
+       padding-right: 60px;
+       padding-left: 40px;
     }
     .search-box{
       font-size: .7em;
@@ -262,8 +257,12 @@ button:hover.button.button-group{
       border-radius: 4%;
     }
     .container-results{
-      display: flex;
       flex-direction: column;
+    }
+    .contain{
+      display:flex;
+      height: 70vh;
+      width:100%;
     }
     
 }
@@ -359,7 +358,14 @@ button:hover.button.button-group{
       width:15vw;
       border-radius: 4%;
     }
-    
+    .container-results{
+      display: flex;
+      flex-direction: none;
+    }
+    .contain{
+      display:flex;
+      height: 90vh;
+      width:100%;
+    }
 }
-
 
