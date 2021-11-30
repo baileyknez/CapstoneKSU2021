@@ -67,6 +67,15 @@ select:hover{
   background-color: white;
   border-radius: 50%;
 }
+.leftwing{
+  height: 7vh;
+}
+.rightwing{
+  height: 7vh;
+}
+.crest{
+  height:7vh;
+}
 .header{
   position:Relative;
   top:0;
@@ -352,8 +361,5 @@ button:hover.button.button-group{
     }
     
 }
-
-
-
 
 
