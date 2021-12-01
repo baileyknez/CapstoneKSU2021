@@ -87,10 +87,10 @@ $(document).ready(function(){
 
     $(".colorMeaningLink").on('click', function(){
       if(colorMeaningToggle==0){
-      $(".colorMeaning").show();
+      $(".colorContainer").show();
       colorMeaningToggle=1;
       }else{
-        $(".colorMeaning").hide();
+        $(".colorContainer").hide();
         colorMeaningToggle=0;  
       }
     });
@@ -735,7 +735,7 @@ function theNext(){
   if(nextaddress < addresses.length-1 ){
   timer = setTimeout( function(){
     addMarker(addresses[nextaddress], searchArray[nextaddress].sys_sch , searchArray[nextaddress].SchoolName,
-       infoArray[nextaddress],searchArray[nextaddress].Cluster + searchArray[nextaddress].Grade +".png",theNext);
+       infoArray[nextaddress],"MapIcon/"+searchArray[nextaddress].Cluster + searchArray[nextaddress].Grade +".png",theNext);
   }, delay);
   nextaddress++;
   $("#count").html(nextaddress+1);
