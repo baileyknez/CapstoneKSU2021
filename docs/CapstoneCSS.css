@@ -15,7 +15,11 @@ display:flex;
 flex-direction: column;
 align-items: center;
 }
-
+.filter-grade{
+  display:flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
 .filter-districts{
   display:flex;
   flex-direction: column;
