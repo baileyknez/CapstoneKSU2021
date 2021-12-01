@@ -1,131 +1,381 @@
-<!DOCTYPE html>
-<html>
-  <head>
-<title>Capstone</title>
-<meta charset="UTF-8" />
-<meta content="width=device-width" name="viewport" />
-<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0" />
-<link rel="shortcut icon" href="crest.png" />
-<link rel="stylesheet" href="CapstoneCSS.css" type="text/css"/>
-<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-crossorigin="anonymous"></script>
-<script src="jquery-csv.js"></script>
-<script src="StemSchools.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD__zNryK3aQH46g_4ArIrk4zYdhHr7pAo"></script>
-<script src="CapstoneJquery.js"></script>
-</head>
+*{
+  margin:0;
+  padding:0;
+}
+html,body{
+  height:100%;
+  width:100%;
+}
+h1{
+  font-family:"Helvetica";
+}
+
+.search-input-filter{
+display:flex;
+flex-direction: column;
+align-items: center;
+}
+
+.filter-districts{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.filter-SchoolTypes{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+.ClearSearch{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+button:hover{
+  background-color:#D0E9F2;
+}
+button:active{
+  background-color:#659BA8;
+}
+input{
+  font-family:"Helvetica";
+  padding:7px 17px;
+  border-radius: 4%;
+  color:black;
+}
+input[type='radio']:after {
+  background-color:#659BA8;
+}
+input[type='radio']:checked:after {
+  background-color:#659BA8;
+}
+
+select:hover{
+  background-color:#D0E9F2;
+}
+
+.rate{
+  top: 0;
+  left: 0;
+  padding:0;
+  margin:0;
+  height: 1.25em;
+  width: 1.25em;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.crest{
+  height:7vh;
+}
+.header{
+  position:Relative;
+  top:0;
+  width:100%;
+  height:10vh;
+  background-color: #D0E9F2;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  box-shadow: 0px 10px 0px  rgba(1,2,0, .25) ;
+}
+
+.button-group{
+  display:flex;
+  flex-direction: column-reverse;
+}
+button:hover.button.button-group{
+  background-color:#D0E9F2 ;
+}
 
 
-<script id="searchResultTemp" type="text/template">
- {{#arr}}
-  <div class="searchResultTab" id='#{{sys_sch}}'>
-    <div class="searchResultName">
-      <h3>{{SchoolName}}</h3>
-    </div>
-  <div class="searchResultDetail" id='{{sys_sch}}'>
-    <p> Address:{{Street}} {{City}} {{Zip_Code}} {{State}}</p>
-    <p> District: {{SystemName}}</p>
-    <p> Phone: {{Phone_Number}}</p>
-    <p> Grades: {{Grades}}</p>
-    <p> Rating: {{Grade}}</p>
-    <p> Cluster: {{Cluster}}</p>
-  </div>
-  </div>
-  {{/arr}}
-</script>
-<script id="windowInfo" type="text/template">
-  {{#arr}}
-    <h1>{{SchoolName}}</h1>
-     <p> Address:{{Street}} {{City}} {{Zip_Code}} {{State}}</p>
-     <p> District: {{SystemName}}</p>
-     <p> Phone: {{Phone_Number}}</p>
-     <p> Grades: {{Grades}}</p>
-     <p> Rating: {{Grade}}</p>
-     <p> Cluster: {{Cluster}}</p>
-     <p>For more information</p>
-   {{/arr}}
- </script>
+.searchResultTab:hover{
+  cursor:pointer;
+}
+
+.school-type-container{
+  display:flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.header-label{
+  font-family:"Helvetica";
+  display:block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.searchResultDetail {
+  display:none;
+  font-family: Tahoma, Geneva, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.2px;
+  word-spacing: 1px;
+  color: #000000;
+  font-weight: 700;
+  text-decoration: none solid rgb(68, 68, 68);
+  font-style: none;
+  font-variant: normal;
+  text-transform: uppercase;
+  text-align: left;
+  padding-right: 60px;
+  padding-left: 40px;
+  clear:both;
+}
+#container-fluid{
+  position:relative;
+  width:80%;
+  top:0;
+  margin-right:auto; 
+  max-height: 90vh;
+}
+#map{
+  height:100%;
+  width:100%;
+  }
+
+  .filter-bar{
+    position:absolute;
+    width:20%;
+    height:90vh;
+    right:0;
+    margin-top: auto;
+    background-color:#C8D9B8;
+    display:flex;
+    justify-content: space-around;
+    align-items:center ;
+    flex-direction: column;
+  }
+  
+@media(min-width:300px){
+ p{
+   font-size:1em;
+ }
+  label{
+    font-size: .7em;
+  }
+  h1{
+    font-size:1em;
+  }
+  h3{
+    font-size: 1em;
+  }
+  select{
+    color:black;
+    cursor: pointer; 
+    height: 2.5vh;
+    width:18vw;
+    font-size: .7em;
+    border-radius: 4%;
+    background-color: white;
+  }
+  button{
+    font-family:"Helvetica";
+    padding:7px 17px;
+    margin:.25em;
+    color:black;
+    text-indent:0px;
+    box-sizing: border-box;
+    cursor: pointer;
+    min-height: 3vh;
+    width:auto;
+    font-size: .7em;
+    border-radius: 4%;
+    background-color:white ;
+  }
+  .selectOptions{
+    width:18vw;
+  }
+
+ .SearchResultBar{
+    position:absolute;
+    width:100%;
+    min-height: 20vh;
+    max-height:20vh;
+    background: rgb(255,255,255);
+    background: -moz-linear-gradient(165deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.9) 100%);
+    background: -webkit-linear-gradient(165deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.9) 100%);
+    background: linear-gradient(165deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.9) 100%);
+   z-index:800;
+    margin-left:0;
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    overflow:hidden;
+    border-radius: 1.5%;
+    box-shadow:none;
+    }
+  
+  
+    .searchContainer{
+      bottom:0;
+      width:100%;
+      display:flex;
+      text-align: center;
+      justify-content: flex-start;
+      flex-direction: column;
+      align-items: flex-start;
+      overflow: scroll;
+      clear:both;
+    }
+    .searchResultTab{
+    width:100%;
+    padding-top:1vh;
+    padding-bottom:1vh;
+    border-style:outset;
+    border-width:1px;
+    clear:both;
+    
+    }
+    .searchResultName{
+      display:flex;
+      font-size: 18px;
+      justify-content: center;
+      clear:both;
+    }
+    
+    .searchResultDetail{
+      display:none;
+      clear:both; 
+       font-family: Tahoma, Geneva, sans-serif;
+       font-size: 11px;
+       letter-spacing: 0.2px;
+       word-spacing: 1px;
+       color: #000000;
+       font-weight: 700;
+       text-decoration: none solid rgb(68, 68, 68);
+       font-style: none;
+       font-variant: normal;
+       text-transform: uppercase;
+       text-align: left;
+       padding-right: 60px;
+       padding-left: 40px;
+    }
+    .search-box{
+      font-size: .7em;
+      width:10vw;
+      border-radius: 4%;
+    }
+    .container-results{
+      flex-direction: column;
+    }
+    .contain{
+      display:flex;
+      height: 70vh;
+      width:100%;
+    }
+    
+}
+@media (min-width: 1050px) {
+  select{
+    cursor: pointer; 
+    color:black;
+    height: 2.5vh;
+    width:15vw;
+    font-size: 1em;
+    border-radius: 4%;
+    background-color: white;
+  }
+  label{
+    margin:0;
+    padding:0;
+    font-size: 1em;
+  }
+  h1{
+    font-size:1.5em;
+  }
+  h3{
+    font-size: 1em;
+  }
+  p{
+    font-size:1em;
+  }
+  button{
+    font-family:"Helvetica";
+    color:black;
+    padding:7px 17px;
+    margin:.25em;
+    text-indent:0px;
+    box-sizing: border-box;
+    cursor: pointer;
+    min-height: 3vh;
+    width:auto;
+    font-size: .7em;
+    border-radius: 4%;
+    background-color:white ;
+  }
+  .selectOptions{
+    width:15vw;
+  }
+  .SearchResultBar{
+    position: absolute;
+    width:20vw;
+    min-width:20vw;
+    max-width:20vw;
+    min-height: 45vh;
+    max-height:85vh;  
+    top: 25vh;
+    bottom:25vh;
+    left: 10px;
+    padding: 10px;
+    background: rgb(255,255,255);
+    background: -moz-linear-gradient(165deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.9) 100%);
+    background: -webkit-linear-gradient(165deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.9) 100%);
+    background: linear-gradient(165deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.9) 100%);
+    z-index:990;
+    margin-top: 20vh;
+    margin-left:0vh;
+    display:flexbox;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    overflow:hidden;
+    box-shadow: 0.5vh 0.5vh 1vh rgba(0,0,0, .25);
+    }
+    .searchContainer{
+      width:100%;
+      height: 100%;
+      text-align: center;
+      display:flex;
+      justify-content: flex-start;
+      flex-direction: column;
+      align-items: flex-start;
+      overflow: scroll;
+      clear:both;
+    }
+    .searchResultTab{
+    width:100%;
+    padding-top:1vh;
+    padding-bottom:1vh;
+    border-style:outset;
+    border-width:1px;
+    clear:both;
+    }
+    .searchResultName{
+      display:flex;
+      font-size: 18px;
+      justify-content: center;
+      clear:both;
+    }
+    .search-box{
+      font-size: 1em;
+      width:15vw;
+      border-radius: 4%;
+    }
+    .container-results{
+      display: flex;
+      flex-direction: none;
+    }
+    .contain{
+      display:flex;
+      height: 90vh;
+      width:100%;
+    }
+}
 
 
-<div class="header">
-  <h1>Georgia</h1>
-  <a href="team.html"> <img class="crest" src="crest.png" alt="logo" ></a>
-  <h1>Schools</h1>
-</div>
-
-<div class="container-results">
-<div class="contain">
-<div id="filterContainer">
-<div class="filter-bar">
-  <div class="search-input-filter">
-    <label class="header-label">Search</label>
-    <input name="searchterm" type="text"  placeholder="Enter name to see schools" class='search-box'>
-    <button name="submit-search" class='searchbutton'>Search</button>
-  </div>
-  <div class="filter-districts">
-    <label class="header-label">Districts</label>
-    <select class="selectOptions" id='selectCountry'>
-      <option class='district' id="discHome" value='1'>Search or Click Map for District Options</option>
-    </select>
-  </div>
-  <div class="filter-grade">
-    <label class="header-label">School Grade</label>
-    <input type="radio" class="rate" id="h" value="h" name="grade">
-    <label for="h">High</label><br>
-    <input type="radio" class="rate" id="m" value="m" name="grade">
-    <label for="m">Middle</label><br>
-    <input type="radio" class="rate" id="e" value="e" name="grade">
-    <label for="e">Elementary</label><br>
-   
-  </div>
-  <div class="filter-SchoolTypes">
-    <label class="header-label">School Types</label>
-    <select class="SchoolTypeOptions">
-      <option class="type" id="typeHome" value='1'>All Schools</option>
-      <option class="type" value='2'>Magnet</option>
-      <option class="type" value='3'>Art Schools</option>
-      <option class="type" value='4'>STEM</option>
-      <option class="type" value='5'>Charter</option>
-      <option class="type" value='6'>Special Needs</option>
-      <option class="type" value='7'>Online</option>
-      <option class="type" value='8'>International/Language</option>
-      <option class="type" value='9'>Advance</option>
-
-    </select>
-  </div>
-  <div class="filter-rating">
-    <label class="header-label">School Rating</label>
-    <input type="radio" class="rate" id="A" name="rating" value="A">
-    <label class="containerRadio" for="A">A</label><br>
-    <input type="radio" class="rate" id="B" name="rating" value="B">
-    <label  for="B">B</label><br>
-    <input type="radio" class="rate" id="C" name="rating" value="C">
-    <label  for="C">C</label><br>
-    <input type="radio" class="rate" id="D" name="rating" value="D">
-    <label  for="D">D</label><br>
-    <input type="radio" class="rate" id="F" name="rating" value="F">
-    <label  for="F">F</label><br>
-    <input type="radio" class="rate" id="NotRated" name="rating" value="-">
-    <label   for="NotRated">Not Rated</label><br>
-  </div>
-  <div class="ClearSearch">
-    <label class="header-label">Clear Search</label>
-    <button class="ClearButton">Reset</button>
-  </div>
-</div>
-</div>
-
-<div id="container-fluid">
- <div id="map"></div>
- </div>
- 
-</div>
-<div class="SearchResultBar">
-  <h1>Search Results</h1>
-  <p><span id="count"></span>/<span id="total"></span></p>
- <div class="searchContainer"></div>
- </div>
-</div>
-</html>
