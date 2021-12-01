@@ -32,7 +32,81 @@ align-items: center;
   flex-direction: column;
   align-items: center;
 }
-
+.inline{
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.colorMeaningLink{
+  color:blue;
+}
+.colorMeaningLink:hover{
+  color:#D0E9F2;
+  cursor: pointer;
+}
+.colorMeaningLink:active{
+  color:#659BA8;
+}
+.AColor{
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  background-color: blue;
+  position: relative;
+  left: 5px;
+  top: 5px;
+  margin-right:10px;
+}
+.BColor{
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  background-color: green;
+  position: relative;
+  left: 5px;
+  top: 5px;
+  margin-right:10px;
+}
+.CColor{
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  background-color: yellow;
+  position: relative;
+  left: 5px;
+  top: 5px;
+  margin-right:10px;
+}
+.DColor{
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  background-color: orangered;
+  position: relative;
+  left: 5px;
+  top: 5px;
+  margin-right:10px;
+}
+.FColor{
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  background-color: red;
+  position: relative;
+  left: 5px;
+  top: 5px;
+  margin-right:10px;
+}
+.NullColor{
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  background-color: black;
+  position: relative;
+  left: 5px;
+  top: 5px;
+  margin-right:10px;
+}
 button:hover{
   background-color:#D0E9F2;
 }
@@ -79,6 +153,7 @@ select:hover{
   display:flex;
   justify-content: center;
   align-items: center;
+  flex-direction: row;
   box-shadow: 0px 10px 0px  rgba(1,2,0, .25) ;
 }
 
@@ -131,7 +206,6 @@ button:hover.button.button-group{
   top:0;
   margin-right:auto; 
   max-height: 90vh;
-  z-index: 1;
 }
 #map{
   height:100%;
@@ -200,7 +274,7 @@ button:hover.button.button-group{
     background: -moz-linear-gradient(165deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.9) 100%);
     background: -webkit-linear-gradient(165deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.9) 100%);
     background: linear-gradient(165deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.9) 100%);
-   z-index:50;
+   z-index:800;
     margin-left:0;
     display:flex;
     justify-content: flex-start;
@@ -268,6 +342,25 @@ button:hover.button.button-group{
       display:flex;
       height: 70vh;
       width:100%;
+    }
+    .colorMeaning{
+      position: absolute;
+      width:30vw;
+      height:35vh;
+      padding: 10px;
+      background: rgb(255,255,255);
+      background: -moz-linear-gradient(165deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.9) 100%);
+      background: -webkit-linear-gradient(165deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.9) 100%);
+      background: linear-gradient(165deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.9) 100%);
+      z-index:1000;
+      margin-top: 50vh;
+      margin-left:50vw;
+      display:flexbox;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
+      overflow:hidden;
+      box-shadow: 0.5vh 0.5vh 1vh rgba(0,0,0, .25);
     }
     
 }
@@ -375,6 +468,25 @@ button:hover.button.button-group{
       display:flex;
       height: 90vh;
       width:100%;
+    }
+    .colorMeaning{
+      position: absolute;
+      width:15vw;
+      height:20vh;
+      padding: 10px;
+      background: rgb(255,255,255);
+      background: -moz-linear-gradient(165deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.9) 100%);
+      background: -webkit-linear-gradient(165deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.9) 100%);
+      background: linear-gradient(165deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.9) 100%);
+      z-index:1000;
+      margin-top: 55vh;
+      margin-left:70vw;
+      display:flexbox;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
+      overflow:hidden;
+      box-shadow: 0.5vh 0.5vh 1vh rgba(0,0,0, .25);
     }
 }
 
