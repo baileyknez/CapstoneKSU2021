@@ -31,6 +31,7 @@ var miscellaneousSearch =null;
 var schoolType =[];
 var timer;
 var SearchResultToggle;
+var markerZscoreToggle=null;
 //This is when the page is completelt loaded and has all of our listening events
 $(document).ready(function(){
                                                                   
@@ -82,6 +83,7 @@ $(document).ready(function(){
       }
       Search();
     });
+    
     //how we select school type
     $('.SchoolTypeOptions').on('change', function() {
       miscellaneousSearch=this.value;
@@ -150,8 +152,8 @@ $(document).ready(function(){
        title = id.substring(1,id.length);
        for(var i=0; i< markers.length; i++){
        if(title == markers[i].title){
-         console.log(markers[i].title);
          markers[i].setAnimation(google.maps.Animation.BOUNCE);
+         markers[i].setZIndex(100);
        }
        }
       
@@ -162,8 +164,10 @@ $(document).ready(function(){
          title = id.substring(1,id.length);
          for(var i=0; i< markers.length; i++){
          if(title == markers[i].title){
-           console.log(markers[i].title);
            markers[i].setAnimation(null);
+           if(markerZscoreToggle != markers[i].title){
+           markers[i].setZIndex(0);
+           }
          }
          }
         
@@ -235,7 +239,6 @@ $(document).ready(function(){
         schoolRatingVar=this.value;
         Search();
       }
-      console.log(schoolRatingVar);
     });
     $('#D').on('click', function() {
       if(this.value == schoolRatingVar){
@@ -273,7 +276,6 @@ $(document).ready(function(){
     
 });
 function resize(){
-  console.log(window.innerWidth +"  "+window.innerHeight +" "+ SearchResultToggle);
   if(window.innerWidth<1050 & SearchResultToggle){
     $("#container-fluid").css("height","70vh");
     $(".filter-bar").css("height","70vh");
@@ -300,24 +302,30 @@ function addMarker(position, sync,name, constent, URL, next) {
   
   latestposition=marker.getPosition();
   markers.push(marker);
-  console.log(markers)
   infoList.push(infowindow);
 
   marker.addListener("mouseover", () => {
   marker.setLabel(name);
   marker.setAnimation(google.maps.Animation.BOUNCE);
-  
+  marker.setZIndex(100);
   });
   marker.addListener("mouseout", () => {
    marker.setLabel(null);
    marker.setAnimation(null);
+   if(markerZscoreToggle != marker.title){
+    marker.setZIndex(0);
+    }
     });
   //this is our listener that selects which search result matches the marker that was just clicked 
   //and then zoom in on it, centers the map, and scrolls to the item in our search results
   marker.addListener("click", () => {
     var setZoom=12;
     var getZoom=map.getZoom();
-    
+    for (let i = 0; i < markers.length; i++) {
+      markers[i].setZIndex(0);
+    }
+    markerZscoreToggle=sync;
+    marker.setZIndex(90);
     if(setZoom < getZoom ){
      setZoom = getZoom;
     }
@@ -342,6 +350,7 @@ function setMapOnAll(map) {
 function hideMarkers() {
   setMapOnAll(null);
 }
+
  function showMarkers() {
   setMapOnAll(map);
 }
@@ -432,7 +441,6 @@ function Search(){
     });
     searchArray=searchArray.concat(addString);
     }
-    console.log(searchArray)
     console.log('m');
     decideSearchAction()
 }else if(schoolGradeVar!=null & searchTxt == null & discValue== null & schoolRatingVar == null & miscellaneousSearch !=null){ // misc grade 7 mg 
@@ -672,10 +680,8 @@ function renderSearch(searchArray){
   $('.searchContainer').append(text);
   if(searchArray.length > 200){
     delay=0;
-    console.log(delay);
   } else if(searchArray.length > 50){
     delay=20;
-    console.log(delay);
   }else{
     delay=50;
   }
