@@ -349,15 +349,14 @@ button:hover.button.button-group{
     .colorMeaning{
       position: absolute;
       width:30vw;
-      height:35vh;
       padding: 10px;
       background: rgb(255,255,255);
       background: -moz-linear-gradient(165deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.9) 100%);
       background: -webkit-linear-gradient(165deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.9) 100%);
       background: linear-gradient(165deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.9) 100%);
       z-index:1000;
-      margin-top: 50vh;
-      margin-left:50vw;
+      margin-top: 30vh;
+      margin-left:40vw;
       display:flexbox;
       justify-content: flex-start;
       align-items: flex-start;
@@ -475,7 +474,6 @@ button:hover.button.button-group{
     .colorMeaning{
       position: absolute;
       width:15vw;
-      height:20vh;
       padding: 10px;
       background: rgb(255,255,255);
       background: -moz-linear-gradient(165deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.9) 100%);
@@ -492,4 +490,5 @@ button:hover.button.button-group{
       box-shadow: 0.5vh 0.5vh 1vh rgba(0,0,0, .25);
     }
 }
+
 
