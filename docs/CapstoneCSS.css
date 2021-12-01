@@ -37,6 +37,9 @@ align-items: center;
   flex-direction: row;
   justify-content: center;
 }
+.colorContainer{
+  display:none;
+}
 .colorMeaningLink{
   color:blue;
 }
@@ -489,5 +492,4 @@ button:hover.button.button-group{
       box-shadow: 0.5vh 0.5vh 1vh rgba(0,0,0, .25);
     }
 }
-
 
