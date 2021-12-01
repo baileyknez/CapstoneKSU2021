@@ -32,6 +32,7 @@ var schoolType =[];
 var timer;
 var SearchResultToggle;
 var markerZscoreToggle=null;
+var colorMeaningToggle=0;
 //This is when the page is completelt loaded and has all of our listening events
 $(document).ready(function(){
                                                                   
@@ -82,6 +83,16 @@ $(document).ready(function(){
        discValue=null;
       }
       Search();
+    });
+
+    $(".colorMeaningLink").on('click', function(){
+      if(colorMeaningToggle==0){
+      $(".colorMeaning").show();
+      colorMeaningToggle=1;
+      }else{
+        $(".colorMeaning").hide();
+        colorMeaningToggle=0;  
+      }
     });
     
     //how we select school type
