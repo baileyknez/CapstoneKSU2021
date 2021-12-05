@@ -5,6 +5,7 @@
 //Working with google refernce https://developers.google.com/maps/documentation/javascript/combining-data#loading-the-state-boundary-polygons
 //use https://api.jquery.com/jquery.grep/ to search the object arrays https://stackoverflow.com/questions/6930350/easiest-way-to-search-a-javascript-object-list-with-jquery
 //https://upload.wikimedia.org/wikipedia/commons/9/99/USA_Georgia_relief_location_map.svg
+//https://github.com/deldersveld/topojson/blob/master/countries/us-states/GA-13-georgia-counties.json
 var map; //google maps
 var geocoder =new google.maps.Geocoder();
 var schoolArray =[];//all of the school data 
