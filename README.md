@@ -8,7 +8,7 @@ Does not represent our current progress. What is currently in the GitHub is the 
 ------------------------------------------------------------------------------------------------------------------
 
 
-We are currently in phase three. If you don't know what to do, attempt to style the page. I have been leaving all of that to you guys.
+This project is complete.
 -
 Phase One(Milestone one)
 1. Build out the UI design.
