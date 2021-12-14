@@ -1,8 +1,7 @@
 # CapstoneKSU2021
 2021 Capstone GA Grades Map Web Application
 --------------------------------------------------------------------------------------------------------------------
-Live site at: Live site at :https://baileyknez.github.io/CapstoneKSU2021/
-
+Live site at :https://baileyknez.github.io/CapstoneKSU2021/
 ------------------------------------------------------------------------------------------------------------------
 
 
