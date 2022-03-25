@@ -9,3 +9,4 @@ This project is complete.
 
 --------------------------------------------------------------------------------------------------------------------------
 
+This was made to display Georgia public school information in a dynamic single page web application.
